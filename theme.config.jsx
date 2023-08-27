@@ -1,5 +1,5 @@
 export default {
-  logo: <span>Snaplog Docs</span>,
+  logo: <span>Snaplog</span>,
   project: {
     link: "https://github.com/akinloluwami/snaplog",
   },
