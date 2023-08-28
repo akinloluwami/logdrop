@@ -1,7 +1,5 @@
-"use client";
-
-import Logo from "@/components/Logo";
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode } from "react";
+import Logo from "../components/Logo";
 import { usePathname } from "next/navigation";
 
 const AuthLayout = ({ children }: { children: ReactNode }) => {
