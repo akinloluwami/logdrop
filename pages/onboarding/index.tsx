@@ -5,7 +5,7 @@ const Onboarding = () => {
     <OnboardingLayout>
       <div className="">
         <h3 className="text-center text-3xl font-semibold my-4">
-          Create your first project
+          Create your first project.
         </h3>
 
         <form className="flex items-center flex-col gap-5 mt-6 w-[400px]">
