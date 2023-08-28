@@ -1,4 +1,3 @@
-import React from "react";
 import AuthLayout from "../layouts/AuthLayout";
 import GitHubButton from "../components/GitHubButton";
 
