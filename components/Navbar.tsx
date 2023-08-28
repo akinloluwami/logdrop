@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Logo from "./Logo";
 
 const Navbar = () => {
   return (
     <div className="flex justify-between px-14 py-4">
-      <h2>Snaplog</h2>
+      <Logo />
       <div className="flex gap-12 items-center font-semibold">
         <Link
           href={"/docs"}
