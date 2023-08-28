@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import Logo from "../components/Logo";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const AuthLayout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
@@ -20,8 +21,18 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
               {pathname === "/signup" && "Create a new account"}
             </small>
           </div>
-          <div className="h-full mt-20 flex items-center justify-center">
+          <div className="h-full mt-20 flex items-center flex-col justify-center">
             {children}
+            <div className="mt-5 flex gap-1 font-semibold items-center text-xs">
+              {pathname === "/signup" && "Already have an account?"}
+              {pathname === "/login" && "New to Snaplog?"}
+              <Link
+                href={pathname === "/signup" ? "/login" : "/signup"}
+                className="hover:text-purple-500 transition-colors"
+              >
+                {pathname === "/signup" ? "Login" : "Sign up"}
+              </Link>
+            </div>
           </div>
         </div>
         <small>We're open-source.</small>
