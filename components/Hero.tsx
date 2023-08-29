@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <div className="flex items-center flex-col bg-gradient-to-b from-transparent via-purple-500/20 to-transparent h-[80vh]">
       <h1 className="mt-16 mx-6 w-[60%] font-extrabold text-5xl lg:text-7xl h-40 text-center mb-4 bg-clip-text text-transparent bg-gradient-to-b from-black/80 to-black dark:from-white dark:to-[#AAAAAA]">
-        Open-source analytics for Express APIs
+        Powerful analytics for Express APIs
       </h1>
       <p className="text-2xl text-gray-300">
         Depper insights into Express API usage with robust analytics.
