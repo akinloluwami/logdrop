@@ -12,6 +12,8 @@ interface OnboardingState {
   currentStepId: string;
   updateSteps: (newSteps: Step[]) => void;
   updateCurrentStep: (newCurrentStepId: string) => void;
+  isDataFetched: boolean;
+  setIsDataFetched: (isDatafetched: boolean) => void;
 }
 
 const useOnboardingStore = create<OnboardingState>((set) => ({
@@ -30,6 +32,9 @@ const useOnboardingStore = create<OnboardingState>((set) => ({
   updateSteps: (newSteps) => set((state) => ({ steps: newSteps })),
   updateCurrentStep: (newCurrentStepId) =>
     set((state) => ({ currentStepId: newCurrentStepId })),
+
+  isDataFetched: false,
+  setIsDataFetched: (isDataFetched) => set((state) => ({ isDataFetched })),
 }));
 
 export default useOnboardingStore;
