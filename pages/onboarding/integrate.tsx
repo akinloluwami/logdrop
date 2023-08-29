@@ -5,6 +5,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { HiOutlineCheckCircle } from "react-icons/hi2";
 
 const Integrate = () => {
   const { steps, updateSteps, updateCurrentStep } = useOnboardingStore();
@@ -126,17 +127,24 @@ const Integrate = () => {
         </div>
 
         <button
-          className="bg-gradient-to-l from-purple-900 to-purple-500 w-full py-3 text-white px-4 rounded-full mt-10 font-semibold border-2 border-transparent hover:border-white/40 transition-colors flex items-center justify-center disabled:opacity-80 cursor-not-allowed"
+          className="bg-gradient-to-l from-purple-900 to-purple-500 w-full py-3 text-white px-4 rounded-full mt-10 font-semibold border-2 border-transparent hover:border-white/40 transition-colors flex items-center justify-center disabled:opacity-80 disabled:cursor-not-allowed"
           onClick={handleVerifyIntegration}
-          disabled={loading}
+          disabled={loading || steps[1].isDone}
         >
-          {loading ? (
-            <>
-              <CgSpinnerTwo className="animate-spin mr-2" size={20} /> Verifying
-              integration...
-            </>
+          {!steps[1].isDone ? (
+            loading ? (
+              <>
+                <CgSpinnerTwo className="animate-spin mr-2" size={20} />{" "}
+                Verifying integration...
+              </>
+            ) : (
+              "Verify Integration"
+            )
           ) : (
-            "Verify Integration"
+            <>
+              <HiOutlineCheckCircle className="mr-2" size={20} />
+              Integration verified
+            </>
           )}
         </button>
       </div>
