@@ -1,8 +1,72 @@
 import OnboardingLayout from "@/layouts/Onboarding";
+import useOnboardingStore from "@/stores/onboardingStore";
+import { useRouter } from "next/router";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { useState } from "react";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 const Integrate = () => {
+  const { steps, updateSteps, updateCurrentStep } = useOnboardingStore();
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleNext = () => {
+    const updatedSteps = [...steps];
+    updatedSteps[1].isDone = true;
+
+    const currentStepIndex = steps.findIndex((step) => step.id === steps[1].id);
+
+    if (currentStepIndex !== -1 && currentStepIndex + 1 < steps.length) {
+      updateCurrentStep(steps[currentStepIndex + 1].id);
+    }
+    updateSteps(updatedSteps);
+    router.push(steps[currentStepIndex + 1].route);
+  };
+
+  let emptyResponseCounter = 0;
+
+  const simulateAPIResponse = () => {
+    const randomDelay = Math.random() * 2000;
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        if (emptyResponseCounter < 2) {
+          emptyResponseCounter++;
+          resolve([]);
+        } else {
+          const randomArrayLength = Math.floor(Math.random() * 3) + 1;
+          const responseArray = new Array(randomArrayLength)
+            .fill(null)
+            .map((_, index) => index);
+          emptyResponseCounter = 0;
+          resolve(responseArray);
+        }
+      }, randomDelay);
+    });
+  };
+
+  const handleVerifyIntegration = () => {
+    setLoading(true);
+
+    const makeAPICall = () => {
+      simulateAPIResponse()
+        .then((response) => {
+          console.log(response);
+          if (response.length === 0) {
+            setTimeout(makeAPICall, 5000);
+          } else {
+            handleNext();
+            setLoading(false);
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
+    };
+
+    makeAPICall();
+  };
+
   return (
     <OnboardingLayout>
       <div className="flex flex-col items-center">
@@ -61,8 +125,19 @@ const Integrate = () => {
           </div>
         </div>
 
-        <button className="bg-gradient-to-l from-purple-900 to-purple-500 w-full py-3 text-white px-4 rounded-full mt-10 font-semibold border-2 border-transparent hover:border-white/40 transition-colors">
-          Done
+        <button
+          className="bg-gradient-to-l from-purple-900 to-purple-500 w-full py-3 text-white px-4 rounded-full mt-10 font-semibold border-2 border-transparent hover:border-white/40 transition-colors flex items-center justify-center disabled:opacity-80 cursor-not-allowed"
+          onClick={handleVerifyIntegration}
+          disabled={loading}
+        >
+          {loading ? (
+            <>
+              <CgSpinnerTwo className="animate-spin mr-2" size={20} /> Verifying
+              integration...
+            </>
+          ) : (
+            "Verify Integration"
+          )}
         </button>
       </div>
     </OnboardingLayout>
