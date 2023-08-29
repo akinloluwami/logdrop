@@ -25,7 +25,7 @@ const OnboardingLayout = ({ children }: { children: ReactNode }) => {
             }`}
             key={i}
           >
-            <div className="bg-gradient-to-tl from-purple-800 flex items-center justify-center text-2xl to-purple-500 text-white rounded-full w-12 h-12 ">
+            <div className="bg-gradient-to-tl from-purple-800 flex items-center justify-center text-2xl to-purple-500 text-white rounded-full w-12 h-12">
               {i + 1}
             </div>
             <p className="group-hover:text-purple-200">{step.title}</p>
