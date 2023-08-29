@@ -94,7 +94,7 @@ const Pricing = () => {
             </button>
           </div>
 
-          <div className="py-4 w-[350px] border border-white/10 rounded-xl flex flex-col items-center">
+          <div className="py-4 w-[350px] border border-white/50 rounded-xl flex flex-col items-center shadow-md shadow-purple-500/40 hover:shadow-lg hover:shadow-purple-500/70 transition-all">
             <p className="text-lg font-semibold">Pro</p>
 
             <h3 className="my-5 text-4xl">${calculatePrice()}/mo</h3>
