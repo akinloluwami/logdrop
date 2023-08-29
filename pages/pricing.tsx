@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import { ChangeEvent, useState } from "react";
+import { BsCheckAll } from "react-icons/bs";
 
 const Pricing = () => {
   const [requests, setRequests] = useState(15_000);
@@ -63,17 +64,41 @@ const Pricing = () => {
         <h1 className="text-6xl font-bold text-center">
           Pricing that scales with you.
         </h1>
-        <div className="flex items-center justify-center mt-10 px-14 gap-10">
-          <div className="py-4 w-1/3 h-[450px] border border-white/10 rounded-xl flex flex-col items-center">
+
+        <div className="flex items-center justify-center mt-16 px-14 gap-10">
+          <div className="py-4 w-[350px] border border-white/10 rounded-xl flex flex-col items-center">
             <p className="text-lg font-semibold">Free</p>
-            <h3 className="mt-5 text-4xl">$0/mo</h3>
-            <p className="mt-3 text-gray-400 font-semibold">
+            <h3 className="my-5 text-4xl">$0/mo</h3>
+            <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
+            <div className="h-3 mt-5 w-full"></div>
+            <p className="my-3 text-gray-400 font-semibold">
               Up to 2,000 requests per month
-            </p>{" "}
+            </p>
+            <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
+            <div className="my-10 flex flex-col gap-5 items-start w-[80%]">
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>2 APIs</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>30-day data retention</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>Email support</p>
+              </div>
+            </div>
+            <button className="font-semibold w-[90%] mx-auto bg-gradient-to-r from-purple-500/5 to-purple-600 py-3 rounded-full">
+              Get started
+            </button>
           </div>
-          <div className="py-4 w-1/3 h-[450px] border border-white/10 rounded-xl flex flex-col items-center">
+
+          <div className="py-4 w-[350px] border border-white/10 rounded-xl flex flex-col items-center">
             <p className="text-lg font-semibold">Pro</p>
-            <h3 className="mt-5 text-4xl">${calculatePrice()}/mo</h3>
+
+            <h3 className="my-5 text-4xl">${calculatePrice()}/mo</h3>
+            <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
             <input
               type="range"
               min={Math.log10(requestTiers[0]) * 1000}
@@ -84,14 +109,54 @@ const Pricing = () => {
             />
             <p className="mt-3 text-gray-400 font-semibold">
               {formatWithComma(requests)} requests per month
-            </p>{" "}
+            </p>
+            <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
+            <div className="my-10 flex flex-col gap-5 items-start w-[80%]">
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>50 APIs</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>Unlimited data retention</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>Email & Slack support</p>
+              </div>
+            </div>
+            <button className="font-semibold w-[90%] mx-auto bg-gradient-to-r from-purple-500/5 to-purple-600 py-3 rounded-full">
+              Get started
+            </button>
           </div>
-          <div className="py-4 w-1/3 h-[450px] border border-white/10 rounded-xl flex flex-col items-center">
+
+          <div className="py-4 w-[350px] border border-white/10 rounded-xl flex flex-col items-center">
             <p className="text-lg font-semibold">Enterprise</p>
-            <h3 className="mt-5 text-4xl">Custom</h3>
+            <h3 className="my-5 text-4xl">Custom</h3>
+            <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
+
+            <div className="h-3 mt-5 w-full"></div>
             <p className="mt-3 text-gray-400 font-semibold">
               Tailored to your specific needs
             </p>
+            <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
+            <div className="my-10 flex flex-col gap-5 items-start w-[80%]">
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>Unlimited APIs</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>Unlimited data retention</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>Priority support</p>
+              </div>
+            </div>
+            <button className="font-semibold w-[90%] mx-auto bg-gradient-to-r from-purple-500/5 to-purple-600 py-3 rounded-full">
+              Contact us
+            </button>
           </div>
         </div>
       </div>
