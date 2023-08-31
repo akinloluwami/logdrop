@@ -12,14 +12,14 @@ const Sidebar = () => {
   const links = [
     { icon: <RxDashboard />, href: "/dashboard", title: "Overview" },
     {
-      icon: <MdStackedLineChart />,
-      href: "/dashboard/charts",
-      title: "Charts",
-    },
-    {
       icon: <GoGitPullRequestDraft />,
       href: "/dashboard/requests",
       title: "Requests",
+    },
+    {
+      icon: <MdStackedLineChart />,
+      href: "/dashboard/charts",
+      title: "Charts",
     },
     { icon: <TbBulb />, href: "/dashboard/insights", title: "Insights" },
     {
