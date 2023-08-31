@@ -47,7 +47,7 @@ const Sidebar = () => {
           <Link
             href={link.href}
             key={index}
-            className={`flex items-center gap-3 mb-5 px-2 py-2 rounded-lg hover:bg-purple-800/30 transition-colors group ${
+            className={`flex items-center gap-3 mb-4 px-2 py-2 rounded-lg hover:bg-purple-800/30 transition-colors group ${
               pathname === link.href ? "bg-purple-800/30 font-medium" : ""
             }`}
           >
