@@ -65,7 +65,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <DashboardLayout>
+    <DashboardLayout pageTitle="Overview">
       <h2 className="mb-5 font-semibold text-lg">Last 7 days API Requests</h2>
       <Card className="!bg-transparent">
         <LineChart

@@ -1,7 +1,7 @@
 import DashboardLayout from "@/layouts/DashboardLayout";
 
 const Insights = () => {
-  return <DashboardLayout>Insights</DashboardLayout>;
+  return <DashboardLayout pageTitle="Insights">Insights</DashboardLayout>;
 };
 
 export default Insights;

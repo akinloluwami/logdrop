@@ -1,7 +1,7 @@
 import DashboardLayout from "@/layouts/DashboardLayout";
 
 const Events = () => {
-  return <DashboardLayout>Events</DashboardLayout>;
+  return <DashboardLayout pageTitle="Events">Events</DashboardLayout>;
 };
 
 export default Events;
