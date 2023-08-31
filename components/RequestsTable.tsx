@@ -31,7 +31,9 @@ const SnapTable: FC<Props> = ({ data }) => {
         <TableHead>
           <TableRow>
             {head.map((item) => (
-              <TableHeaderCell className="font-bold">{item}</TableHeaderCell>
+              <TableHeaderCell className="font-semibold">
+                {item}
+              </TableHeaderCell>
             ))}
           </TableRow>
         </TableHead>
