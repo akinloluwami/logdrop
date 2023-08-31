@@ -1,3 +1,4 @@
+import RequestsTable from "@/components/RequestsTable";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { Card, LineChart } from "@tremor/react";
 import moment from "moment";
@@ -38,10 +39,34 @@ const Dashboard = () => {
     ...data,
     formattedDate: moment(data.date, "DD/MM/YYYY").format("MMM D"),
   }));
+
+  const recentRequests = [
+    {
+      endpoint: "/ping",
+      method: "GET",
+      status: 200,
+      timeTaken: "5ms",
+      createdAt: "25/08/2023",
+    },
+    {
+      endpoint: "/auth/signup",
+      method: "POST",
+      status: 201,
+      timeTaken: "5ms",
+      createdAt: "25/08/2023",
+    },
+    {
+      endpoint: "/auth/login",
+      method: "POST",
+      status: 400,
+      timeTaken: "5ms",
+      createdAt: "25/08/2023",
+    },
+  ];
+
   return (
     <DashboardLayout>
       <h2 className="mb-5 font-semibold text-lg">Last 7 days API Requests</h2>
-
       <Card className="!bg-transparent">
         <LineChart
           className="mt-6 h-72"
@@ -54,6 +79,7 @@ const Dashboard = () => {
         />
       </Card>
       <h2 className="mb-5 font-semibold text-lg my-5">Recent API Requests</h2>
+      <RequestsTable data={recentRequests} />
     </DashboardLayout>
   );
 };
