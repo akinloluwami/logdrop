@@ -11,7 +11,7 @@ const DashboardLayout: FC<Props> = ({ children }) => {
       <div className="hidden lg:block border-r border-purple-500/20 w-[20%]">
         <Sidebar />
       </div>
-      <div className="w-full">
+      <div className="w-[80%]">
         <div className="flex justify-between border-b border-purple-500/20 px-7 py-5 w-full">
           <h2>Something goes here</h2>
           <button>Docs</button>
