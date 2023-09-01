@@ -1,6 +1,6 @@
-import { GITHUB_CLIENT_ID } from "@/lib/secrets";
 import { NextApiRequest, NextApiResponse } from "next";
-import { allowMethods } from "next-method-guard";
+import { requestMethod } from "@/middlewares/requestMethod";
+import { GITHUB_CLIENT_ID } from "@/lib/secrets";
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
   res.redirect(
@@ -8,5 +8,4 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
   );
 };
 
-// @ts-ignore
-export default allowMethods(["GET"])(handler);
+export default requestMethod("GET")(handler);
