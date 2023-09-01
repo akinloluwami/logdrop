@@ -8,4 +8,4 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
   );
 };
 
-export default requestMethod("GET")(handler);
+export default requestMethod(["GET"])(handler);
