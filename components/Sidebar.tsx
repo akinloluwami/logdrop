@@ -10,27 +10,27 @@ import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
   const links = [
-    { icon: <RxDashboard />, href: "/dashboard", title: "Overview" },
+    { icon: <RxDashboard />, href: "/overview", title: "Overview" },
     {
       icon: <GoGitPullRequestDraft />,
-      href: "/dashboard/requests",
+      href: "/requests",
       title: "Requests",
     },
     {
       icon: <MdStackedLineChart />,
-      href: "/dashboard/charts",
+      href: "/charts",
       title: "Charts",
     },
     { icon: <TbBulb />, href: "/dashboard/insights", title: "Insights" },
     {
       icon: <IoNotificationsOutline />,
-      href: "/dashboard/events",
+      href: "/events",
       title: "Events",
     },
-    { icon: <PiKeyBold />, href: "/dashboard/api-keys", title: "API Keys" },
+    { icon: <PiKeyBold />, href: "/api-keys", title: "API Keys" },
     {
       icon: <RiSettingsLine />,
-      href: "/dashboard/settings",
+      href: "/settings",
       title: "Settings",
     },
   ];
