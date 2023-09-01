@@ -47,3 +47,11 @@ model Log {
   project   Project @relation(fields: [projectId], references: [id])
   projectId Int
 }
+
+
+model RefreshRoken{
+  id        Int     @id @default(autoincrement())
+token String @db.Text
+expires_in DateTime
+userId Int
+}
