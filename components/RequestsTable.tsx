@@ -24,14 +24,14 @@ interface Props {
 
 const head = ["Endpoint", "Method", "Status", "Time Taken", "Created"];
 
-const SnapTable: FC<Props> = ({ data }) => {
+const RequestsTable: FC<Props> = ({ data }) => {
   return (
     <Card className="!bg-transparent">
       <Table className="">
         <TableHead>
           <TableRow>
-            {head.map((item) => (
-              <TableHeaderCell className="font-semibold">
+            {head.map((item, i) => (
+              <TableHeaderCell className="font-semibold" key={i}>
                 {item}
               </TableHeaderCell>
             ))}
@@ -45,17 +45,13 @@ const SnapTable: FC<Props> = ({ data }) => {
                 <Text className="font-semibold">{item.method}</Text>
               </TableCell>
               <TableCell>
-                <Text className="font-semibold">
-                  <Badge
-                    color={
-                      item.status === 200 || item.status === 201
-                        ? "green"
-                        : "red"
-                    }
-                  >
-                    {item.status}
-                  </Badge>
-                </Text>
+                <Badge
+                  color={
+                    item.status === 200 || item.status === 201 ? "green" : "red"
+                  }
+                >
+                  {item.status}
+                </Badge>
               </TableCell>
               <TableCell>
                 <Text>{item.timeTaken}</Text>
@@ -71,4 +67,4 @@ const SnapTable: FC<Props> = ({ data }) => {
   );
 };
 
-export default SnapTable;
+export default RequestsTable;
