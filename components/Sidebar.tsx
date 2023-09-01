@@ -21,7 +21,7 @@ const Sidebar = () => {
       href: "/charts",
       title: "Charts",
     },
-    { icon: <TbBulb />, href: "/dashboard/insights", title: "Insights" },
+    { icon: <TbBulb />, href: "/insights", title: "Insights" },
     {
       icon: <IoNotificationsOutline />,
       href: "/events",
