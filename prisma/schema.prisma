@@ -48,7 +48,7 @@ model Log {
   projectId Int
 }
 
-model RefreshRoken {
+model RefreshToken {
   id         Int      @id @default(autoincrement())
   token      String   @db.Text
   expires_in DateTime
