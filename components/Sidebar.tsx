@@ -47,19 +47,19 @@ const Sidebar = () => {
           <Link
             href={link.href}
             key={index}
-            className={`flex items-center gap-3 mb-4 px-2 py-2 rounded-lg hover:bg-purple-800/30 transition-colors group ${
-              pathname === link.href ? "bg-purple-800/30 font-medium" : ""
-            }`}
+            className={`${
+              pathname === link.href && "bg-purple-800/30 font-medium"
+            } flex items-center gap-3 mb-4 px-2 py-2 rounded-lg hover:bg-purple-800/30 transition-colors group`}
           >
             <span
               className={`${
                 pathname !== link.href
-                  ? " group-hover:translate-x-2 transition-all"
+                  ? "group-hover:translate-x-2 transition-all"
                   : ""
               }`}
             >
               {link.icon}
-            </span>{" "}
+            </span>
             {link.title}
           </Link>
         ))}
