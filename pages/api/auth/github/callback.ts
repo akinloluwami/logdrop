@@ -28,9 +28,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const userEmails = await octokit.request("GET /user/emails");
 
       const user = userResponse.data;
-      const email = userEmails.data[0].email;
+      const email = userEmails.data.find((e) => e.primary)?.email;
+
+      res.redirect("/onboarding");
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
 };
 
-export default requestMethod("POST")(handler);
+export default requestMethod("GET")(handler);
