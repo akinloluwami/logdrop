@@ -6,3 +6,44 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  name     String
+  password String?
+  google   Google?
+  github   GitHub?
+  projects Project[]
+}
+
+model Google {
+  id       Int    @id @default(autoincrement())
+  googleId String @unique
+  user     User   @relation(fields: [userId], references: [id])
+  userId   Int    @unique
+}
+
+model GitHub {
+  id       Int  @id @default(autoincrement())
+  githubId Int  @unique
+  user     User @relation(fields: [userId], references: [id])
+  userId   Int  @unique
+}
+
+model Project {
+  id     Int    @id @default(autoincrement())
+  name   String
+  apiUrl String
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+  logs   Log[]
+}
+
+model Log {
+  id        Int     @id @default(autoincrement())
+  endpoint  String
+  status    Int
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId Int
+}
