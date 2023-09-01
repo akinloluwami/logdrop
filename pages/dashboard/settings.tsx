@@ -1,3 +1,4 @@
+import General from "@/components/Settings/General";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import {
   ProgressBar,
@@ -16,25 +17,14 @@ const Settings = () => {
   return (
     <DashboardLayout pageTitle="Settings">
       <TabGroup>
-        <TabList
-          className="!bg-transparent border-gray-800"
-          variant="solid"
-          color="purple"
-        >
-          <Tab className="!bg-black">General</Tab>
-          <Tab className="!bg-black">Plan & Usage</Tab>
+        <TabList className="!bg-transparent border-gray-800" variant="solid">
+          <Tab className="!bg-black !text-white">General</Tab>
+          <Tab className="!bg-black !text-white">Plan & Usage</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
             <div className="mt-10">
-              <Flex className="mt-4">
-                <Text className="w-full">Product Y</Text>
-                <Flex className="space-x-2" justifyContent="end">
-                  <Text>$ 108,799</Text>
-                  <Text>38%</Text>
-                </Flex>
-              </Flex>
-              <ProgressBar value={38} className="mt-2" />
+              <General />
             </div>
           </TabPanel>
           <TabPanel>
