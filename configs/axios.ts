@@ -8,7 +8,7 @@ const axiosReq = axios.create({
   withCredentials: true,
 });
 
-axiosReq.interceptors.request.use(
+axiosReq.interceptors.response.use(
   (response) => {
     return response;
   },
