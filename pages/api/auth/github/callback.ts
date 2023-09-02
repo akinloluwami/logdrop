@@ -19,6 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     );
 
     const accessToken = new URLSearchParams(response.data).get("access_token");
+
     if (accessToken) {
       const octokit = new Octokit({
         auth: accessToken,
@@ -79,6 +80,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       await generateTokens(req, res, newUser.id);
       res.redirect("/onboarding");
+    } else {
+      res.status(401).json({ message: "Unauthorized" });
     }
   } catch (error) {
     console.log(error);
