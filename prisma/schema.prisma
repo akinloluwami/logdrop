@@ -52,5 +52,5 @@ model RefreshToken {
   id         Int      @id @default(autoincrement())
   token      String   @db.Text
   expires_in DateTime
-  userId     Int
+  userId     Int @unique
 }
