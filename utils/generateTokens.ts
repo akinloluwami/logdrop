@@ -31,6 +31,15 @@ const generateTokens = async (
         expiresIn: "90d",
       });
 
+    if (!existingToken)
+      await prisma.refreshToken.create({
+        data: {
+          token: refresh_token,
+          expires_in: dayjs().add(90, "d").toDate(),
+          userId: id,
+        },
+      });
+
     if (hasTokenExpired) {
       await prisma.refreshToken.update({
         where: {
