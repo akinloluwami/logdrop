@@ -41,29 +41,29 @@ model Project {
 }
 
 model Log {
-  id        Int     @id @default(autoincrement())
-  endpoint  String
-  status    Int
-  method String
-  requestTime DateTime
-  responseTime DateTime?
+  id              Int       @id @default(autoincrement())
+  endpoint        String
+  status          Int
+  method          String
+  requestTime     DateTime
+  responseTime    DateTime?
   elapsedDuration String?
-  clientIp String?
-  city String?
-  stateOrRegion String?
-  country String?
-  userAgent String?
-  os String?
-  device String?
-  request String
-  response String?
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId Int
+  clientIp        String?
+  city            String?
+  stateOrRegion   String?
+  country         String?
+  userAgent       String?
+  os              String?
+  device          String?
+  request         String
+  response        String?
+  project         Project   @relation(fields: [projectId], references: [id])
+  projectId       Int
 }
 
 model RefreshToken {
   id         Int      @id @default(autoincrement())
   token      String   @db.Text
   expires_in DateTime
-  userId     Int @unique
+  userId     Int      @unique
 }
