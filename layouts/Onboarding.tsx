@@ -1,23 +1,11 @@
 import Link from "next/link";
-import { ReactNode, useState, useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import useOnboardingStore from "@/stores/onboardingStore";
 import { useRouter } from "next/router";
 import { CgSpinnerTwo } from "react-icons/cg";
 import Logo from "@/components/Logo";
-
-const simulateStepStatusFetch = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const simulatedData = [
-        { isDone: true },
-        { isDone: true },
-        { isDone: true },
-      ];
-      resolve(simulatedData);
-    }, 5000);
-  });
-};
+import { axios } from "@/configs/axios";
 
 const OnboardingLayout = ({ children }: { children: ReactNode }) => {
   const { steps, currentStepId, updateSteps, isDataFetched, setIsDataFetched } =
@@ -26,16 +14,24 @@ const OnboardingLayout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
   const router = useRouter();
 
+  const stepStatusFetch = async () => {
+    try {
+      const response = await axios("/onboarding");
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching step status:", error);
+    }
+  };
+
   useEffect(() => {
     if (!isDataFetched) {
       const fetchDataAndHandleLogic = async () => {
         try {
-          const simulatedData = await simulateStepStatusFetch();
+          const stepStatus = await stepStatusFetch();
 
-          // Update the "isDone" status for each step based on the simulated data
           const updatedSteps = steps.map((step, index) => ({
             ...step,
-            isDone: simulatedData[index].isDone,
+            isDone: stepStatus[index].isDone,
           }));
 
           updateSteps(updatedSteps);
