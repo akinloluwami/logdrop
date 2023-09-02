@@ -29,11 +29,11 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
           userId: req?.user?.id!,
         },
       });
+      res.status(201).json({
+        message: "Project created successfully",
+      });
+      return;
     }
-
-    res.status(201).json({
-      message: "Project created successfully",
-    });
   } catch (error) {}
 };
 
