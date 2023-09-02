@@ -4,10 +4,10 @@ import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from "@/lib/secrets";
 import axios from "axios";
 import { Octokit } from "octokit";
 import { prisma } from "@/prisma";
+import { generateTokens } from "@/utils/generateTokens";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { code } = req.query;
-
   try {
     const response = await axios.post(
       "https://github.com/login/oauth/access_token",
@@ -54,10 +54,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         userProjects && userProjects._count.logs > 0;
 
       if (userExists && hasCompletedOnboarding) {
+        await generateTokens(req, res, userExists.userId);
         return res.redirect("/overview");
       }
 
       if (userExists && !hasCompletedOnboarding) {
+        await generateTokens(req, res, userExists.userId);
         return res.redirect("/onboarding");
       }
 
@@ -75,6 +77,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         },
       });
 
+      await generateTokens(req, res, newUser.id);
       res.redirect("/onboarding");
     }
   } catch (error) {
