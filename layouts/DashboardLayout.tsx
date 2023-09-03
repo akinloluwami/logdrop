@@ -16,7 +16,6 @@ const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
     (async () => {
       try {
         const { data } = await axios("/project");
-        //@ts-ignore
         setProject(data[0].name, data[0].id);
       } catch (error) {}
     })();
