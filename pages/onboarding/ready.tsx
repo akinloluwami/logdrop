@@ -9,7 +9,7 @@ const Ready = () => {
         <h3 className="text-center text-3xl font-semibold mt-4">
           You're all set.
         </h3>
-        <Link href={"/dashboard"}>
+        <Link href={"/overview"}>
           <button className="mt-6 w-[450px] font-semibold rounded-full bg-gradient-to-r from-purple-900 to-purple-500 py-3 text-white transition-colors border-2 border-transparent hover:border-white/40">
             Continue to Dashboard
           </button>
