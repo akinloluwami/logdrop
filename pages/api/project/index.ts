@@ -42,7 +42,7 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
         },
       });
 
-      res.json({ projects });
+      res.json(projects);
     }
   } catch (error) {}
 };
