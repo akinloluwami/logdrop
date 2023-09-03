@@ -1,7 +1,10 @@
 import RequestsTable from "@/components/RequestsTable";
+import { axios } from "@/configs/axios";
 import DashboardLayout from "@/layouts/DashboardLayout";
+import { useProjectStore } from "@/stores/projectStore";
 import { Card, LineChart } from "@tremor/react";
 import moment from "moment";
+import { useState, useEffect } from "react";
 
 const chartdata = [
   {
@@ -35,34 +38,28 @@ const chartdata = [
 ];
 
 const Dashboard = () => {
+  const { project } = useProjectStore();
+
   const formattedChartData = chartdata.map((data) => ({
     ...data,
     formattedDate: moment(data.date, "DD/MM/YYYY").format("MMM D"),
   }));
 
-  const recentRequests = [
-    {
-      endpoint: "/ping",
-      method: "GET",
-      status: 200,
-      timeTaken: "5ms",
-      createdAt: "25/08/2023",
-    },
-    {
-      endpoint: "/auth/signup",
-      method: "POST",
-      status: 201,
-      timeTaken: "5ms",
-      createdAt: "25/08/2023",
-    },
-    {
-      endpoint: "/auth/login",
-      method: "POST",
-      status: 400,
-      timeTaken: "5ms",
-      createdAt: "25/08/2023",
-    },
-  ];
+  const [recentRequests, setRecentRequests] = useState([]);
+
+  useEffect(() => {
+    console.log(project);
+
+    (async () => {
+      try {
+        const { data } = await axios(
+          `/logs?projectId=${project?.id}&length=10`
+        );
+        setRecentRequests(data);
+        console.log(data);
+      } catch (error) {}
+    })();
+  }, [project.id]);
 
   return (
     <DashboardLayout pageTitle="Overview">
