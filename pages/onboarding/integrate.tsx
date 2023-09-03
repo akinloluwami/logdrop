@@ -6,6 +6,7 @@ import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { HiOutlineCheckCircle } from "react-icons/hi2";
+import { axios } from "@/configs/axios";
 
 const Integrate = () => {
   const { steps, updateSteps, updateCurrentStep } = useOnboardingStore();
@@ -27,33 +28,20 @@ const Integrate = () => {
 
   let emptyResponseCounter = 0;
 
-  const simulateAPIResponse = () => {
-    const randomDelay = Math.random() * 2000;
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        if (emptyResponseCounter < 2) {
-          emptyResponseCounter++;
-          resolve([]);
-        } else {
-          const randomArrayLength = Math.floor(Math.random() * 3) + 1;
-          const responseArray = new Array(randomArrayLength)
-            .fill(null)
-            .map((_, index) => index);
-          emptyResponseCounter = 0;
-          resolve(responseArray);
-        }
-      }, randomDelay);
-    });
+  const checkIntegration = async () => {
+    try {
+      const { data } = await axios("/onboarding/integration");
+      return { data };
+    } catch (error) {}
   };
 
   const handleVerifyIntegration = () => {
     setLoading(true);
 
     const makeAPICall = () => {
-      simulateAPIResponse()
-        .then((response) => {
-          console.log(response);
-          if (response.length === 0) {
+      checkIntegration()
+        .then((response: any) => {
+          if (response.data.logs.length === 0) {
             setTimeout(makeAPICall, 5000);
           } else {
             handleNext();
