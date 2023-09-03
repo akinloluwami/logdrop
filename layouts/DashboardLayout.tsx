@@ -17,10 +17,10 @@ const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
       try {
         const { data } = await axios("/project");
         //@ts-ignore
-        setProject(data.projects[0]);
+        setProject(data[0].name, data[0].id);
       } catch (error) {}
     })();
-  }, [project]);
+  }, []);
 
   return (
     <div className="flex">
