@@ -16,7 +16,7 @@ interface Props {
   data: {
     endpoint: string;
     method: string;
-    status: number;
+    statusCode: number;
     timeTaken: string;
     createdAt: string;
   }[];
@@ -47,10 +47,14 @@ const RequestsTable: FC<Props> = ({ data }) => {
               <TableCell>
                 <Badge
                   color={
-                    item.status === 200 || item.status === 201 ? "green" : "red"
+                    item.statusCode === 200 || item.statusCode === 201
+                      ? "green"
+                      : item.statusCode === 304
+                      ? "blue"
+                      : "red"
                   }
                 >
-                  {item.status}
+                  {item.statusCode}
                 </Badge>
               </TableCell>
               <TableCell>
