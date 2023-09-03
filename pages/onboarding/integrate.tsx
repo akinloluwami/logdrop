@@ -3,7 +3,7 @@ import useOnboardingStore from "@/stores/onboardingStore";
 import { useRouter } from "next/router";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { HiOutlineCheckCircle } from "react-icons/hi2";
 import { axios } from "@/configs/axios";
@@ -11,7 +11,17 @@ import { axios } from "@/configs/axios";
 const Integrate = () => {
   const { steps, updateSteps, updateCurrentStep } = useOnboardingStore();
   const [loading, setLoading] = useState(false);
+  const [apiKey, setApiKey] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios("/onboarding/api-key");
+        setApiKey(data.key);
+      } catch (error) {}
+    })();
+  }, []);
 
   const handleNext = () => {
     const updatedSteps = [...steps];
@@ -99,8 +109,7 @@ const Integrate = () => {
                 </small>
               </code>{" "}
               <br />
-              <code>{`const snapMiddleware = snap("YOUR_PROJECT_ID")`}</code>{" "}
-              <br />
+              <code>{`const snapMiddleware = snap("${apiKey}")`}</code> <br />
               <code>{`app.use(snapMiddleware)`}</code> <br />
               <br />
               <code>
