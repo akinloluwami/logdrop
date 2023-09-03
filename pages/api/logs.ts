@@ -8,15 +8,24 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
   try {
     const { projectId, length } = req.query;
 
+    if (!projectId) {
+      res.status(400).json({ message: "Project ID is required" });
+      return;
+    }
+
     const logs = await prisma.log.findMany({
       where: {
         projectId: Number(projectId),
       },
       take: Number(length) || 20,
+      orderBy: { createdAt: "asc" },
     });
 
     res.status(200).json(logs);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
 };
 
 export default requestMethod(["GET"])((
