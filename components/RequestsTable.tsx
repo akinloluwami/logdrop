@@ -11,18 +11,28 @@ import {
   Title,
   Badge,
 } from "@tremor/react";
+import moment from "moment";
 
 interface Props {
   data: {
     endpoint: string;
     method: string;
     statusCode: number;
-    timeTaken: string;
+    elapsedDuration: number;
     createdAt: string;
   }[];
 }
 
 const head = ["Endpoint", "Method", "Status", "Time Taken", "Created"];
+
+const formatTimeTaken = (ms: number) => {
+  if (ms > 1000) {
+    const secondsValue = ms / 1000;
+    return secondsValue.toFixed(2) + "s";
+  } else {
+    return ms + "ms";
+  }
+};
 
 const RequestsTable: FC<Props> = ({ data }) => {
   return (
@@ -58,10 +68,10 @@ const RequestsTable: FC<Props> = ({ data }) => {
                 </Badge>
               </TableCell>
               <TableCell>
-                <Text>{item.timeTaken}</Text>
+                <Text>{formatTimeTaken(item.elapsedDuration)}</Text>
               </TableCell>
               <TableCell>
-                <Text>{item.createdAt}</Text>
+                <Text>{moment(item.createdAt).fromNow()}</Text>
               </TableCell>
             </TableRow>
           ))}
