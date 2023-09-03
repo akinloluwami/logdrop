@@ -1,6 +1,8 @@
 import Sidebar from "@/components/Sidebar";
+import { axios } from "@/configs/axios";
+import { useProjectStore } from "@/stores/projectStore";
 import Head from "next/head";
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect } from "react";
 
 interface Props {
   children: ReactNode;
@@ -8,6 +10,18 @@ interface Props {
 }
 
 const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
+  const { project, setProject } = useProjectStore();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios("/project");
+        //@ts-ignore
+        setProject(data.projects[0]);
+      } catch (error) {}
+    })();
+  }, [project]);
+
   return (
     <div className="flex">
       <Head>
