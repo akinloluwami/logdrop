@@ -18,7 +18,7 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
         projectId: Number(projectId),
       },
       take: Number(length) || 20,
-      orderBy: { createdAt: "asc" },
+      orderBy: { createdAt: "desc" },
     });
 
     res.status(200).json(logs);
