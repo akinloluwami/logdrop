@@ -8,36 +8,40 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
-  name     String
-  password String?
-  google   Google?
-  github   GitHub?
-  projects Project[]
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  name      String
+  password  String?
+  google    Google?
+  github    GitHub?
+  projects  Project[]
+  createdAt DateTime  @default(now())
 }
 
 model Google {
-  id       Int    @id @default(autoincrement())
-  googleId String @unique
-  user     User   @relation(fields: [userId], references: [id])
-  userId   Int    @unique
+  id        Int      @id @default(autoincrement())
+  googleId  String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+  createdAt DateTime @default(now())
 }
 
 model GitHub {
-  id       Int  @id @default(autoincrement())
-  githubId Int  @unique
-  user     User @relation(fields: [userId], references: [id])
-  userId   Int  @unique
+  id        Int      @id @default(autoincrement())
+  githubId  Int      @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+  createdAt DateTime @default(now())
 }
 
 model Project {
-  id     Int    @id @default(autoincrement())
-  name   String
-  apiUrl String
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int
-  logs   Log[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  apiUrl    String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  logs      Log[]
+  createdAt DateTime @default(now())
 }
 
 model Log {
@@ -59,6 +63,14 @@ model Log {
   responseBody    String?
   project         Project   @relation(fields: [projectId], references: [id])
   projectId       Int
+  createdAt       DateTime  @default(now())
+}
+
+model APiKey {
+  id        Int      @id @default(autoincrement())
+  key       String @unique
+  projectId Int
+  createdAt DateTime @default(now())
 }
 
 model RefreshToken {
@@ -66,4 +78,5 @@ model RefreshToken {
   token      String   @db.Text
   expires_in DateTime
   userId     Int      @unique
+  createdAt  DateTime @default(now())
 }
