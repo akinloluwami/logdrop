@@ -7,6 +7,7 @@ import { TbBulb } from "react-icons/tb";
 import { IoNotificationsOutline } from "react-icons/io5";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useProjectStore } from "@/stores/projectStore";
 
 const Sidebar = () => {
   const links = [
@@ -37,10 +38,12 @@ const Sidebar = () => {
 
   const pathname = usePathname();
 
+  const { project } = useProjectStore();
+
   return (
     <div className="w-full h-screen pt-5">
       <div className="">
-        <h2 className="text-xl font-semibold px-7">Project name</h2>
+        <h2 className="text-xl font-semibold px-7">{project?.name}</h2>
       </div>
       <div className="mt-10 px-5">
         {links.map((link, index) => (
