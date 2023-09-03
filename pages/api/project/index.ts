@@ -34,6 +34,16 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
       });
       return;
     }
+
+    if (req.method === "GET") {
+      const projects = await prisma.project.findMany({
+        where: {
+          userId: req.user?.id,
+        },
+      });
+
+      res.json({ projects });
+    }
   } catch (error) {}
 };
 
