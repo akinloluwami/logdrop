@@ -19,8 +19,6 @@ const Onboarding = () => {
     (async () => {
       try {
         const { data } = await axios("/onboarding/project");
-        console.log(data);
-
         if (data.id) {
           setApiUrl(data.apiUrl);
           setName(data.name);
@@ -51,6 +49,7 @@ const Onboarding = () => {
     setLoading(true);
     try {
       await axios.post("/project", { name, apiUrl });
+      await axios.post("/api-key");
       goToNextStep();
     } catch (error) {
     } finally {
