@@ -35,7 +35,6 @@ const Requests = () => {
         )}&methods=${encodeURIComponent(
           methods.join("_")
         )}&search=${encodeURIComponent(search)}`;
-
         const { data } = await axios(encodedURL);
         setRequests(data);
       } catch (error) {}
