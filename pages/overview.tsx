@@ -48,15 +48,12 @@ const Dashboard = () => {
   const [recentRequests, setRecentRequests] = useState([]);
 
   useEffect(() => {
-    console.log(project);
-
     (async () => {
       try {
         const { data } = await axios(
           `/logs?projectId=${project?.id}&length=10`
         );
         setRecentRequests(data);
-        console.log(data);
       } catch (error) {}
     })();
   }, [project.id]);
