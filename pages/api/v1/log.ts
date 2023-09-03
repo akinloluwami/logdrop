@@ -6,6 +6,24 @@ import { UAParser } from "ua-parser-js";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
+    const apiKey = req.headers.authorization?.split(" ")[1];
+
+    if (!apiKey) {
+      res.status(401).json({ message: "API Key is missing in request" });
+      return;
+    }
+
+    const key = await prisma.aPiKey.findUnique({
+      where: {
+        key: apiKey,
+      },
+    });
+
+    if (!key) {
+      res.status(400).json({ message: "API key is invalid" });
+      return;
+    }
+
     const log = req.body as {
       endpoint: string;
       userAgent: string;
@@ -17,10 +35,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       responseTime: string;
       elapsedDuration: number;
     };
-    console.log(log.requestHeaders);
 
     const parser = new UAParser(log.userAgent).getResult();
-    console.log(parser);
 
     await prisma.log.create({
       data: {
@@ -30,7 +46,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         statusCode: log.statusCode,
         requestHeaders: log.requestHeaders,
         responseBody: log.responseBody,
-        projectId: 1,
+        projectId: key.projectId,
         requestTime: dayjs(log.requestTime).toDate(),
         responseTime: dayjs(log.responseTime).toDate(),
         elapsedDuration: log.elapsedDuration,
