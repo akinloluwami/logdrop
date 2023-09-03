@@ -6,17 +6,35 @@ import { prisma } from "@/prisma";
 
 const handler = async (req: CustomRequest, res: NextApiResponse) => {
   try {
-    const { projectId, length } = req.query;
+    const { projectId, status_codes, methods, search, length } = req.query;
 
     if (!projectId) {
       res.status(400).json({ message: "Project ID is required" });
       return;
     }
 
+    const decodedStatusCodes = status_codes
+      ? decodeURIComponent(status_codes).split("_").map(Number)
+      : [];
+
+    const decodedMethods = methods
+      ? decodeURIComponent(methods).split("_")
+      : [];
+
+    const filters = {
+      projectId: Number(projectId),
+    };
+
+    if (decodedStatusCodes.length > 0) {
+      filters.statusCode = { in: decodedStatusCodes };
+    }
+
+    if (decodedMethods.length > 0) {
+      filters.method = { in: decodedMethods };
+    }
+
     const logs = await prisma.log.findMany({
-      where: {
-        projectId: Number(projectId),
-      },
+      where: filters,
       take: Number(length) || 20,
       orderBy: { createdAt: "desc" },
     });
