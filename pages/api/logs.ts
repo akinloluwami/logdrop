@@ -16,7 +16,7 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
       dateRange,
     }: any = req.query;
 
-    if (!projectId) {
+    if (projectId === "null") {
       res.status(400).json({ message: "Project ID is required" });
       return;
     }
