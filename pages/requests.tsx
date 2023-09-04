@@ -27,7 +27,7 @@ const Requests = () => {
     setDebouncedEndpoint(value);
   }, 500);
 
-  const { addQueryParam, deleteQueryParam } = useHref();
+  const { addQueryParam, deleteQueryParam, getQueryParam } = useHref();
 
   const httpStatusCodes: { code: number; name: string }[] = [
     { code: 100, name: "Continue" },
@@ -135,7 +135,18 @@ const Requests = () => {
     }
   };
 
+  const endpointQueryParam = getQueryParam("endpoint");
+  const methodsQueryParam = getQueryParam("methods");
+  const statusCodesQueryParam = getQueryParam("status_codes");
+  const dateRangeQueryParam = getQueryParam("dateRange");
+
   useEffect(() => {
+    setDebouncedEndpoint(endpointQueryParam || "");
+    setMethods((methodsQueryParam && methodsQueryParam.split("_")) || []);
+    setStatusCodes(
+      (statusCodesQueryParam && statusCodesQueryParam.split("_")) || []
+    );
+    setSelectedDateRange(dateRangeQueryParam || "all");
     (async () => {
       try {
         const encodedURL = `/logs?projectId=${encodeURIComponent(
@@ -151,7 +162,7 @@ const Requests = () => {
         setRequests(data);
       } catch (error) {}
     })();
-  }, [project.id, statusCodes, methods, debouncedEndpoint]);
+  }, [project.id, statusCodes, methods, debouncedEndpoint, selectedDateRange]);
   return (
     <DashboardLayout pageTitle="Requests">
       <div className="flex items-center w-full mb-7 gap-4">
