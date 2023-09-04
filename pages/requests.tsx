@@ -13,6 +13,7 @@ import {
   SelectItem,
   TextInput,
 } from "@tremor/react";
+import { useRouter } from "next/router";
 
 const Requests = () => {
   const [requests, setRequests] = useState([]);
@@ -110,9 +111,9 @@ const Requests = () => {
     const newValue = e.target.value;
 
     if (newValue) {
-      addQueryParam("endpoint", newValue);
+      // addQueryParam("endpoint", newValue);
     } else {
-      deleteQueryParam("endpoint");
+      // deleteQueryParam("endpoint");
     }
     debouncedSearch(newValue);
   };
@@ -120,22 +121,26 @@ const Requests = () => {
   const handleStatusCodesChange = (selectedValues: string[]) => {
     setStatusCodes(selectedValues);
     if (selectedValues.length > 0) {
-      addQueryParam("status_codes", selectedValues.join("_"));
+      // addQueryParam("status_codes", selectedValues.join("_"));
     } else {
-      deleteQueryParam("status_codes");
+      // deleteQueryParam("status_codes");
     }
   };
 
   const handleMethodsChange = (selectedValues: string[]) => {
     setMethods(selectedValues);
     if (selectedValues.length > 0) {
-      addQueryParam("methods", selectedValues.join("_"));
+      // addQueryParam("methods", selectedValues.join("_"));
     } else {
-      deleteQueryParam("methods");
+      // deleteQueryParam("methods");
     }
   };
 
+  const router = useRouter();
+
   useEffect(() => {
+    // setSelectedDateRange((router?.query?.dateRange as string) || "all");
+
     (async () => {
       try {
         const encodedURL = `/logs?projectId=${encodeURIComponent(
@@ -151,7 +156,14 @@ const Requests = () => {
         setRequests(data);
       } catch (error) {}
     })();
-  }, [project.id, statusCodes, methods, debouncedEndpoint, selectedDateRange]);
+  }, [
+    project.id,
+    statusCodes,
+    methods,
+    debouncedEndpoint,
+    selectedDateRange,
+    // router.query,
+  ]);
   return (
     <DashboardLayout pageTitle="Requests">
       <div className="flex items-center w-full mb-7 gap-4">
@@ -160,11 +172,11 @@ const Requests = () => {
           onChange={handleSearchChange}
         />
         <Select
-          defaultValue="all"
+          defaultValue={selectedDateRange}
           onValueChange={(value) => {
             const selectedValue = value;
             setSelectedDateRange(selectedValue);
-            addQueryParam("dateRange", selectedValue);
+            // addQueryParam("dateRange", selectedValue);
           }}
         >
           <SelectItem value="15m">Last 15 minutes</SelectItem>
