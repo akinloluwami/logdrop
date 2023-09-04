@@ -61,6 +61,8 @@ model Log {
   country         String?
   os              String?
   device          String?
+  deviceType      String?
+  browser         String?
   requestHeaders  String
   responseBody    String?
   project         Project   @relation(fields: [projectId], references: [id])
