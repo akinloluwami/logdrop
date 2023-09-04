@@ -18,7 +18,7 @@ const config: Config = {
         tremor: {
           brand: {
             faint: "#eff6ff", // blue-50
-            muted: "#bfdbfe", // blue-200
+            muted: "#000", // blue-200
             subtle: "#60a5fa", // blue-400
             DEFAULT: "#3b82f6", // blue-500
             emphasis: "#1d4ed8", // blue-700
@@ -48,7 +48,7 @@ const config: Config = {
         "dark-tremor": {
           brand: {
             faint: "#0B1229", // custom
-            muted: "#172554", // blue-950
+            muted: "#6b21a84d", // blue-950
             subtle: "#1e40af", // blue-800
             DEFAULT: "#3b82f6", // blue-500
             emphasis: "#60a5fa", // blue-400
