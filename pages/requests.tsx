@@ -23,6 +23,11 @@ const Requests = () => {
   const [endpoint, setEndpoint] = useState("");
   const [methods, setMethods] = useState([]);
   const [statusCodes, setStatusCodes] = useState<string[]>([]);
+  const [debouncedEndpoint, setDebouncedEndpoint] = useState("");
+
+  const debouncedSearch = debounce((value) => {
+    setDebouncedEndpoint(value);
+  }, 500);
   const { addQueryParam } = useHref();
 
   useEffect(() => {
