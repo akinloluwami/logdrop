@@ -20,7 +20,7 @@ const Requests = () => {
   const [requests, setRequests] = useState([]);
   const { project } = useProjectStore();
 
-  const [search, setSearch] = useState("");
+  const [endpoint, setEndpoint] = useState("");
   const [methods, setMethods] = useState([]);
   const [statusCodes, setStatusCodes] = useState<string[]>([]);
   const { addQueryParam } = useHref();
@@ -34,7 +34,7 @@ const Requests = () => {
           statusCodes.join("_")
         )}&methods=${encodeURIComponent(
           methods.join("_")
-        )}&search=${encodeURIComponent(search)}`;
+        )}&endpoint=${encodeURIComponent(endpoint)}`;
         const { data } = await axios(encodedURL);
         setRequests(data);
       } catch (error) {}
@@ -121,7 +121,10 @@ const Requests = () => {
   return (
     <DashboardLayout pageTitle="Requests">
       <div className="flex items-center w-full mb-7 gap-4">
-        <TextInput placeholder="Search..." />
+        <TextInput
+          placeholder="Search endpoint..."
+          onChange={(e) => setEndpoint(e.target.value)}
+        />
         <Select defaultValue="all">
           <SelectItem className="!bg-black" value="15m">
             Last 15 minutes
