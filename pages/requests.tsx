@@ -7,11 +7,8 @@ import useHref from "use-href";
 import { debounce } from "lodash";
 
 import {
-  Flex,
   MultiSelect,
   MultiSelectItem,
-  SearchSelect,
-  SearchSelectItem,
   Select,
   SelectItem,
   TextInput,
