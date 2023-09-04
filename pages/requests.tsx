@@ -18,16 +18,16 @@ const Requests = () => {
   const [requests, setRequests] = useState([]);
   const { project } = useProjectStore();
 
-  const [endpoint, setEndpoint] = useState("");
-  const [methods, setMethods] = useState([]);
+  const [methods, setMethods] = useState<string[]>([]);
   const [statusCodes, setStatusCodes] = useState<string[]>([]);
   const [debouncedEndpoint, setDebouncedEndpoint] = useState("");
+  const [selectedDateRange, setSelectedDateRange] = useState<string>("all");
 
   const debouncedSearch = debounce((value) => {
     setDebouncedEndpoint(value);
   }, 500);
 
-  const { addQueryParam } = useHref();
+  const { addQueryParam, deleteQueryParam } = useHref();
 
   const httpStatusCodes: { code: number; name: string }[] = [
     { code: 100, name: "Continue" },
@@ -108,9 +108,31 @@ const Requests = () => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    setEndpoint(newValue);
-    addQueryParam("endpoint", newValue);
+
+    if (newValue) {
+      addQueryParam("endpoint", newValue);
+    } else {
+      deleteQueryParam("endpoint");
+    }
     debouncedSearch(newValue);
+  };
+
+  const handleStatusCodesChange = (selectedValues: string[]) => {
+    setStatusCodes(selectedValues);
+    if (selectedValues.length > 0) {
+      addQueryParam("status_codes", selectedValues.join("_"));
+    } else {
+      deleteQueryParam("status_codes");
+    }
+  };
+
+  const handleMethodsChange = (selectedValues: string[]) => {
+    setMethods(selectedValues);
+    if (selectedValues.length > 0) {
+      addQueryParam("methods", selectedValues.join("_"));
+    } else {
+      deleteQueryParam("methods");
+    }
   };
 
   useEffect(() => {
@@ -122,7 +144,9 @@ const Requests = () => {
           statusCodes.join("_")
         )}&methods=${encodeURIComponent(
           methods.join("_")
-        )}&endpoint=${encodeURIComponent(debouncedEndpoint)}`;
+        )}&endpoint=${encodeURIComponent(
+          debouncedEndpoint
+        )}&dateRange=${encodeURIComponent(selectedDateRange)}`;
         const { data } = await axios(encodedURL);
         setRequests(data);
       } catch (error) {}
@@ -135,16 +159,17 @@ const Requests = () => {
           placeholder="Search endpoint..."
           onChange={handleSearchChange}
         />
-        <Select defaultValue="all">
-          <SelectItem className="!bg-black" value="15m">
-            Last 15 minutes
-          </SelectItem>
-          <SelectItem className="!bg-black" value="20m">
-            Last 30 minutes
-          </SelectItem>
-          <SelectItem className="!bg-black" value="ah">
-            Last 1 hour
-          </SelectItem>
+        <Select
+          defaultValue="all"
+          onValueChange={(value) => {
+            const selectedValue = value;
+            setSelectedDateRange(selectedValue);
+            addQueryParam("dateRange", selectedValue);
+          }}
+        >
+          <SelectItem value="15m">Last 15 minutes</SelectItem>
+          <SelectItem value="20m">Last 30 minutes</SelectItem>
+          <SelectItem value="1h">Last 1 hour</SelectItem>
           <SelectItem value="10h">Last 10 hours</SelectItem>
           <SelectItem value="24h">Last 24 hours</SelectItem>
           <SelectItem value="3d">Last 3 days</SelectItem>
@@ -155,13 +180,7 @@ const Requests = () => {
         </Select>
         <MultiSelect
           placeholder="All status codes"
-          onValueChange={(e) => {
-            let u = [];
-            u.push(e);
-            addQueryParam("status_codes", u.join("_"));
-            //@ts-ignore
-            setStatusCodes([...u]);
-          }}
+          onValueChange={handleStatusCodesChange}
         >
           <>
             {httpStatusCodes.map((status) => (
@@ -174,14 +193,7 @@ const Requests = () => {
 
         <MultiSelect
           placeholder="All methods"
-          onValueChange={(e) => {
-            let u = [];
-            u.push(e);
-            addQueryParam("methods", u.join("_"));
-
-            //@ts-ignore
-            setMethods([...u]);
-          }}
+          onValueChange={handleMethodsChange}
         >
           <>
             {httpMethods.map((method) => (
