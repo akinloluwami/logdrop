@@ -27,8 +27,20 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
         },
       },
       _count: true,
+      orderBy: {
+        _count: {
+          endpoint: "desc",
+        },
+      },
     });
-    res.status(200).json(endpoints);
+
+    const transformedEndpoints = endpoints.map(
+      ({ endpoint: name, _count: value }) => ({
+        name,
+        value,
+      })
+    );
+    res.status(200).json(transformedEndpoints);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Something went wrong" });
