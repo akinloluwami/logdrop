@@ -168,7 +168,7 @@ const Requests = () => {
           }}
         >
           <SelectItem value="15m">Last 15 minutes</SelectItem>
-          <SelectItem value="20m">Last 30 minutes</SelectItem>
+          <SelectItem value="30m">Last 30 minutes</SelectItem>
           <SelectItem value="1h">Last 1 hour</SelectItem>
           <SelectItem value="10h">Last 10 hours</SelectItem>
           <SelectItem value="24h">Last 24 hours</SelectItem>
