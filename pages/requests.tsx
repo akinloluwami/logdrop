@@ -27,7 +27,7 @@ const Requests = () => {
     setDebouncedEndpoint(value);
   }, 500);
 
-  const { addQueryParam, deleteQueryParam, getQueryParam } = useHref();
+  const { addQueryParam, deleteQueryParam } = useHref();
 
   const httpStatusCodes: { code: number; name: string }[] = [
     { code: 100, name: "Continue" },
@@ -135,18 +135,7 @@ const Requests = () => {
     }
   };
 
-  const endpointQueryParam = getQueryParam("endpoint");
-  const methodsQueryParam = getQueryParam("methods");
-  const statusCodesQueryParam = getQueryParam("status_codes");
-  const dateRangeQueryParam = getQueryParam("dateRange");
-
   useEffect(() => {
-    setDebouncedEndpoint(endpointQueryParam || "");
-    setMethods((methodsQueryParam && methodsQueryParam.split("_")) || []);
-    setStatusCodes(
-      (statusCodesQueryParam && statusCodesQueryParam.split("_")) || []
-    );
-    setSelectedDateRange(dateRangeQueryParam || "all");
     (async () => {
       try {
         const encodedURL = `/logs?projectId=${encodeURIComponent(
