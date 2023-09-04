@@ -57,7 +57,6 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
         };
       }
     });
-
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
