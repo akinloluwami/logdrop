@@ -6,7 +6,7 @@ import { prisma } from "@/prisma";
 
 const handler = async (req: CustomRequest, res: NextApiResponse) => {
   try {
-    const { projectId, status_codes, methods, search, length } = req.query;
+    const { projectId, status_codes, methods, search, length }: any = req.query;
 
     if (!projectId) {
       res.status(400).json({ message: "Project ID is required" });
@@ -21,7 +21,7 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
       ? decodeURIComponent(methods).split("_")
       : [];
 
-    const filters = {
+    const filters: any = {
       projectId: Number(projectId),
     };
 
