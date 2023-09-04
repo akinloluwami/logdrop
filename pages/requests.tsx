@@ -26,23 +26,8 @@ const Requests = () => {
   const debouncedSearch = debounce((value) => {
     setDebouncedEndpoint(value);
   }, 500);
-  const { addQueryParam } = useHref();
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const encodedURL = `/logs?projectId=${encodeURIComponent(
-          `${project.id}`
-        )}&status_codes=${encodeURIComponent(
-          statusCodes.join("_")
-        )}&methods=${encodeURIComponent(
-          methods.join("_")
-        )}&endpoint=${encodeURIComponent(endpoint)}`;
-        const { data } = await axios(encodedURL);
-        setRequests(data);
-      } catch (error) {}
-    })();
-  }, [project.id, statusCodes, methods]);
+  const { addQueryParam } = useHref();
 
   const httpStatusCodes: { code: number; name: string }[] = [
     { code: 100, name: "Continue" },
@@ -121,12 +106,34 @@ const Requests = () => {
     "TRACE",
   ];
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setEndpoint(newValue);
+    addQueryParam("endpoint", newValue);
+    debouncedSearch(newValue);
+  };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const encodedURL = `/logs?projectId=${encodeURIComponent(
+          `${project.id}`
+        )}&status_codes=${encodeURIComponent(
+          statusCodes.join("_")
+        )}&methods=${encodeURIComponent(
+          methods.join("_")
+        )}&endpoint=${encodeURIComponent(debouncedEndpoint)}`;
+        const { data } = await axios(encodedURL);
+        setRequests(data);
+      } catch (error) {}
+    })();
+  }, [project.id, statusCodes, methods, debouncedEndpoint]);
   return (
     <DashboardLayout pageTitle="Requests">
       <div className="flex items-center w-full mb-7 gap-4">
         <TextInput
           placeholder="Search endpoint..."
-          onChange={(e) => setEndpoint(e.target.value)}
+          onChange={handleSearchChange}
         />
         <Select defaultValue="all">
           <SelectItem className="!bg-black" value="15m">
