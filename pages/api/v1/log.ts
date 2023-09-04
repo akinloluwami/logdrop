@@ -51,6 +51,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         requestTime: dayjs(log.requestTime).toDate(),
         responseTime: dayjs(log.responseTime).toDate(),
         elapsedDuration: log.elapsedDuration,
+        os: parser.os.name,
+        device: parser.device.model,
+        deviceType: parser.device.type,
+        browser: parser.browser.name,
       },
     });
     res.status(201).json({ message: "Logged" });
