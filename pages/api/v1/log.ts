@@ -29,6 +29,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       url: string;
       userAgent: string;
       method: string;
+      ip: string;
       statusCode: number;
       responseBody: string;
       requestHeaders: string;
@@ -44,6 +45,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         date: dayjs().format("YYYY-MM-DD"),
         endpoint: log.endpoint,
         url: log.url,
+        ip: log.ip,
         userAgent: log.userAgent,
         method: log.method,
         statusCode: log.statusCode,

@@ -51,6 +51,7 @@ model Log {
   date            String
   endpoint        String
   url             String?
+  ip              String?
   statusCode      Int
   userAgent       String?
   method          String
