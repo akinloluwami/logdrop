@@ -50,6 +50,7 @@ model Log {
   createdAt       DateTime  @default(now())
   date            String
   endpoint        String
+  url             String?
   statusCode      Int
   userAgent       String?
   method          String
