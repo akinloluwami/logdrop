@@ -3,7 +3,19 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import { useProjectStore } from "@/stores/projectStore";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { BarList, Card, Title, Bold, Flex, Text } from "@tremor/react";
+import {
+  BarList,
+  Card,
+  Title,
+  Bold,
+  Flex,
+  Text,
+  TabGroup,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+} from "@tremor/react";
 
 const Insights = () => {
   const { project } = useProjectStore();
@@ -11,6 +23,10 @@ const Insights = () => {
   const [topEndpoints, setTopEndpoints] = useState<
     { value: number; name: string }[]
   >([]);
+  const [operatingSystems, setOperatingSystems] = useState([]);
+  const [browsers, setBrowsers] = useState([]);
+
+  const take = 6;
 
   useEffect(() => {
     (async () => {
@@ -19,27 +35,83 @@ const Insights = () => {
           `/stats/endpoints?projectId=${project?.id}&startDate=${dayjs().subtract(
             6,
             "days"
-          )}&endDate=${dayjs()}`
+          )}&endDate=${dayjs()}&take=${take}`
         );
         setTopEndpoints(data);
-        console.log(data);
+      } catch (error) {}
+    })();
+    (async () => {
+      try {
+        const { data } = await axios(
+          `/stats/os?projectId=${project?.id}&startDate=${dayjs().subtract(
+            6,
+            "days"
+          )}&endDate=${dayjs()}&take=${take}`
+        );
+        setOperatingSystems(data);
+      } catch (error) {}
+    })();
+    (async () => {
+      try {
+        const { data } = await axios(
+          `/stats/browsers?projectId=${project?.id}&startDate=${dayjs().subtract(
+            6,
+            "days"
+          )}&endDate=${dayjs()}&take=${take}`
+        );
+        setBrowsers(data);
       } catch (error) {}
     })();
   }, [project.id]);
   return (
     <DashboardLayout pageTitle="Insights">
-      <Card className="max-w-lg">
-        <Title>Top Endpoints</Title>
-        <Flex className="mt-4">
-          <Text>
-            <Bold>Source</Bold>
-          </Text>
-          <Text>
-            <Bold>Requests</Bold>
-          </Text>
-        </Flex>
-        <BarList data={topEndpoints} className="mt-2" />
-      </Card>
+      <Flex className="gap-6">
+        <Card className="max-w-lg h-[400px]">
+          <Title>Top Endpoints</Title>
+          <Flex className="mt-4">
+            <Text>
+              <Bold>Source</Bold>
+            </Text>
+            <Text>
+              <Bold>Requests</Bold>
+            </Text>
+          </Flex>
+          <BarList data={topEndpoints} className="mt-2" />
+        </Card>
+        <Card className="max-w-lg h-[400px]">
+          <Title>Devices</Title>
+          <TabGroup>
+            <TabList color="purple">
+              <Tab>Browser</Tab>
+              <Tab>OS</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <Flex className="mt-4">
+                  <Text>
+                    <Bold>Browser</Bold>
+                  </Text>
+                  <Text>
+                    <Bold>Requests</Bold>
+                  </Text>
+                </Flex>
+                <BarList data={browsers} className="mt-2" />
+              </TabPanel>
+              <TabPanel>
+                <Flex className="mt-4">
+                  <Text>
+                    <Bold>OS</Bold>
+                  </Text>
+                  <Text>
+                    <Bold>Requests</Bold>
+                  </Text>
+                </Flex>
+                <BarList data={operatingSystems} className="mt-2" />
+              </TabPanel>
+            </TabPanels>
+          </TabGroup>
+        </Card>
+      </Flex>
     </DashboardLayout>
   );
 };
