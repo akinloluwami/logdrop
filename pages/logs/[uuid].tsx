@@ -18,6 +18,7 @@ import {
 } from "@tremor/react";
 import dayjs from "dayjs";
 import { formatTimeTaken } from "@/utils/formatTimeTaken";
+import JsonFormatter from "react-json-formatter";
 
 const Log = () => {
   const router = useRouter();
@@ -245,11 +246,16 @@ const Log = () => {
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <textarea
-                    className="w-full resize-none h-[280px] bg-transparent border-none outline-none"
-                    value={log?.responseBody}
-                    readOnly
-                  ></textarea>
+                  {bodyType === "HTML" && (
+                    <textarea
+                      className="w-full resize-none h-[280px] bg-transparent border-none outline-none"
+                      value={log?.responseBody}
+                      readOnly
+                    ></textarea>
+                  )}
+                  {bodyType === "JSON" && (
+                    <JsonFormatter json={log?.responseBody} />
+                  )}
                 </TabPanel>
                 <TabPanel>
                   <p style={{ wordWrap: "break-word" }}>{log.responseBody}</p>
