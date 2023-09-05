@@ -26,6 +26,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const log = req.body as {
       endpoint: string;
+      url: string;
       userAgent: string;
       method: string;
       statusCode: number;
@@ -42,14 +43,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       data: {
         date: dayjs().format("YYYY-MM-DD"),
         endpoint: log.endpoint,
+        url: log.url,
         userAgent: log.userAgent,
         method: log.method,
         statusCode: log.statusCode,
         requestHeaders: log.requestHeaders,
         responseBody: log.responseBody,
         projectId: key.projectId,
-        requestTime: dayjs(log.requestTime).toDate(),
-        responseTime: dayjs(log.responseTime).toDate(),
+        requestTime: dayjs(log.requestTime).toISOString(),
+        responseTime: dayjs(log.responseTime).toISOString(),
         elapsedDuration: log.elapsedDuration,
         os: parser.os.name,
         device: parser.device.model,
@@ -59,9 +61,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
     res.status(201).json({ message: "Logged" });
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong" });
     console.log(error);
-    return;
+    res.status(500).json({ message: "Something went wrong" });
   }
 };
 
