@@ -46,7 +46,7 @@ model Project {
 
 model Log {
   id              Int       @id @default(autoincrement())
-  uuid            String    @default(uuid())
+  uuid            String    @unique @default(uuid())
   createdAt       DateTime  @default(now())
   date            String
   endpoint        String
