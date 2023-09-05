@@ -33,6 +33,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       statusCode: number;
       responseBody: string;
       requestHeaders: string;
+      requestBody: string;
       requestTime: string;
       responseTime: string;
       elapsedDuration: number;
@@ -51,6 +52,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         statusCode: log.statusCode,
         requestHeaders: log.requestHeaders,
         responseBody: log.responseBody,
+        requestBody: log.requestBody,
         projectId: key.projectId,
         requestTime: dayjs(log.requestTime).toISOString(),
         responseTime: dayjs(log.responseTime).toISOString(),
