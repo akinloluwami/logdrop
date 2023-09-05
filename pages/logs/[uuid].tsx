@@ -22,11 +22,21 @@ const Log = () => {
   const router = useRouter();
   const [log, setLog] = useState<any>({});
 
+  const [bodyType, setBodyType] = useState("");
+
   useEffect(() => {
     if (router?.query?.uuid) {
       (async () => {
         const { data } = await axios(`/logs/${router?.query?.uuid}`);
         setLog(data);
+        // console.log(JSON.parse(data.responseHeaders)["Content-Type"]);
+        setBodyType(
+          JSON?.parse(data?.responseHeaders)["Content-Type"].includes(
+            "application/json"
+          )
+            ? "JSON"
+            : "HTML"
+        );
       })();
     }
   }, [router?.query?.uuid]);
@@ -229,13 +239,13 @@ const Log = () => {
             <Text className="font-semibold !text-lg mt-10">Body</Text>
             <TabGroup>
               <TabList color="purple">
-                <Tab>Pretty</Tab>
+                <Tab>{bodyType}</Tab>
                 <Tab>Raw</Tab>
               </TabList>
               <TabPanels>
-                <TabPanel>{log?.responseBody}</TabPanel>
+                <TabPanel>{}</TabPanel>
                 <TabPanel>
-                  <p style={{ wordWrap: "break-word" }}>{log.requestBody}</p>
+                  <p style={{ wordWrap: "break-word" }}>{log.responseBody}</p>
                 </TabPanel>
               </TabPanels>
             </TabGroup>
