@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 
 const handler = async (req: CustomRequest, res: NextApiResponse) => {
   try {
-    const { startDate, endDate, projectId } = req.query;
+    const { startDate, endDate, projectId, take } = req.query;
 
     const start = dayjs(startDate as string);
     const end = dayjs(endDate as string);
@@ -32,6 +32,7 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
           endpoint: "desc",
         },
       },
+      take: Number(take),
     });
 
     const transformedEndpoints = endpoints.map(
