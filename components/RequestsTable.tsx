@@ -12,9 +12,11 @@ import {
   Badge,
 } from "@tremor/react";
 import moment from "moment";
+import Link from "next/link";
 
 interface Props {
   data: {
+    uuid: string;
     endpoint: string;
     method: string;
     statusCode: number;
@@ -50,7 +52,14 @@ const RequestsTable: FC<Props> = ({ data }) => {
         <TableBody>
           {data.map((item, i) => (
             <TableRow key={i}>
-              <TableCell>{item.endpoint}</TableCell>
+              <TableCell>
+                <Link
+                  href={`/logs/${item.uuid}`}
+                  className="border-b border-dashed border-gray-600 hover:border-gray-400 transition-colors hover:text-gray-400"
+                >
+                  {item.endpoint}
+                </Link>
+              </TableCell>
               <TableCell>
                 <Text className="font-semibold">{item.method}</Text>
               </TableCell>
