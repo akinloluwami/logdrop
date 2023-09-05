@@ -22,7 +22,6 @@ const Log = () => {
   const [log, setLog] = useState<any>({});
 
   useEffect(() => {
-    console.log(router?.query?.uuid);
     if (router?.query?.uuid) {
       (async () => {
         const { data } = await axios(`/logs/${router?.query?.uuid}`);
@@ -113,7 +112,24 @@ const Log = () => {
               </Card>
             </Grid>
           </TabPanel>
-          <TabPanel></TabPanel>
+          <TabPanel className="">
+            {log?.requestHeaders &&
+              Object.entries(JSON.parse(log.requestHeaders)).map(
+                ([key, value], index) => {
+                  return (
+                    <div key={index} className="my-2 w-full">
+                      <p className="text-lg font-semibold text-gray-400">
+                        {key}
+                      </p>
+                      <p className="w-full" style={{ wordWrap: "break-word" }}>
+                        {value as string}
+                      </p>
+                    </div>
+                  );
+                }
+              )}
+          </TabPanel>
+
           <TabPanel></TabPanel>
         </TabPanels>
       </TabGroup>
