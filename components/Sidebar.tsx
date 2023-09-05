@@ -1,5 +1,4 @@
 import { RxDashboard } from "react-icons/rx";
-import { GoGitPullRequestDraft } from "react-icons/go";
 import { PiKeyBold } from "react-icons/pi";
 import { RiSettingsLine } from "react-icons/ri";
 import { MdStackedLineChart } from "react-icons/md";
@@ -8,14 +7,15 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useProjectStore } from "@/stores/projectStore";
+import { BsViewStacked } from "react-icons/bs";
 
 const Sidebar = () => {
   const links = [
     { icon: <RxDashboard />, href: "/overview", title: "Overview" },
     {
-      icon: <GoGitPullRequestDraft />,
-      href: "/requests",
-      title: "Requests",
+      icon: <BsViewStacked />,
+      href: "/logs",
+      title: "Logs",
     },
     { icon: <TbBulb />, href: "/insights", title: "Insights" },
     {
