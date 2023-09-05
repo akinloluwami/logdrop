@@ -1,7 +1,8 @@
+import DashboardLayout from "@/layouts/DashboardLayout";
 import React from "react";
 
 const Log = () => {
-  return <div>Log</div>;
+  return <DashboardLayout pageTitle="Log">Log</DashboardLayout>;
 };
 
 export default Log;
