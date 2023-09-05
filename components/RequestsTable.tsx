@@ -13,6 +13,7 @@ import {
 } from "@tremor/react";
 import moment from "moment";
 import Link from "next/link";
+import { formatTimeTaken } from "@/utils/formatTimeTaken";
 
 interface Props {
   data: {
@@ -26,15 +27,6 @@ interface Props {
 }
 
 const head = ["Endpoint", "Method", "Status", "Time Taken", "Created"];
-
-const formatTimeTaken = (ms: number) => {
-  if (ms > 1000) {
-    const secondsValue = ms / 1000;
-    return secondsValue.toFixed(2) + "s";
-  } else {
-    return ms + "ms";
-  }
-};
 
 const RequestsTable: FC<Props> = ({ data }) => {
   return (
