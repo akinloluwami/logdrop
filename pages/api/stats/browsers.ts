@@ -35,10 +35,13 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
       take: Number(take),
     });
 
-    const mod = browsers.map(({ browser: name, _count: value }) => ({
-      name,
-      value,
-    }));
+    const mod = (browsers as { browser: string; _count: number }[]).map(
+      ({ browser: name, _count: value }) => ({
+        name,
+        value,
+      })
+    );
+
     res.status(200).json(mod);
   } catch (error) {
     console.log(error);
