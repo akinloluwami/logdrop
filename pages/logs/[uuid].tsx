@@ -13,6 +13,7 @@ import {
   Card,
   Text,
   Metric,
+  Badge,
 } from "@tremor/react";
 import dayjs from "dayjs";
 import { formatTimeTaken } from "@/utils/formatTimeTaken";
@@ -34,6 +35,18 @@ const Log = () => {
     <DashboardLayout pageTitle="Log">
       <h2 className="text-3xl font-semibold">
         {log?.method} <span className="text-lg">{log?.endpoint}</span>
+        <Badge
+          className="ml-2"
+          color={
+            log.statusCode === 200 || log.statusCode === 201
+              ? "green"
+              : log.statusCode === 304
+              ? "blue"
+              : "red"
+          }
+        >
+          {log?.statusCode}
+        </Badge>
       </h2>
       <TabGroup className="mt-5">
         <TabList className="!bg-transparent" variant="solid" color="purple">
@@ -112,25 +125,108 @@ const Log = () => {
               </Card>
             </Grid>
           </TabPanel>
-          <TabPanel className="">
-            {log?.requestHeaders &&
-              Object.entries(JSON.parse(log.requestHeaders)).map(
-                ([key, value], index) => {
-                  return (
-                    <div key={index} className="my-2 w-full">
-                      <p className="text-lg font-semibold text-gray-400">
-                        {key}
-                      </p>
-                      <p className="w-full" style={{ wordWrap: "break-word" }}>
-                        {value as string}
-                      </p>
-                    </div>
-                  );
-                }
-              )}
+          <TabPanel>
+            <Text className="font-semibold !text-lg">Headers</Text>
+            <TabGroup>
+              <TabList color="purple">
+                <Tab>Pretty</Tab>
+                <Tab>Raw</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  {log?.requestHeaders &&
+                    Object.entries(JSON.parse(log.requestHeaders)).map(
+                      ([key, value], index) => {
+                        return (
+                          <div key={index} className="my-2 w-full">
+                            <p className="text-lg font-semibold text-gray-400">
+                              {key}
+                            </p>
+                            <p
+                              className="w-full"
+                              style={{ wordWrap: "break-word" }}
+                            >
+                              {value as string}
+                            </p>
+                          </div>
+                        );
+                      }
+                    )}
+                </TabPanel>
+                <TabPanel>
+                  <p style={{ wordWrap: "break-word" }}>{log.requestHeaders}</p>
+                </TabPanel>
+              </TabPanels>
+            </TabGroup>
+            <Text className="font-semibold !text-lg mt-10">Body</Text>
+            <TabGroup>
+              <TabList color="purple">
+                <Tab>Pretty</Tab>
+                <Tab>Raw</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  {log?.requestBody &&
+                    Object.entries(JSON.parse(log.requestBody)).map(
+                      ([key, value], index) => {
+                        return (
+                          <div key={index} className="my-2 w-full">
+                            <p className="text-lg font-semibold text-gray-400">
+                              {key}
+                            </p>
+                            <p
+                              className="w-full"
+                              style={{ wordWrap: "break-word" }}
+                            >
+                              {value as string}
+                            </p>
+                          </div>
+                        );
+                      }
+                    )}
+                </TabPanel>
+                <TabPanel>
+                  <p style={{ wordWrap: "break-word" }}>{log.requestBody}</p>
+                </TabPanel>
+              </TabPanels>
+            </TabGroup>
           </TabPanel>
-
-          <TabPanel></TabPanel>
+          <TabPanel>
+            <Text className="font-semibold !text-lg">Headers</Text>
+            <TabGroup>
+              <TabList color="purple">
+                <Tab>Pretty</Tab>
+                <Tab>Raw</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  {log?.requestHeaders &&
+                    Object.entries(JSON.parse(log.requestHeaders)).map(
+                      ([key, value], index) => {
+                        return (
+                          <div key={index} className="my-2 w-full">
+                            <p className="text-lg font-semibold text-gray-400">
+                              {key}
+                            </p>
+                            <p
+                              className="w-full"
+                              style={{ wordWrap: "break-word" }}
+                            >
+                              {value as string}
+                            </p>
+                          </div>
+                        );
+                      }
+                    )}
+                </TabPanel>
+                <TabPanel>
+                  <p style={{ wordWrap: "break-word" }}>{log.requestHeaders}</p>
+                </TabPanel>
+              </TabPanels>
+            </TabGroup>
+            <Text className="font-semibold !text-lg mt-10">Body</Text>
+            <p style={{ wordWrap: "break-word" }}>{log.responseBody}</p>
+          </TabPanel>
         </TabPanels>
       </TabGroup>
     </DashboardLayout>
