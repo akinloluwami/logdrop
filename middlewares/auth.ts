@@ -9,27 +9,31 @@ const authenticateToken = async (
   res: NextApiResponse,
   next: () => void
 ) => {
-  const token = req.cookies.access_token;
-  if (!token) {
-    return res.status(401).json({ message: "Token is missing in request" });
+  try {
+    const token = req.cookies.access_token;
+    if (!token) {
+      return res.status(401).json({ message: "Token is missing in request" });
+    }
+
+    const decoded = verify(token, JWT_SECRET_KEY as string) as { id: number };
+
+    const userId = decoded.id;
+
+    if (!userId)
+      return res.status(400).json({ message: "Missing user id in payload" });
+
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    req.user = user as { id: number };
+
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid token" });
   }
-
-  const decoded = verify(token, JWT_SECRET_KEY as string) as { id: number };
-
-  const userId = decoded.id;
-
-  if (!userId)
-    return res.status(400).json({ message: "Missing user id in payload" });
-
-  const user = await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-  });
-
-  req.user = user as { id: number };
-
-  next();
 };
 
 export default authenticateToken;
