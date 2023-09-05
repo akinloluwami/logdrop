@@ -1,7 +1,7 @@
 import axios from "axios";
 
 let isRefreshing = false;
-let refreshSubscribers = [];
+let refreshSubscribers: any = [];
 
 const axiosReq = axios.create({
   baseURL: "/api",
