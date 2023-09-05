@@ -2,6 +2,7 @@ import { axios } from "@/configs/axios";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+
 import {
   TabGroup,
   TabList,
@@ -46,7 +47,7 @@ const Log = () => {
       <h2 className="text-3xl font-semibold">
         {log?.method} <span className="text-lg">{log?.endpoint}</span>
         <Badge
-          className="ml-2"
+          className="ml-5"
           color={
             log.statusCode === 200 || log.statusCode === 201
               ? "green"
@@ -243,7 +244,13 @@ const Log = () => {
                 <Tab>Raw</Tab>
               </TabList>
               <TabPanels>
-                <TabPanel>{}</TabPanel>
+                <TabPanel>
+                  <textarea
+                    className="w-full resize-none h-[280px] bg-transparent border-none outline-none"
+                    value={log?.responseBody}
+                    readOnly
+                  ></textarea>
+                </TabPanel>
                 <TabPanel>
                   <p style={{ wordWrap: "break-word" }}>{log.responseBody}</p>
                 </TabPanel>
