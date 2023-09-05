@@ -24,7 +24,7 @@ const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
   return (
     <div className="flex">
       <Head>
-        <title>{pageTitle} • Snaplog</title>
+        <title>{`${pageTitle} • Snaplog`}</title>
       </Head>
       <div className="hidden lg:block border-r border-gray-800 w-[20%] fixed">
         <Sidebar />
