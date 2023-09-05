@@ -17,12 +17,12 @@ const Sidebar = () => {
       href: "/requests",
       title: "Requests",
     },
+    { icon: <TbBulb />, href: "/insights", title: "Insights" },
     {
       icon: <MdStackedLineChart />,
       href: "/charts",
       title: "Charts",
     },
-    { icon: <TbBulb />, href: "/insights", title: "Insights" },
     {
       icon: <IoNotificationsOutline />,
       href: "/events",
