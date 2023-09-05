@@ -17,7 +17,7 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
       return;
     }
 
-    const datesInRange = [];
+    const datesInRange: string[] = [];
     let currentDate = start;
 
     while (currentDate <= end) {
