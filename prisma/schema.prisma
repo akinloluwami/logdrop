@@ -59,13 +59,13 @@ model Log {
   responseTime    DateTime?
   elapsedDuration Int?
   clientIp        String?
-  city            String?
-  stateOrRegion   String?
-  country         String?
-  os              String?
-  device          String?
-  deviceType      String?
-  browser         String?
+  country         String? @default("Unknown")
+  city            String? @default("Unknown")
+  stateOrRegion   String? @default("Unknown")
+  os              String? @default("Unknown")
+  device          String? @default("Unknown")
+  deviceType      String? @default("Unknown")
+  browser         String? @default("Unknown")
   requestHeaders  String
   responseBody    String?
   project         Project   @relation(fields: [projectId], references: [id])
