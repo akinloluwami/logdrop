@@ -200,8 +200,8 @@ const Log = () => {
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  {log?.requestHeaders &&
-                    Object.entries(JSON.parse(log.requestHeaders)).map(
+                  {log?.responseHeaders &&
+                    Object.entries(JSON.parse(log.responseHeaders)).map(
                       ([key, value], index) => {
                         return (
                           <div key={index} className="my-2 w-full">
@@ -220,12 +220,25 @@ const Log = () => {
                     )}
                 </TabPanel>
                 <TabPanel>
-                  <p style={{ wordWrap: "break-word" }}>{log.requestHeaders}</p>
+                  <p style={{ wordWrap: "break-word" }}>
+                    {log.responseHeaders}
+                  </p>
                 </TabPanel>
               </TabPanels>
             </TabGroup>
             <Text className="font-semibold !text-lg mt-10">Body</Text>
-            <p style={{ wordWrap: "break-word" }}>{log.responseBody}</p>
+            <TabGroup>
+              <TabList color="purple">
+                <Tab>Pretty</Tab>
+                <Tab>Raw</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>{log?.responseBody}</TabPanel>
+                <TabPanel>
+                  <p style={{ wordWrap: "break-word" }}>{log.requestBody}</p>
+                </TabPanel>
+              </TabPanels>
+            </TabGroup>
           </TabPanel>
         </TabPanels>
       </TabGroup>
