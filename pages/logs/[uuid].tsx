@@ -36,13 +36,13 @@ const Log = () => {
       <h2 className="text-3xl font-semibold">
         {log?.method} <span className="text-lg">{log?.endpoint}</span>
       </h2>
-      <TabGroup>
+      <TabGroup className="mt-5">
         <TabList className="!bg-transparent" variant="solid" color="purple">
           <Tab>Summary</Tab>
           <Tab>Request</Tab>
           <Tab>Response</Tab>
         </TabList>
-        <TabPanels>
+        <TabPanels className="mt-5">
           <TabPanel>
             <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-2">
               <Col numColSpan={2}>
@@ -91,6 +91,26 @@ const Log = () => {
                   <p className="">{log?.url}</p>
                 </Card>
               </Col>
+              <Card>
+                <p className="text-lg font-semibold text-gray-400">Client IP</p>
+                <p className="">{log?.ip}</p>
+              </Card>
+              <Card>
+                <p className="text-lg font-semibold text-gray-400">
+                  Operating System
+                </p>
+                <p className="">{log?.os}</p>
+              </Card>
+              <Card>
+                <p className="text-lg font-semibold text-gray-400">Browser</p>
+                <p className="">{log?.browser}</p>
+              </Card>
+              <Card>
+                <p className="text-lg font-semibold text-gray-400">
+                  Device Type
+                </p>
+                <p className="">{log?.deviceType}</p>
+              </Card>
             </Grid>
           </TabPanel>
           <TabPanel></TabPanel>
