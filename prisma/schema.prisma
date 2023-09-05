@@ -46,8 +46,9 @@ model Project {
 
 model Log {
   id              Int       @id @default(autoincrement())
+  uuid            String    @default(uuid())
   createdAt       DateTime  @default(now())
-  date String
+  date            String
   endpoint        String
   statusCode      Int
   userAgent       String?
