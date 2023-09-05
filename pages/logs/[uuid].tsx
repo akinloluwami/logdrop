@@ -29,7 +29,7 @@ const Log = () => {
       (async () => {
         const { data } = await axios(`/logs/${router?.query?.uuid}`);
         setLog(data);
-        // console.log(JSON.parse(data.responseHeaders)["Content-Type"]);
+
         setBodyType(
           JSON?.parse(data?.responseHeaders)["Content-Type"].includes(
             "application/json"
