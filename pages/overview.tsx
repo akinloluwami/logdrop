@@ -36,7 +36,7 @@ const Dashboard = () => {
     (async () => {
       try {
         const { data } = await axios(
-          `/requests?projectId=${project?.id}&startDate=${dayjs().subtract(
+          `/stats/chart?projectId=${project?.id}&startDate=${dayjs().subtract(
             6,
             "days"
           )}&endDate=${dayjs()}`
