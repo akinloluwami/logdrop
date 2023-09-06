@@ -12,15 +12,17 @@ interface Props {
 
 const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
   const { project, setProject } = useProjectStore();
-  const [loading, setLoading] = useState(true);
+  const loading = project.id === null;
   const router = useRouter();
+
   useEffect(() => {
+    if (project.id !== null) return;
+
     (async () => {
       try {
         const { data } = await axios("/project");
         if (data[0]) {
           setProject(data[0].name, data[0].id);
-          setLoading(false);
         } else {
           router.push("/onboarding");
         }
