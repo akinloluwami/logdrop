@@ -50,26 +50,25 @@ model Log {
   createdAt       DateTime  @default(now())
   date            String
   endpoint        String
-  url             String?
-  ip              String?
+  url             String
+  ip              String
   statusCode      Int
-  userAgent       String?
+  userAgent       String
   method          String
   requestTime     DateTime
   responseTime    DateTime?
   elapsedDuration Int?
-  clientIp        String?
-  country         String?   @default("Unknown")
-  city            String?   @default("Unknown")
-  stateOrRegion   String?   @default("Unknown")
-  os              String?   @default("Unknown")
-  device          String?   @default("Unknown")
-  deviceType      String?   @default("Unknown")
-  browser         String?   @default("Unknown")
+  country         String   @default("Unknown")
+  city            String   @default("Unknown")
+  stateOrRegion   String   @default("Unknown")
+  os              String   @default("Unknown")
+  device          String   @default("Unknown")
+  deviceType      String   @default("Unknown")
+  browser         String   @default("Unknown")
   requestHeaders  String
   responseHeaders String?
   responseBody    String?
-  requestBody     String?
+  requestBody     String
   project         Project   @relation(fields: [projectId], references: [id])
   projectId       Int
 }
