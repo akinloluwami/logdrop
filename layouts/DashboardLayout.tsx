@@ -2,6 +2,7 @@ import Sidebar from "@/components/Sidebar";
 import { axios } from "@/configs/axios";
 import { useProjectStore } from "@/stores/projectStore";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { FC, ReactNode, useEffect } from "react";
 
 interface Props {
@@ -11,12 +12,16 @@ interface Props {
 
 const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
   const { project, setProject } = useProjectStore();
-
+  const router = useRouter();
   useEffect(() => {
     (async () => {
       try {
         const { data } = await axios("/project");
-        setProject(data[0].name, data[0].id);
+        if (data[0]) {
+          setProject(data[0].name, data[0].id);
+        } else {
+          router.push("/onboarding");
+        }
       } catch (error) {}
     })();
   }, []);
