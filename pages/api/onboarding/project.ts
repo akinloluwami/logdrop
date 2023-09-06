@@ -3,7 +3,6 @@ import { requestMethod } from "@/middlewares/requestMethod";
 import { CustomRequest } from "@/interfaces";
 import authenticateToken from "@/middlewares/auth";
 import { prisma } from "@/prisma";
-import project from "../project";
 
 const handler = async (req: CustomRequest, res: NextApiResponse) => {
   try {
