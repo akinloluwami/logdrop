@@ -27,7 +27,6 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
           name,
           apiUrl,
           userId: req?.user?.id!,
-          
         },
       });
       res.status(201).json({
@@ -47,9 +46,8 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message:"Something went wrong" });
-    
-  
+    res.status(500).json({ message: "Something went wrong" });
+  }
 };
 
 export default requestMethod(["POST", "GET"])((
