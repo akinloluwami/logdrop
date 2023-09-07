@@ -9,6 +9,9 @@ import { usePathname } from "next/navigation";
 import { useProjectStore } from "@/stores/projectStore";
 import { BsViewStacked } from "react-icons/bs";
 import { Button } from "@tremor/react";
+import { axios } from "@/configs/axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 const Sidebar = () => {
   const links = [
@@ -40,6 +43,24 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   const { project } = useProjectStore();
+  const router = useRouter();
+
+  const logout = async () => {
+    toast.loading("Logging out", {
+      id: "logout",
+    });
+    try {
+      toast.dismiss("logout");
+      await axios("/auth/logout");
+      toast("Logged out successfully", {
+        duration: 800,
+      });
+      router.push("/login");
+    } catch (error) {
+      toast.error("Something went wrong");
+      console.log(error);
+    }
+  };
 
   return (
     <div className="w-full h-screen pt-5 relative">
@@ -69,7 +90,7 @@ const Sidebar = () => {
         ))}
       </div>
       <div className="absolute bottom-2 px-5 w-full">
-        <Button color="red" variant="light">
+        <Button color="red" variant="light" onClick={logout}>
           Logout
         </Button>
       </div>
