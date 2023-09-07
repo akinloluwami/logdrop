@@ -32,7 +32,7 @@ const ApiKeys = () => {
       <div className="flex items-center gap-3">
         <Tooltip id="copy" place="right" />
         <Text className="!text-lg">
-          {showKey ? key : "••••••••••••••••••••••••••••••••••••••••••"}
+          {showKey ? key : "••••••••••••••••••••••••••••••••••••••••••••"}
         </Text>
 
         <button onClick={() => setShowKey(!showKey)}>
