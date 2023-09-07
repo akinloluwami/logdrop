@@ -10,6 +10,7 @@ import { TbRefresh } from "react-icons/tb";
 import { TfiReload } from "react-icons/tfi";
 import { Tooltip } from "react-tooltip";
 import { FiEyeOff, FiEye } from "react-icons/fi";
+import { copyToClipboard } from "@/utils/copyToClipboard";
 
 const ApiKeys = () => {
   const { project } = useProjectStore();
@@ -36,8 +37,11 @@ const ApiKeys = () => {
         <button onClick={() => setShowKey(!showKey)}>
           {showKey ? <FiEyeOff /> : <FiEye />}
         </button>
-
-        <Button variant="light" color="purple">
+        <Button
+          variant="light"
+          color="purple"
+          onClick={() => copyToClipboard(key)}
+        >
           <BiCopy
             className="text-lg"
             data-tooltip-id="copy"
