@@ -1,3 +1,4 @@
+import Cooking from "@/components/Cooking";
 import General from "@/components/Settings/General";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import {
@@ -24,20 +25,12 @@ const Settings = () => {
         <TabPanels>
           <TabPanel>
             <div className="mt-10">
-              <General />
+              {/* <General /> */}
+              <Cooking />
             </div>
           </TabPanel>
           <TabPanel>
-            <div className="mt-10">
-              <Flex className="mt-4">
-                <Text className="w-full">Product Z</Text>
-                <Flex className="space-x-2" justifyContent="end">
-                  <Text>$ 99,484</Text>
-                  <Text>16%</Text>
-                </Flex>
-              </Flex>
-              <ProgressBar value={12} className="mt-2" />
-            </div>
+            <Cooking />
           </TabPanel>
         </TabPanels>
       </TabGroup>
