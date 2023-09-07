@@ -4,6 +4,7 @@ import { useProjectStore } from "@/stores/projectStore";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FC, ReactNode, useEffect, useState } from "react";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 interface Props {
   children: ReactNode;
@@ -37,7 +38,9 @@ const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
       </Head>
       <>
         {loading ? (
-          <div>Loading</div>
+          <div className="flex items-center justify-center w-full h-screen">
+            <CgSpinnerTwo className="animate-spin mr-2" size={50} />
+          </div>
         ) : (
           <>
             <div className="hidden lg:block border-r border-gray-800 w-[20%] fixed">
