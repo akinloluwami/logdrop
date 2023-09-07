@@ -11,6 +11,7 @@ import { TfiReload } from "react-icons/tfi";
 import { Tooltip } from "react-tooltip";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 import { copyToClipboard } from "@/utils/copyToClipboard";
+import { toast } from "react-hot-toast";
 
 const ApiKeys = () => {
   const { project } = useProjectStore();
@@ -40,7 +41,12 @@ const ApiKeys = () => {
         <Button
           variant="light"
           color="purple"
-          onClick={() => copyToClipboard(key)}
+          onClick={() => {
+            copyToClipboard(key);
+            toast("Copied to clipboard", {
+              duration: 800,
+            });
+          }}
         >
           <BiCopy
             className="text-lg"
