@@ -8,6 +8,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useProjectStore } from "@/stores/projectStore";
 import { BsViewStacked } from "react-icons/bs";
+import { Button } from "@tremor/react";
 
 const Sidebar = () => {
   const links = [
@@ -41,7 +42,7 @@ const Sidebar = () => {
   const { project } = useProjectStore();
 
   return (
-    <div className="w-full h-screen pt-5">
+    <div className="w-full h-screen pt-5 relative">
       <div className="">
         <h2 className="text-xl font-semibold px-7">{project?.name}</h2>
       </div>
@@ -66,6 +67,11 @@ const Sidebar = () => {
             {link.title}
           </Link>
         ))}
+      </div>
+      <div className="absolute bottom-2 px-5 w-full">
+        <Button color="red" variant="light">
+          Logout
+        </Button>
       </div>
     </div>
   );
