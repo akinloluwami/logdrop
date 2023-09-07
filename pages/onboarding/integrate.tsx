@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { HiOutlineCheckCircle } from "react-icons/hi2";
 import { axios } from "@/configs/axios";
+import { BiCopy } from "react-icons/bi";
+import { copyToClipboard } from "@/utils/copyToClipboard";
+import { toast } from "react-hot-toast";
 
 const Integrate = () => {
   const { steps, updateSteps, updateCurrentStep } = useOnboardingStore();
@@ -70,30 +73,52 @@ const Integrate = () => {
     <OnboardingLayout>
       <div className="flex flex-col items-center">
         <h3 className="text-center text-3xl font-semibold mt-4">
-          Let's snapshot your first API request.
+          Let's record your first API request.
         </h3>
         <p className="text-center text-gray-300 mt-1">
-          Follow the steps below to let Snaplog capture your first API request.
+          Follow the steps below to let ReqLog record your first API request.
         </p>
 
         <div className="flex mt-10 flex-col gap-5">
           <div className="">
             <h2 className="mb-2">1. Install the SDK</h2>
-            <div className="bg-white/10 px-2 py-3 rounded-md">
-              <code>npm i @snaplog/express</code>
+            <div className="bg-white/10 px-2 py-3 rounded-md flex items-center justify-between">
+              <code>npm i @reqlog/express</code>{" "}
+              <button
+                onClick={() => {
+                  copyToClipboard("npm i @reqlog/express");
+                  toast("Copied to clipboard", {
+                    duration: 800,
+                  });
+                }}
+              >
+                <BiCopy />
+              </button>
             </div>
           </div>
           <div className="">
             <h2 className="mb-2">
-              2. Initialize the middleware with your project ID
+              2. Initialize the middleware with your API key
             </h2>
-            <div className="bg-white/10 px-2 py-3 rounded-md">
+            <div className="bg-white/10 px-2 py-3 rounded-md relative">
+              <button
+                className="absolute top-2 right-2 flex items-center text-sm gap-1"
+                onClick={() => {
+                  copyToClipboard(apiKey);
+                  toast("Copied to clipboard", {
+                    duration: 800,
+                  });
+                }}
+              >
+                <BiCopy />
+                Copy API Key
+              </button>
               <code>
                 <small className="text-gray-500">// 1. Import modules</small>
               </code>{" "}
               <br />
               <code>{`import express from "express"`}</code> <br />
-              <code>{`import { snap } from "@snaplog/express"`}</code> <br />{" "}
+              <code>{`import { record } from "@reqlog/express"`}</code> <br />{" "}
               <br />
               <code>
                 <small className="text-gray-500">
@@ -105,12 +130,11 @@ const Integrate = () => {
               <code>{``}</code> <br />
               <code>
                 <small className="text-gray-500">
-                  // 3. Initialize the Snaplog middleware
+                  // 3. Initialize the ReqLog middleware
                 </small>
               </code>{" "}
               <br />
-              <code>{`const snapMiddleware = snap("${apiKey}")`}</code> <br />
-              <code>{`app.use(snapMiddleware)`}</code> <br />
+              <code>{`app.use(record("${apiKey}"))`}</code> <br />
               <br />
               <code>
                 <small className="text-gray-500">
@@ -118,7 +142,7 @@ const Integrate = () => {
                 </small>
               </code>{" "}
               <br />
-              <code>{`app.get("/ping", (req, res) => res.send("Snapshot it!"))`}</code>
+              <code>{`app.get("/ping", (req, res) => res.send("Pong!"))`}</code>
             </div>
           </div>
         </div>

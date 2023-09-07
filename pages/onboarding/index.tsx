@@ -3,6 +3,7 @@ import OnboardingLayout from "@/layouts/Onboarding";
 import useOnboardingStore from "@/stores/onboardingStore";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
 
 const Onboarding = () => {
@@ -51,7 +52,8 @@ const Onboarding = () => {
       await axios.post("/project", { name, apiUrl });
       await axios.post("/api-key");
       goToNextStep();
-    } catch (error) {
+    } catch (error: any) {
+      toast(error.response.data.message);
     } finally {
       setLoading(false);
     }
