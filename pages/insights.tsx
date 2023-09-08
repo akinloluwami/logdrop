@@ -65,7 +65,7 @@ const Insights = () => {
   }, [project.id]);
   return (
     <DashboardLayout pageTitle="Insights">
-      <Flex className="gap-6">
+      <Flex className="gap-6 flex-col lg:flex-row">
         <Card className="max-w-lg h-[400px]">
           <Title>Top Endpoints</Title>
           <Flex className="mt-4">
