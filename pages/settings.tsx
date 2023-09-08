@@ -25,8 +25,7 @@ const Settings = () => {
         <TabPanels>
           <TabPanel>
             <div className="mt-10">
-              {/* <General /> */}
-              <Cooking />
+              <General />
             </div>
           </TabPanel>
           <TabPanel>
