@@ -12,16 +12,15 @@ const General = () => {
   const [apiUrl, setApiUrl] = useState("");
   const [loading, setLoading] = useState("");
 
-  const updateProject = (field: "name" | "apiUrl") => {
+  const updateProject = async (field: "name" | "apiUrl") => {
     setLoading(field);
     try {
-      axios.patch(`/project/${project.id}`, {
+      await axios.patch(`/project/${project.id}`, {
         [field]: field === "name" ? name : apiUrl,
       });
 
       field === "name" && setProject(name, project.id!, project.apiUrl);
       field === "apiUrl" && setProject(project.name, project.id!, apiUrl);
-
       toast.success("Project updated");
     } catch (error: any) {
       toast.error(error.response.data.message || "Error updating project");
@@ -31,7 +30,7 @@ const General = () => {
   };
 
   return (
-    <div className="w-[450px] flex flex-col gap-4">
+    <div className="lg:w-[450px] w-full flex flex-col gap-4">
       <div className="">
         <p className="text-gray-300">Project name</p>
         <Flex className="gap-2">
@@ -43,7 +42,7 @@ const General = () => {
           <Button
             color="purple"
             onClick={() => updateProject("name")}
-            disabled={loading === "name" || name === project.name}
+            disabled={loading === "name" || name === project.name || !name}
           >
             {loading === "name" ? (
               <CgSpinner className="animate-spin" size={20} />
@@ -64,7 +63,9 @@ const General = () => {
           <Button
             color="purple"
             onClick={() => updateProject("apiUrl")}
-            disabled={loading === "apiUrl" || apiUrl === project.apiUrl}
+            disabled={
+              loading === "apiUrl" || apiUrl === project.apiUrl || !apiUrl
+            }
           >
             {loading === "apiUrl" ? (
               <CgSpinner className="animate-spin" size={20} />
