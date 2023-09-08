@@ -166,7 +166,7 @@ const Requests = () => {
   ]);
   return (
     <DashboardLayout pageTitle="Requests">
-      <div className="flex items-center w-full mb-7 gap-4 flex-wrap">
+      <div className="flex items-center w-full mb-7 gap-4 flex-wrap lg:flex-nowrap">
         <TextInput
           placeholder="Search endpoint..."
           onChange={handleSearchChange}
