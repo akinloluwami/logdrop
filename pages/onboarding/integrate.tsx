@@ -71,7 +71,7 @@ const Integrate = () => {
 
   return (
     <OnboardingLayout>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center px-5">
         <h3 className="text-center text-3xl font-semibold mt-4">
           Let's record your first API request.
         </h3>
@@ -79,7 +79,7 @@ const Integrate = () => {
           Follow the steps below to let ReqLog record your first API request.
         </p>
 
-        <div className="flex mt-10 flex-col gap-5">
+        <div className="flex mt-10 flex-col gap-5 w-full">
           <div className="">
             <h2 className="mb-2">1. Install the SDK</h2>
             <div className="bg-white/10 px-2 py-3 rounded-md flex items-center justify-between">
@@ -134,7 +134,7 @@ const Integrate = () => {
                 </small>
               </code>{" "}
               <br />
-              <code>{`app.use(record("${apiKey}"))`}</code> <br />
+              <code>{`app.use(record("YOUR_API_KEY"))`}</code> <br />
               <br />
               <code>
                 <small className="text-gray-500">

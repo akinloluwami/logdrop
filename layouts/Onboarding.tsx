@@ -68,7 +68,7 @@ const OnboardingLayout = ({ children }: { children: ReactNode }) => {
           <h1 className="text-center text-3xl font-semibold mt-8">
             Hit the ground running.
           </h1>
-          <div className="flex items-center justify-center gap-20 mt-10">
+          <div className="flex items-center justify-center lg:gap-20 gap-5 px-4 mt-10 flex-wrap">
             {steps.map((step, i) => (
               <Link
                 onClick={(e) => {
