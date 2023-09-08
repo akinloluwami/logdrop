@@ -2,6 +2,7 @@ import Sidebar from "@/components/Sidebar";
 import { axios } from "@/configs/axios";
 import { useProjectStore } from "@/stores/projectStore";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
@@ -50,12 +51,10 @@ const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
             </div>
             <div className="lg:w-[80%] lg:ml-[20%] w-full">
               <div className="flex justify-between border-b border-gray-800 lg:px-10 px-4 py-5 w-full sticky top-0 bg-black/20 backdrop-blur-md z-50">
-                <div className="">
-                  {/* <Sidebar /> */}
-                  <h2 className="text-2xl font-medium">{pageTitle}</h2>
-                </div>
+                <h2 className="text-2xl font-medium">{pageTitle}</h2>
+
                 <div className="flex items-center gap-3">
-                  <button>Docs</button>
+                  <Link href={"/docs"}>Docs</Link>
                   <button
                     className="lg:hidden"
                     onClick={() => setShowSidebar(!showSidebar)}
