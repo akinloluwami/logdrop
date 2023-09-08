@@ -7,8 +7,9 @@ const Hero = () => {
       <h1 className="mt-16 mx-6 lg:w-[60%] font-semibold text-6xl lg:text-8xl text-center mb-4 bg-clip-text text-transparent bg-gradient-to-b from-black/80 to-black dark:from-white dark:to-[#AAAAAA] h-fit">
         Powerful analytics for Express APIs
       </h1>
-      <p className="lg:text-2xl text-center text-gray-300">
-        Depper insights into Express API usage with robust analytics.
+      <p className="lg:text-2xl text-lg lg:w-[50%] px-5 text-center text-gray-300">
+        Depper insights into Express your API usage with realtime analytics,
+        logging, alerts and usage reports.
       </p>
       <div className="flex gap-4 items-center mt-10 flex-wrap">
         <Link
