@@ -5,6 +5,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { HiMenuAlt4 } from "react-icons/hi";
 
 interface Props {
   children: ReactNode;
@@ -31,6 +32,7 @@ const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
     })();
   }, []);
 
+  const [showSidebar, setShowSidebar] = useState(false);
   return (
     <div className="flex">
       <Head>
@@ -46,12 +48,23 @@ const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
             <div className="hidden lg:block border-r border-gray-800 w-[20%] fixed">
               <Sidebar />
             </div>
-            <div className="lg:w-[80%] lg:ml-[20%]">
-              <div className="flex justify-between border-b border-gray-800 px-10 py-5 w-full sticky top-0 bg-black/20 backdrop-blur-md z-50">
-                <h2 className="text-2xl font-medium">{pageTitle}</h2>
-                <button>Docs</button>
+            <div className="lg:w-[80%] lg:ml-[20%] w-full">
+              <div className="flex justify-between border-b border-gray-800 lg:px-10 px-4 py-5 w-full sticky top-0 bg-black/20 backdrop-blur-md z-50">
+                <div className="">
+                  {/* <Sidebar /> */}
+                  <h2 className="text-2xl font-medium">{pageTitle}</h2>
+                </div>
+                <div className="flex items-center gap-3">
+                  <button>Docs</button>
+                  <button
+                    className="lg:hidden"
+                    onClick={() => setShowSidebar(!showSidebar)}
+                  >
+                    <HiMenuAlt4 className="text-2xl" color="#fff" size={30} />
+                  </button>
+                </div>
               </div>
-              <div className="py-5 px-10">{children}</div>
+              <div className="py-5 lg:px-10 px-4">{children}</div>
             </div>
           </>
         )}
