@@ -74,7 +74,7 @@ const Sidebar = () => {
             key={index}
             className={`${
               pathname?.includes(link.href) && "bg-purple-800/30 font-medium"
-            } flex items-center gap-3 mb-4 px-2 py-2 rounded-lg hover:bg-purple-800/30 transition-colors group`}
+            } flex items-center gap-3 mb-4 px-2 py-2 rounded-lg lg:hover:bg-purple-800/30 transition-colors group`}
           >
             <span
               className={`${
@@ -89,7 +89,7 @@ const Sidebar = () => {
           </Link>
         ))}
       </div>
-      <div className="absolute bottom-2 px-5 w-full">
+      <div className="absolute bottom-5 px-5 w-full">
         <Button color="red" variant="light" onClick={logout}>
           Logout
         </Button>
