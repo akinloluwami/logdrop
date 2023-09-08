@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import Head from "next/head";
 import { ChangeEvent, useState } from "react";
 import { BsCheckAll } from "react-icons/bs";
 
@@ -59,15 +60,18 @@ const Pricing = () => {
 
   return (
     <div className="pb-10">
+      <Head>
+        <title>Pricing • ReqLog</title>
+      </Head>
       <Navbar />
       <div className="mt-10">
-        <h1 className="text-6xl font-bold text-center">
+        <h1 className="lg:text-6xl text-4xl text-center">
           Pricing that scales with you.
         </h1>
 
-        <div className="flex items-center justify-center mt-16 px-14 gap-10">
-          <div className="py-4 w-[350px] border border-white/10 rounded-xl flex flex-col items-center">
-            <p className="text-lg font-semibold">Free</p>
+        <div className="flex items-center justify-center mt-16 lg:px-14 px-4 lg:gap-10 gap-14 flex-wrap">
+          <div className="py-4 lg:w-[350px] w-full border border-white/10 rounded-xl flex flex-col items-center">
+            <p className="text-lg font-semibold">Basic</p>
             <h3 className="my-5 text-4xl">$0/mo</h3>
             <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
             <div className="h-3 mt-5 w-full"></div>
@@ -86,15 +90,23 @@ const Pricing = () => {
               </div>
               <div className="flex items-center gap-1">
                 <BsCheckAll className="text-xl text-green-500" />
-                <p>Email support</p>
+                <p>Email/X support</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>2 team members (soon)</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>Email/Slack alerts (soon)</p>
               </div>
             </div>
-            <button className="font-semibold w-[90%] mx-auto bg-gradient-to-r from-purple-500/5 to-purple-600 py-3 rounded-full">
+            <button className="font-semibold w-[90%] mx-auto bg-gradient-to-r from-purple-500/20 to-purple-600 py-3 rounded-full">
               Get started
             </button>
           </div>
 
-          <div className="py-4 w-[350px] border border-white/50 rounded-xl flex flex-col items-center shadow-md shadow-purple-500/40 hover:shadow-lg hover:shadow-purple-500/70 transition-all">
+          <div className="py-4 lg:w-[350px] w-full border border-white/50 rounded-xl flex flex-col items-center shadow-md shadow-purple-500/40 hover:shadow-lg hover:shadow-purple-500/70 transition-all">
             <p className="text-lg font-semibold">Pro</p>
 
             <h3 className="my-5 text-4xl">${calculatePrice()}/mo</h3>
@@ -122,15 +134,27 @@ const Pricing = () => {
               </div>
               <div className="flex items-center gap-1">
                 <BsCheckAll className="text-xl text-green-500" />
-                <p>Email & Slack support</p>
+                <p>Email, Slack & X support</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>Unlimited team members (soon)</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>Weekly/Monthly (soon)</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>Email/Slack alerts (soon)</p>
               </div>
             </div>
-            <button className="font-semibold w-[90%] mx-auto bg-gradient-to-r from-purple-500/5 to-purple-600 py-3 rounded-full">
+            <button className="font-semibold w-[90%] mx-auto bg-gradient-to-r from-purple-500/20 to-purple-600 py-3 rounded-full">
               Get started
             </button>
           </div>
 
-          <div className="py-4 w-[350px] border border-white/10 rounded-xl flex flex-col items-center">
+          <div className="py-4 lg:w-[350px] w-full border border-white/10 rounded-xl flex flex-col items-center">
             <p className="text-lg font-semibold">Enterprise</p>
             <h3 className="my-5 text-4xl">Custom</h3>
             <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
@@ -143,6 +167,10 @@ const Pricing = () => {
             <div className="my-10 flex flex-col gap-5 items-start w-[80%]">
               <div className="flex items-center gap-1">
                 <BsCheckAll className="text-xl text-green-500" />
+                <p>Everything in Pro and more</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
                 <p>Unlimited APIs</p>
               </div>
               <div className="flex items-center gap-1">
@@ -151,10 +179,22 @@ const Pricing = () => {
               </div>
               <div className="flex items-center gap-1">
                 <BsCheckAll className="text-xl text-green-500" />
-                <p>Priority support</p>
+                <p>24/7/365 Priority support</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>Dedicated success engineer</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>Priority Feature Requests</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <BsCheckAll className="text-xl text-green-500" />
+                <p>Unlimited team members (soon)</p>
               </div>
             </div>
-            <button className="font-semibold w-[90%] mx-auto bg-gradient-to-r from-purple-500/5 to-purple-600 py-3 rounded-full">
+            <button className="font-semibold w-[90%] mx-auto bg-gradient-to-r from-purple-500/20 to-purple-600 py-3 rounded-full">
               Contact us
             </button>
           </div>
