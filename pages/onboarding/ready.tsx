@@ -10,7 +10,7 @@ const Ready = () => {
           You're all set.
         </h3>
         <Link href={"/overview"}>
-          <button className="mt-6 lg:w-[450px] w-full font-semibold rounded-full bg-gradient-to-r from-purple-900 to-purple-500 py-3 text-white transition-colors border-2 border-transparent hover:border-white/40">
+          <button className="bg-gradient-to-l from-purple-900 to-purple-500 w-full py-3 text-white px-4 rounded-full mt-10 font-semibold">
             Continue to Dashboard
           </button>
         </Link>
