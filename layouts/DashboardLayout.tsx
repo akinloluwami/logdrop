@@ -23,7 +23,7 @@ const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
       try {
         const { data } = await axios("/project");
         if (data[0]) {
-          setProject(data[0].name, data[0].id);
+          setProject(data[0].name, data[0].id, data[0].apiUrl);
         } else {
           router.push("/onboarding");
         }
