@@ -1,6 +1,6 @@
 import { axios } from "@/configs/axios";
 import { useProjectStore } from "@/stores/projectStore";
-import { Button, Flex, Text, TextInput } from "@tremor/react";
+import { Button, Flex, TextInput } from "@tremor/react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
