@@ -4,13 +4,13 @@ import { HiMiniArrowSmallRight } from "react-icons/hi2";
 const Hero = () => {
   return (
     <div className="flex items-center flex-col bg-gradient-to-b from-transparent via-purple-500/20 to-transparent h-[80vh]">
-      <h1 className="mt-16 mx-6 w-[60%] font-extrabold text-5xl lg:text-7xl h-40 text-center mb-4 bg-clip-text text-transparent bg-gradient-to-b from-black/80 to-black dark:from-white dark:to-[#AAAAAA]">
+      <h1 className="mt-16 mx-6 lg:w-[60%] font-semibold text-6xl lg:text-8xl text-center mb-4 bg-clip-text text-transparent bg-gradient-to-b from-black/80 to-black dark:from-white dark:to-[#AAAAAA] h-fit">
         Powerful analytics for Express APIs
       </h1>
-      <p className="text-2xl text-gray-300">
+      <p className="lg:text-2xl text-center text-gray-300">
         Depper insights into Express API usage with robust analytics.
       </p>
-      <div className="flex gap-4 items-center mt-10">
+      <div className="flex gap-4 items-center mt-10 flex-wrap">
         <Link
           href="/docs"
           className="flex items-center group font-semibold gap-1 bg-transparent backdrop-blur-md hover:bg-gradient-to-r from-transparent to-purple-500/40 text-white transition-colors px-5 py-3 rounded-full"
