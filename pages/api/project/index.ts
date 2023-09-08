@@ -43,6 +43,7 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
       });
 
       res.json(projects);
+      return;
     }
   } catch (error) {
     console.log(error);
