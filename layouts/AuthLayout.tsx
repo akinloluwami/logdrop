@@ -8,7 +8,7 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <div className="flex h-screen">
-      <div className="w-[40%] pt-7 pb-3 px-7 flex justify-between h-full flex-col">
+      <div className="lg:w-[40%] pt-7 pb-3 px-7 flex justify-between h-full flex-col">
         <div className="">
           <Logo />
           <div className="mt-8">
@@ -23,7 +23,7 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
           </div>
           <div className="h-full mt-20 flex items-center flex-col justify-center">
             {children}
-            <div className="mt-5 flex gap-1 font-semibold items-center text-xs">
+            <div className="mt-5 flex gap-1 items-center lg:text-xs">
               {pathname === "/signup" && "Already have an account?"}
               {pathname === "/login" && "New to ReqLog?"}
               <Link
@@ -37,7 +37,7 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
         </div>
         <small>We're open-source.</small>
       </div>
-      <div className="w-[60%] bg-purple-500/10"></div>
+      <div className="hidden lg:block lg:w-[60%] bg-purple-500/10"></div>
     </div>
   );
 };
