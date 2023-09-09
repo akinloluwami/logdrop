@@ -31,7 +31,7 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
 
       if (projects.length !== 0 && from === "onboarding") {
         res.status(201).json({
-          message: "Project created successfully",
+          message: "Project already created",
         });
         return;
       }
