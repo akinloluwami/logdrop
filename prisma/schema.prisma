@@ -8,14 +8,15 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  name      String
-  password  String?
-  google    Google?
-  github    GitHub?
-  projects  Project[]
-  createdAt DateTime  @default(now())
+  id                     Int       @id @default(autoincrement())
+  email                  String    @unique
+  name                   String
+  password               String?
+  google                 Google?
+  github                 GitHub?
+  projects               Project[]
+  createdAt              DateTime  @default(now())
+  hasCompletedOnboarding Boolean   @default(false)
 }
 
 model Google {
@@ -58,13 +59,13 @@ model Log {
   requestTime     DateTime
   responseTime    DateTime?
   elapsedDuration Int?
-  country         String   @default("Unknown")
-  city            String   @default("Unknown")
-  stateOrRegion   String   @default("Unknown")
-  os              String   @default("Unknown")
-  device          String   @default("Unknown")
-  deviceType      String   @default("Unknown")
-  browser         String   @default("Unknown")
+  country         String    @default("Unknown")
+  city            String    @default("Unknown")
+  stateOrRegion   String    @default("Unknown")
+  os              String    @default("Unknown")
+  device          String    @default("Unknown")
+  deviceType      String    @default("Unknown")
+  browser         String    @default("Unknown")
   requestHeaders  String
   responseHeaders String?
   responseBody    String?
