@@ -17,7 +17,19 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
       },
     });
 
-    res.status(200).json({ logs: logs || [] });
+    if (logs) {
+      await prisma.user.update({
+        where: {
+          id: req.user?.id,
+        },
+        data: {
+          hasCompletedOnboarding: true,
+        },
+      });
+      res.status(200).json({ logs: logs });
+    } else {
+      res.status(200).json({ logs: [] });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Something went wrong" });
