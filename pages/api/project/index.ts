@@ -4,11 +4,12 @@ import { CustomRequest } from "@/interfaces";
 import authenticateToken from "@/middlewares/auth";
 import { prisma } from "@/prisma";
 import validator from "validator";
+import { generateApiKey } from "@/utils/generateApiKey";
 
 const handler = async (req: CustomRequest, res: NextApiResponse) => {
   try {
     if (req.method === "POST") {
-      const { name, apiUrl } = req.body;
+      const { name, apiUrl, from } = req.body;
 
       if (!name || !apiUrl) {
         res.status(400).json({
@@ -22,13 +23,34 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
           message: "Invalid API URL",
         });
 
-      await prisma.project.create({
+      const projects = await prisma.project.findMany({
+        where: {
+          userId: req.user?.id,
+        },
+      });
+
+      if (projects.length !== 0 && from === "onboarding") {
+        res.status(201).json({
+          message: "Project created successfully",
+        });
+        return;
+      }
+
+      const newProject = await prisma.project.create({
         data: {
           name,
           apiUrl,
           userId: req?.user?.id!,
         },
       });
+
+      await prisma.aPiKey.create({
+        data: {
+          key: generateApiKey(),
+          projectId: newProject.id,
+        },
+      });
+
       res.status(201).json({
         message: "Project created successfully",
       });
