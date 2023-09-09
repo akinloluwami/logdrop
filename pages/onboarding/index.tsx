@@ -49,7 +49,12 @@ const Onboarding = () => {
     }
     setLoading(true);
     try {
-      await axios.post("/project", { name, apiUrl, from: "onboarding" });
+      const { data } = await axios.post("/project", {
+        name,
+        apiUrl,
+        from: "onboarding",
+      });
+      toast.success(data.message);
       goToNextStep();
     } catch (error: any) {
       toast(error.response.data.message);
