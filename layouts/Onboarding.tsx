@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { CgSpinnerTwo } from "react-icons/cg";
 import Logo from "@/components/Logo";
 import { axios } from "@/configs/axios";
+import Head from "next/head";
 
 const OnboardingLayout = ({ children }: { children: ReactNode }) => {
   const { steps, currentStepId, updateSteps, isDataFetched, setIsDataFetched } =
@@ -63,6 +64,9 @@ const OnboardingLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
+      <Head>
+        <title>Onboarding • ReqLog</title>
+      </Head>
       {isDataFetched ? (
         <div className="py-5">
           <h1 className="text-center text-3xl font-semibold mt-8">
