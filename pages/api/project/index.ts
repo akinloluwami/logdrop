@@ -19,7 +19,7 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
       }
 
       if (!validator.isURL(apiUrl))
-        res.status(400).json({
+        return res.status(400).json({
           message: "Invalid API URL",
         });
 
