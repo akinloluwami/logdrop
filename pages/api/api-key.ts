@@ -3,31 +3,32 @@ import { requestMethod } from "@/middlewares/requestMethod";
 import { CustomRequest } from "@/interfaces";
 import authenticateToken from "@/middlewares/auth";
 import { prisma } from "@/prisma";
+import { generateApiKey } from "@/utils/generateApiKey";
 
 const handler = async (req: CustomRequest, res: NextApiResponse) => {
   try {
     if (req.method === "POST") {
+      const projectId = Number(req.query.projectId);
+
+      if (!projectId) {
+        res.status(400).json({
+          message: "Project ID is required",
+        });
+        return;
+      }
+
       const project = await prisma.project.findFirst({
         where: {
-          userId: req.user?.id,
+          id: projectId,
         },
       });
 
-      const generateApiKey = () => {
-        const characters =
-          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-        const keyLength = 32;
-
-        let apiKey = "";
-
-        for (let i = 0; i < keyLength; i++) {
-          const randomIndex = Math.floor(Math.random() * characters.length);
-          apiKey += characters.charAt(randomIndex);
-        }
-
-        return apiKey;
-      };
+      if (!project) {
+        res.status(404).json({
+          message: "Project not found",
+        });
+        return;
+      }
 
       const apiKey = await prisma.aPiKey.create({
         data: {
