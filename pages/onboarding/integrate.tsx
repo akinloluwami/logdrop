@@ -76,17 +76,17 @@ const Integrate = () => {
           Let's record your first API request.
         </h3>
         <p className="text-center text-gray-300 mt-1">
-          Follow the steps below to let ReqLog record your first API request.
+          Follow the steps below to let LogDrop record your first API request.
         </p>
 
         <div className="flex mt-10 flex-col gap-5 w-full">
           <div className="">
             <h2 className="mb-2">1. Install the SDK</h2>
             <div className="bg-white/10 px-2 py-3 rounded-md flex items-center justify-between">
-              <code>npm i @reqlog/express</code>{" "}
+              <code>npm i @logdrop/express</code>{" "}
               <button
                 onClick={() => {
-                  copyToClipboard("npm i @reqlog/express");
+                  copyToClipboard("npm i @logdrop/express");
                   toast("Copied to clipboard", {
                     duration: 800,
                   });
@@ -118,7 +118,7 @@ const Integrate = () => {
               </code>{" "}
               <br />
               <code>{`import express from "express"`}</code> <br />
-              <code>{`import { record } from "@reqlog/express"`}</code> <br />{" "}
+              <code>{`import { record } from "@logdrop/express"`}</code> <br />{" "}
               <br />
               <code>
                 <small className="text-gray-500">
@@ -130,7 +130,10 @@ const Integrate = () => {
               <code>{``}</code> <br />
               <code>
                 <small className="text-gray-500">
-                  // 3. Initialize the ReqLog middleware
+                  // 3. Initialize the LogDrop middleware
+                </small>
+                <small className="text-gray-500">
+                  // Note: This should be before other middlewares
                 </small>
               </code>{" "}
               <br />
