@@ -49,8 +49,7 @@ const Onboarding = () => {
     }
     setLoading(true);
     try {
-      await axios.post("/project", { name, apiUrl });
-      await axios.post("/api-key");
+      await axios.post("/project", { name, apiUrl, from: "onboarding" });
       goToNextStep();
     } catch (error: any) {
       toast(error.response.data.message);
