@@ -19,6 +19,7 @@ import {
 import dayjs from "dayjs";
 import { formatTimeTaken } from "@/utils/formatTimeTaken";
 import JsonFormatter from "react-json-formatter";
+import { useProjectStore } from "@/stores/projectStore";
 
 const Log = () => {
   const router = useRouter();
@@ -26,10 +27,14 @@ const Log = () => {
 
   const [bodyType, setBodyType] = useState("");
 
+  const { project } = useProjectStore();
+
   useEffect(() => {
     if (router?.query?.uuid) {
       (async () => {
-        const { data } = await axios(`/logs/${router?.query?.uuid}`);
+        const { data } = await axios(
+          `project/${project?.id}/logs/${router?.query?.uuid}`
+        );
         setLog(data);
 
         setBodyType(

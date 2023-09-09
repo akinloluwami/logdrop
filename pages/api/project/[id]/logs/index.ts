@@ -7,19 +7,17 @@ import dayjs from "dayjs";
 
 const handler = async (req: CustomRequest, res: NextApiResponse) => {
   try {
-    const {
-      projectId,
-      status_codes,
-      methods,
-      endpoint,
-      length,
-      dateRange,
-    }: any = req.query;
-
-    if (projectId === "null") {
-      res.status(400).json({ message: "Project ID is required" });
+    if (req.query.id === "null") {
+      res.status(400).json({
+        message: "Project ID is required",
+      });
       return;
     }
+
+    const projectId = Number(req.query.id);
+
+    const { status_codes, methods, endpoint, length, dateRange }: any =
+      req.query;
 
     const decodedStatusCodes = status_codes
       ? decodeURIComponent(status_codes).split("_").map(Number)

@@ -7,16 +7,16 @@ import { generateApiKey } from "@/utils/generateApiKey";
 
 const handler = async (req: CustomRequest, res: NextApiResponse) => {
   try {
+    const projectId = Number(req.query.id);
+
+    if (!projectId) {
+      res.status(400).json({
+        message: "Project ID is required",
+      });
+      return;
+    }
+
     if (req.method === "POST") {
-      const projectId = Number(req.query.projectId);
-
-      if (!projectId) {
-        res.status(400).json({
-          message: "Project ID is required",
-        });
-        return;
-      }
-
       const project = await prisma.project.findFirst({
         where: {
           id: projectId,
@@ -40,8 +40,6 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
       return;
     }
     if (req.method === "GET") {
-      const projectId = Number(req.query.projectId);
-
       const apiKey = await prisma.aPiKey.findFirst({
         where: {
           projectId,

@@ -21,7 +21,7 @@ const ApiKeys = () => {
   useEffect(() => {
     if (project.id) {
       (async () => {
-        const { data } = await axios(`/api-key?projectId=${project.id}`);
+        const { data } = await axios(`project/${project?.id}/api-key`);
         setKey(data);
       })();
     }

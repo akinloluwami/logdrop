@@ -143,9 +143,7 @@ const Requests = () => {
 
     (async () => {
       try {
-        const encodedURL = `/logs?projectId=${encodeURIComponent(
-          `${project.id}`
-        )}&status_codes=${encodeURIComponent(
+        const encodedURL = `project/${project?.id}/logs?status_codes=${encodeURIComponent(
           statusCodes.join("_")
         )}&methods=${encodeURIComponent(
           methods.join("_")
