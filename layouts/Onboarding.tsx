@@ -65,7 +65,7 @@ const OnboardingLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Head>
-        <title>Onboarding • ReqLog</title>
+        <title>Onboarding • LogDrop</title>
       </Head>
       {isDataFetched ? (
         <div className="py-5">

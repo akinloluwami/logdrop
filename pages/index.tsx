@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>ReqLog • Analytics, logging and alerts for Express APIs</title>
+        <title>LogDrop • Analytics, logging and alerts for Express APIs</title>
       </Head>
       <>
         <Navbar />
