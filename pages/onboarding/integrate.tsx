@@ -132,10 +132,7 @@ const Integrate = () => {
                 <small className="text-gray-500">
                   // 3. Initialize the LogDrop middleware
                 </small>
-                <small className="text-gray-500">
-                  // Note: This should be before other middlewares
-                </small>
-              </code>{" "}
+              </code>
               <br />
               <code>{`app.use(record("YOUR_API_KEY"))`}</code> <br />
               <br />
