@@ -16,6 +16,7 @@ const Integrate = () => {
   const [loading, setLoading] = useState(false);
   const [apiKey, setApiKey] = useState("");
   const router = useRouter();
+  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -102,18 +103,23 @@ const Integrate = () => {
               2. Initialize the middleware with your API key
             </h2>
             <div className="bg-white/10 px-2 py-3 rounded-md relative">
-              <div className="absolute top-1 -right-28 rounded-md p-1 animate-knock bg-purple-800 hidden lg:block">
-                👈🏼 Click here
-              </div>
-              <div className="absolute top-10 right-0 rounded-md p-1 animate-bounce bg-purple-800 lg:hidden">
-                👆🏼 Click here
-              </div>
+              {!isClicked && (
+                <>
+                  <div className="absolute top-1 -right-28 rounded-md p-1 animate-knock bg-purple-800 hidden lg:block">
+                    👈🏼 Click here
+                  </div>
+                  <div className="absolute top-10 right-0 rounded-md p-1 animate-bounce bg-purple-800 lg:hidden">
+                    👆🏼 Click here
+                  </div>
+                </>
+              )}
               <button
                 className="absolute top-2 right-2 flex items-center text-sm gap-1"
                 onClick={() => {
+                  setIsClicked(true);
                   copyToClipboard(apiKey);
-                  toast("Copied to clipboard", {
-                    duration: 800,
+                  toast.success("API key copied to clipboard", {
+                    duration: 1000,
                   });
                 }}
               >
