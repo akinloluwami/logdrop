@@ -63,33 +63,35 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-full h-screen pt-5 relative">
-      <div className="">
-        <h2 className="text-xl font-semibold px-7">{project?.name}</h2>
-      </div>
-      <div className="mt-10 px-5">
-        {links.map((link, index) => (
-          <Link
-            href={link.href}
-            key={index}
-            className={`${
-              pathname?.includes(link.href) && "bg-purple-800/30 font-medium"
-            } flex items-center gap-3 mb-4 px-2 py-2 rounded-lg lg:hover:bg-purple-800/30 transition-colors group`}
-          >
-            <span
+    <div className="w-full h-screen py-5 relative flex flex-col justify-between">
+      <div>
+        <div className="">
+          <h2 className="text-xl font-semibold px-7">{project?.name}</h2>
+        </div>
+        <div className="mt-10 px-5">
+          {links.map((link, index) => (
+            <Link
+              href={link.href}
+              key={index}
               className={`${
-                !pathname?.includes(link.href)
-                  ? "group-hover:translate-x-2 transition-all"
-                  : ""
-              }`}
+                pathname?.includes(link.href) && "bg-purple-800/30 font-medium"
+              } flex items-center gap-3 mb-4 px-2 py-2 rounded-lg lg:hover:bg-purple-800/30 transition-colors group`}
             >
-              {link.icon}
-            </span>
-            {link.title}
-          </Link>
-        ))}
+              <span
+                className={`${
+                  !pathname?.includes(link.href)
+                    ? "group-hover:translate-x-2 transition-all"
+                    : ""
+                }`}
+              >
+                {link.icon}
+              </span>
+              {link.title}
+            </Link>
+          ))}
+        </div>
       </div>
-      <div className="absolute bottom-5 px-5 w-full">
+      <div className="px-5 w-full">
         <Button color="red" variant="light" onClick={logout}>
           Logout
         </Button>
