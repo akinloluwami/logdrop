@@ -8,7 +8,7 @@ const Signup = () => {
   return (
     <AuthLayout>
       <Head>
-        <title>Signup • ReqLog</title>
+        <title>Signup • LogDrop</title>
       </Head>
       <GitHubButton
         loading={loading}

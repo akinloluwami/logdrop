@@ -8,7 +8,7 @@ const Login = () => {
   return (
     <AuthLayout>
       <Head>
-        <title>Login • ReqLog</title>
+        <title>Login • LogDrop</title>
       </Head>
       <GitHubButton
         loading={loading}

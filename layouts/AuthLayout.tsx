@@ -25,7 +25,7 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
             {children}
             <div className="mt-5 flex gap-1 items-center lg:text-xs">
               {pathname === "/signup" && "Already have an account?"}
-              {pathname === "/login" && "New to ReqLog?"}
+              {pathname === "/login" && "New to LogDrop?"}
               <Link
                 href={pathname === "/signup" ? "/login" : "/signup"}
                 className="hover:text-purple-500 transition-colors"
