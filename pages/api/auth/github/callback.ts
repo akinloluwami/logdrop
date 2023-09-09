@@ -32,35 +32,27 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const user = userResponse.data;
       const email = userEmails.data.find((e) => e.primary)?.email;
 
-      const userExists = await prisma.gitHub.findUnique({
+      const githubUser = await prisma.gitHub.findUnique({
         where: {
           githubId: user.id,
         },
       });
 
-      const userProjects = await prisma.project.findFirst({
+      const userAccount = await prisma.user.findFirst({
         where: {
-          userId: userExists?.id,
-        },
-        include: {
-          _count: {
-            select: {
-              logs: true,
-            },
-          },
+          github: githubUser,
         },
       });
 
-      const hasCompletedOnboarding =
-        userProjects && userProjects._count.logs > 0;
+      const hasCompletedOnboarding = userAccount?.hasCompletedOnboarding;
 
-      if (userExists && hasCompletedOnboarding) {
-        await generateTokens(req, res, userExists.userId);
+      if (userAccount && hasCompletedOnboarding) {
+        await generateTokens(req, res, userAccount.id);
         return res.redirect("/overview");
       }
 
-      if (userExists && !hasCompletedOnboarding) {
-        await generateTokens(req, res, userExists.userId);
+      if (userAccount && !hasCompletedOnboarding) {
+        await generateTokens(req, res, userAccount.id);
         return res.redirect("/onboarding");
       }
 
