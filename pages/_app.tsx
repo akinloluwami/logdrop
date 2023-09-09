@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <PlausibleProvider domain="reqlog.co">
+    <PlausibleProvider domain="logdrop.co">
       <Toaster />
       <Component {...pageProps} />
     </PlausibleProvider>
