@@ -8,7 +8,7 @@ const Hero = () => {
         Powerful analytics for Express APIs
       </h1>
       <p className="lg:text-2xl text-lg lg:w-[50%] px-5 text-center text-gray-300">
-        Depper insights into Express your API usage with realtime analytics,
+        Deeper insights into your Express API usage with realtime analytics,
         logging, alerts and usage reports.
       </p>
       <div className="flex gap-4 items-center mt-10 flex-wrap">
