@@ -38,7 +38,7 @@ const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
   return (
     <div className="flex">
       <Head>
-        <title>{`${pageTitle} • Snaplog`}</title>
+        <title>{`${pageTitle} • ReqLog`}</title>
       </Head>
       <>
         {loading ? (
