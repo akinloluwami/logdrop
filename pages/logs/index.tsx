@@ -109,7 +109,7 @@ const Requests = () => {
   ];
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
+    const newValue = e.target.value.toLowerCase();
 
     if (newValue) {
       // addQueryParam("endpoint", newValue);
