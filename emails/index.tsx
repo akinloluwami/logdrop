@@ -9,7 +9,7 @@ export default function Email() {
         pX={20}
         pY={12}
         href="https://example.com"
-        style={{ background: "#000", color: "#fff" }}
+        style={{ background: "red", color: "#fff" }}
       >
         Click me
       </Button>
