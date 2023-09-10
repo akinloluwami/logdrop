@@ -16,14 +16,17 @@ import { useState } from "react";
 import Modal from "@/components/Modal";
 import { httpStatusCodes } from "@/lib/statusCodes";
 import { MdAddCircleOutline } from "react-icons/md";
+import { debounce } from "lodash";
 
 const Events = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [when, setWhen] = useState("");
   const [is, setIs] = useState<any>();
   const [action, setAction] = useState<any>();
-
   const [addSecondCondition, setAddSecondCondition] = useState(false);
+  const [conditions, setConditions] = useState<any[]>([]);
+
+  const [eventName, setEventName] = useState("");
 
   return (
     <>
@@ -40,6 +43,11 @@ const Events = () => {
         </Button>
         <Modal showModal={showModal} onClose={() => setShowModal(false)}>
           <div className="text-sm border border-purple-500/40 bg-black px-5 py-7 rounded-md w-[500px] flex flex-col gap-5 items-start">
+            <TextInput
+              placeholder="Event name"
+              onChange={(e) => setEventName(e.target.value)}
+            />
+
             <h1>Choose conditions</h1>
             <div className="flex items-center gap-5 w-full">
               <p className="bg-purple-700 rounded-md px-3 py-2">When</p>
@@ -59,7 +67,23 @@ const Events = () => {
                 {when === "endpoint" && (
                   <TextInput
                     placeholder="Enter endpoint"
-                    onChange={(e) => setIs(e.target.value)}
+                    onChange={(e) => {
+                      const newEndpoint = e.target.value;
+
+                      const existingEndpointIndex = conditions.findIndex(
+                        (condition) => condition.endpoint
+                      );
+
+                      const newCondition = { endpoint: newEndpoint };
+
+                      if (existingEndpointIndex !== -1) {
+                        const updatedConditions = [...conditions];
+                        updatedConditions[existingEndpointIndex] = newCondition;
+                        setConditions(updatedConditions);
+                      } else {
+                        setConditions([...conditions, newCondition]);
+                      }
+                    }}
                   />
                 )}
                 {when === "status-code" && (
@@ -100,10 +124,7 @@ const Events = () => {
                 </div>
                 <div className="flex items-center gap-3 w-full">
                   <p className="bg-purple-700 rounded-md px-3 py-2">Is</p>
-                  <SearchSelect
-                    placeholder="Select status code"
-                    // onValueChange={handleStatusCodesChange}
-                  >
+                  <SearchSelect placeholder="Select status code">
                     {httpStatusCodes.map((status) => (
                       <SearchSelectItem
                         value={status.code.toString()}
@@ -131,7 +152,11 @@ const Events = () => {
                 icon={TbLayoutGridAdd}
                 color="purple"
                 onClick={() => {
-                  console.log({ when, is, conditions: [], action });
+                  console.log({
+                    eventName,
+                    action,
+                    conditions,
+                  });
                 }}
               >
                 Create Event
