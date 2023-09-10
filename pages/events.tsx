@@ -17,6 +17,9 @@ import Modal from "@/components/Modal";
 import { httpStatusCodes } from "@/lib/statusCodes";
 import { MdAddCircleOutline } from "react-icons/md";
 import { debounce } from "lodash";
+import { useProjectStore } from "@/stores/projectStore";
+import { axios } from "@/configs/axios";
+import toast from "react-hot-toast";
 
 const Events = () => {
   const [showModal, setShowModal] = useState(true);
@@ -26,7 +29,22 @@ const Events = () => {
   const [addSecondCondition, setAddSecondCondition] = useState(false);
   const [conditions, setConditions] = useState<any[]>([]);
 
-  const [eventName, setEventName] = useState("");
+  const [name, setName] = useState("");
+
+  const { project } = useProjectStore();
+  const addNewEvent = async () => {
+    try {
+      const { data } = await axios.post(`/project/${project.id}/events`, {
+        name,
+        conditions,
+        action,
+      });
+      console.log(data);
+      toast.success("Event created");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -45,7 +63,7 @@ const Events = () => {
           <div className="text-sm border border-purple-500/40 bg-black px-5 py-7 rounded-md w-[500px] flex flex-col gap-5 items-start">
             <TextInput
               placeholder="Event name"
-              onChange={(e) => setEventName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
             />
 
             <h1>Choose conditions</h1>
@@ -151,13 +169,7 @@ const Events = () => {
               <Button
                 icon={TbLayoutGridAdd}
                 color="purple"
-                onClick={() => {
-                  console.log({
-                    eventName,
-                    action,
-                    conditions,
-                  });
-                }}
+                onClick={addNewEvent}
               >
                 Create Event
               </Button>
