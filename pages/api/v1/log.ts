@@ -95,6 +95,31 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         browser: parser.browser.name,
       },
     });
+    const events = await prisma.event.findMany({
+      where: {
+        projectId: key.projectId,
+        conditions: {
+          has: {
+            endpoint: log.endpoint,
+          },
+        },
+      },
+    });
+
+    for (const event of events) {
+      if (event.action === "email") {
+        await resend.emails.send({
+          from: "LogDrop Event<event@logdrop.co>",
+          to: project?.user.email!,
+          subject: event.name,
+          text: `
+          Request body: ${log.requestBody}
+          Response body: ${log.responseBody}
+          `,
+        });
+      }
+    }
+
     res.status(201).json({ message: "Logged" });
   } catch (error) {
     console.log(error);
