@@ -9,7 +9,11 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
     if (req.method === "POST") {
       const projectId = Number(req.query.id);
 
-      const { name, conditions, action } = req.body;
+      const {
+        name,
+        conditions,
+        action,
+      }: { name: string; conditions: {}[]; action: string } = req.body;
 
       const newEvent = await prisma.event.create({
         data: {
