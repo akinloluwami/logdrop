@@ -16,7 +16,7 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
 
     const projectId = Number(req.query.id);
 
-    const { status_codes, methods, endpoint, length, dateRange }: any =
+    const { status_codes, methods, endpoint, dateRange, page, pageSize }: any =
       req.query;
 
     const decodedStatusCodes = status_codes
@@ -87,8 +87,9 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
 
     const logs = await prisma.log.findMany({
       where: filters,
-      take: Number(length) || 20,
+      take: Number(pageSize) || 20,
       orderBy: { createdAt: "desc" },
+      skip: Number(page) * Number(pageSize) || 0,
     });
 
     res.status(200).json(logs);
