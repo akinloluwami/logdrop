@@ -7,6 +7,7 @@ import useHref from "use-href";
 import { debounce } from "lodash";
 
 import {
+  Button,
   MultiSelect,
   MultiSelectItem,
   Select,
@@ -16,7 +17,16 @@ import {
 import { useRouter } from "next/router";
 
 const Requests = () => {
-  const [requests, setRequests] = useState([]);
+  const [requests, setRequests] = useState<
+    {
+      uuid: string;
+      endpoint: string;
+      method: string;
+      statusCode: number;
+      elapsedDuration: number;
+      createdAt: string;
+    }[]
+  >([]);
   const { project } = useProjectStore();
 
   const [methods, setMethods] = useState<string[]>([]);
@@ -138,6 +148,10 @@ const Requests = () => {
 
   const router = useRouter();
 
+  const [page, setPage] = useState(0);
+
+  const [requestsLength, setRequestsLength] = useState<number | null>(null);
+
   useEffect(() => {
     // setSelectedDateRange((router?.query?.dateRange as string) || "all");
 
@@ -149,9 +163,12 @@ const Requests = () => {
           methods.join("_")
         )}&endpoint=${encodeURIComponent(
           debouncedEndpoint
-        )}&dateRange=${encodeURIComponent(selectedDateRange)}`;
+        )}&dateRange=${encodeURIComponent(
+          selectedDateRange
+        )}&pageSize=${20}&page=${page}`;
         const { data } = await axios(encodedURL);
-        setRequests(data);
+        setRequests([...requests, ...data]);
+        setRequestsLength(data.length);
       } catch (error) {}
     })();
   }, [
@@ -160,6 +177,7 @@ const Requests = () => {
     methods,
     debouncedEndpoint,
     selectedDateRange,
+    page,
     // router.query,
   ]);
   return (
@@ -215,6 +233,19 @@ const Requests = () => {
         </MultiSelect>
       </div>
       <RequestsTable data={requests} />
+      <div className="mt-5 flex gap-5">
+        {requestsLength === null || requestsLength < 20 ? (
+          <p>You have reached the end of the list :)</p>
+        ) : (
+          <Button
+            onClick={() => setPage(page + 1)}
+            disabled={requestsLength === null || requestsLength < 20}
+            color="purple"
+          >
+            Load more
+          </Button>
+        )}
+      </div>
     </DashboardLayout>
   );
 };
