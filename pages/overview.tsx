@@ -24,7 +24,7 @@ const Dashboard = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios(`project/${project?.id}/logs?length=10`);
+        const { data } = await axios(`project/${project?.id}/logs?pageSize=10`);
         setRecentRequests(data);
       } catch (error) {}
     })();
