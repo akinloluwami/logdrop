@@ -1,10 +1,6 @@
-import Cooking from "@/components/Cooking";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import {
   Button,
-  Card,
-  MultiSelect,
-  MultiSelectItem,
   SearchSelect,
   SearchSelectItem,
   Select,
@@ -12,19 +8,18 @@ import {
   TextInput,
 } from "@tremor/react";
 import { TbLayoutGridAdd } from "react-icons/tb";
-import { useState } from "react";
-import Modal from "@/components/Modal";
+import { useEffect, useState } from "react";
 import { httpStatusCodes } from "@/lib/statusCodes";
 import { MdAddCircleOutline } from "react-icons/md";
-import { debounce } from "lodash";
 import { useProjectStore } from "@/stores/projectStore";
 import { axios } from "@/configs/axios";
 import toast from "react-hot-toast";
 import { HiOutlineMinusCircle } from "react-icons/hi2";
 import { httpMethods } from "@/lib/methods";
+import EventsTable from "@/components/EventsTable";
 
 const Events = () => {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [when, setWhen] = useState("");
   const [action, setAction] = useState<any>();
   const [addSecondCondition, setAddSecondCondition] = useState(false);
@@ -113,9 +108,9 @@ const Events = () => {
             onValueChange={(e) => {
               const newStatusCode = Number(e);
               const existingStatusCodeIndex = conditions.findIndex(
-                (condition) => condition.status_code
+                (condition) => condition.statusCode
               );
-              const newCondition = { status_code: newStatusCode };
+              const newCondition = { statusCode: newStatusCode };
               if (existingStatusCodeIndex !== -1) {
                 const updatedConditions = [...conditions];
                 updatedConditions[existingStatusCodeIndex] = newCondition;
@@ -163,19 +158,36 @@ const Events = () => {
       </>
     );
   };
+
+  const [events, setEvents] = useState<[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios(`/project/${project.id}/events`);
+        console.log(data);
+        setEvents(data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [project.id]);
+
   return (
     <>
       <DashboardLayout pageTitle="Events">
-        <Button
-          icon={TbLayoutGridAdd}
-          color="purple"
-          onClick={() => {
-            console.log("hey");
-            setShowModal(true);
-          }}
-        >
-          Create New Event
-        </Button>
+        {!showModal && (
+          <Button
+            icon={TbLayoutGridAdd}
+            color="purple"
+            onClick={() => {
+              console.log("hey");
+              setShowModal(true);
+            }}
+          >
+            Create New Event
+          </Button>
+        )}
         {showModal && (
           <div className="mt-5">
             <div className="text-sm border border-purple-500/40 bg-black px-5 py-7 rounded-md w-[500px] flex flex-col gap-5 items-start">
@@ -258,31 +270,34 @@ const Events = () => {
                   {addThirdCondition ? "Remove" : "Add"} third condition
                 </button>
               )}
-              <div className="flex items-center gap-3 w-full">
-                <p className="bg-purple-700 rounded-md px-3 py-2">Then</p>
-                <Select
-                  placeholder="Select action"
-                  onValueChange={(value) => setAction(value)}
-                >
-                  {/* <SelectItem value="slack">Send Slack notification</SelectItem> */}
-                  <SelectItem value="email">Send email</SelectItem>
-                </Select>
-              </div>
-              <button onClick={() => console.log(conditions)}>
-                Check event
-              </button>
+              {conditions.length > 0 && (
+                <div className="flex items-center gap-3 w-full">
+                  <p className="bg-purple-700 rounded-md px-3 py-2">Then</p>
+                  <Select
+                    placeholder="Select action"
+                    onValueChange={(value) => setAction(value)}
+                  >
+                    {/* <SelectItem value="slack">Send Slack notification</SelectItem> */}
+                    <SelectItem value="email">Send email</SelectItem>
+                  </Select>
+                </div>
+              )}
               <center className="w-full mt-5">
                 <Button
                   icon={TbLayoutGridAdd}
                   color="purple"
                   onClick={addNewEvent}
+                  disabled={!name || conditions.length === 0 || !action}
                 >
-                  Create Event
+                  Publish Event
                 </Button>
               </center>
             </div>
           </div>
         )}
+        <div className="mt-5">
+          <EventsTable events={events} />
+        </div>
       </DashboardLayout>
     </>
   );
