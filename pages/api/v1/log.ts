@@ -95,19 +95,38 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         browser: parser.browser.name,
       },
     });
+
     const events = await prisma.event.findMany({
       where: {
         projectId: key.projectId,
-        conditions: {
-          has: {
-            endpoint: log.endpoint,
-          },
-        },
       },
     });
 
+    const conditionsMatch = (conditions, endpoint, statusCode) => {
+      console.log(conditions);
+      return conditions.every((condition) => {
+        if (condition.endpoint !== undefined) {
+          const conditionEndpoint = condition.endpoint;
+          console.log(
+            `Comparing endpoint: ${endpoint} (Expected: ${conditionEndpoint})`
+          );
+          return conditionEndpoint === endpoint;
+        } else if (condition.statusCode !== undefined) {
+          const conditionStatusCode = condition.statusCode;
+          console.log(
+            `Comparing statusCode: ${statusCode} (Expected: ${conditionStatusCode})`
+          );
+          return conditionStatusCode === statusCode;
+        }
+        return true;
+      });
+    };
+
     for (const event of events) {
-      if (event.action === "email") {
+      if (
+        event.action === "email" &&
+        conditionsMatch(event.conditions, log.endpoint, log.statusCode)
+      ) {
         await resend.emails.send({
           from: "LogDrop Event<event@logdrop.co>",
           to: project?.user.email!,
