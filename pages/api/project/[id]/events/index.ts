@@ -26,13 +26,23 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
 
       res.status(201).json(newEvent);
     }
+
+    if (req.method === "GET") {
+      const events = await prisma.event.findMany({
+        where: {
+          projectId: Number(req.query.id),
+        },
+        orderBy: { createdAt: "desc" },
+      });
+      res.status(200).json(events);
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Something went wrong" });
   }
 };
 
-export default requestMethod(["POST"])((
+export default requestMethod(["POST", "GET"])((
   req: CustomRequest,
   res: NextApiResponse
 ) => {
