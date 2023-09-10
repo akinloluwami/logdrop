@@ -42,6 +42,7 @@ model Project {
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
   logs      Log[]
+  events    Event[]
   createdAt DateTime @default(now())
 }
 
@@ -87,4 +88,15 @@ model RefreshToken {
   expires_in DateTime
   userId     Int      @unique
   createdAt  DateTime @default(now())
+}
+
+
+model Event {
+  id         Int      @id @default(autoincrement())
+  name       String
+  createdAt  DateTime @default(now())
+  projectId  Int
+  project         Project   @relation(fields: [projectId], references: [id])
+  action     String
+  conditions Json[]
 }
