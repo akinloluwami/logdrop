@@ -5,7 +5,7 @@ import { Text } from "@react-email/text";
 import { Head } from "@react-email/head";
 import { Font } from "@react-email/font";
 
-export default function Welcome() {
+export default function Welcome({ name }) {
   return (
     <Html>
       <Head>
@@ -20,16 +20,14 @@ export default function Welcome() {
           fontStyle="normal"
         />
       </Head>
-      <center>
-        <Img src="https://logdrop.co/banner_logo.png" />
-      </center>
+
       <Text
         style={{
           fontSize: "24px",
           fontWeight: "bold",
         }}
       >
-        Hi Akinkunmi,
+        Hi {name},
       </Text>
       <Text>
         I'm Akinkunmi, the creator of LogDrop. I am thrilled to welcome you

@@ -9,7 +9,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       from: "Akinkunmi at LogDrop<akin@logdrop.co>",
       to: "akinkunmioye42@gmail.com",
       subject: "Welcome to LogDrop",
-      react: Welcome(),
+      react: Welcome({ name: "Ak" }),
     });
     res.send("Email sent");
   } catch (error) {

@@ -1,3 +1,5 @@
+import { resend } from "@/configs/resend";
+import FirstRequest from "@/emails/first-request";
 import { requestMethod } from "@/middlewares/requestMethod";
 import { prisma } from "@/prisma";
 import dayjs from "dayjs";
@@ -41,6 +43,34 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     };
 
     const parser = new UAParser(log.userAgent).getResult();
+
+    const logs = await prisma.log.count({
+      where: {
+        projectId: key.projectId,
+      },
+    });
+
+    const project = await prisma.project.findUnique({
+      where: {
+        id: key.projectId,
+      },
+      select: {
+        user: {
+          select: {
+            email: true,
+          },
+        },
+      },
+    });
+
+    if (logs === 0) {
+      await resend.emails.send({
+        from: "Akinkunmi at LogDrop<akin@logdrop.co>",
+        to: project?.user.email!,
+        subject: "LogDrop: Your First Request - You're Golden 🏆",
+        react: FirstRequest(),
+      });
+    }
 
     await prisma.log.create({
       data: {

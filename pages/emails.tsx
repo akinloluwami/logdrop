@@ -1,4 +1,5 @@
 import { axios } from "@/configs/axios";
+import FirstRequest from "@/emails/first-request";
 import Welcome from "@/emails/welcome";
 import React from "react";
 
@@ -17,7 +18,7 @@ const Emails = () => {
         Send test email
       </button>
 
-      <Welcome />
+      <FirstRequest />
     </div>
   );
 };

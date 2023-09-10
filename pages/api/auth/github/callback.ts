@@ -5,6 +5,8 @@ import axios from "axios";
 import { Octokit } from "octokit";
 import { prisma } from "@/prisma";
 import { generateTokens } from "@/utils/generateTokens";
+import { resend } from "@/configs/resend";
+import Welcome from "@/emails/welcome";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { code } = req.query;
@@ -71,6 +73,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       });
 
       await generateTokens(req, res, newUser.id);
+      await resend.emails.send({
+        from: "Akinkunmi at LogDrop<akin@logdrop.co>",
+        to: newUser.email,
+        subject: "Welcome to LogDrop",
+        react: Welcome({ name: newUser.name.split(" ")[0] }),
+      });
       res.redirect("/onboarding");
     } else {
       res.status(401).json({ message: "Unauthorized" });

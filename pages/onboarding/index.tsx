@@ -47,6 +47,22 @@ const Onboarding = () => {
       goToNextStep();
       return;
     }
+
+    if (!name || !apiUrl) {
+      toast.error("Project name and API URL are required");
+      return;
+    }
+
+    if (apiUrl.includes("http")) {
+      toast.error("API URL should not contain http:// or https://");
+      return;
+    }
+
+    if (apiUrl.includes("www")) {
+      toast.error("API URL should not contain www.");
+      return;
+    }
+
     setLoading(true);
     try {
       const { data } = await axios.post("/project", {
@@ -76,22 +92,28 @@ const Onboarding = () => {
             handleNextClick();
           }}
         >
-          <input
-            className="w-full rounded-full border border-white/10 py-3 pl-3 pr-5 bg-transparent outline-none focus:border-purple-500 transition-colors disabled:cursor-not-allowed disabled:opacity-70"
-            type="text"
-            value={name}
-            placeholder="What's your project called?"
-            onChange={(e) => setName(e.target.value)}
-            disabled={disabledInputs}
-          />
-          <input
-            className="w-full rounded-full border border-white/10 py-3 pl-3 pr-5 bg-transparent outline-none focus:border-purple-500 transition-colors disabled:cursor-not-allowed disabled:opacity-70"
-            type="text"
-            placeholder="API base URL"
-            value={apiUrl}
-            onChange={(e) => setApiUrl(e.target.value.toLowerCase().trim())}
-            disabled={disabledInputs}
-          />
+          <div className="w-full">
+            <p className="font-semibold mb-1">Project name</p>
+            <input
+              className="w-full rounded-full border border-white/10 py-3 pl-3 pr-5 bg-transparent outline-none focus:border-purple-500 transition-colors disabled:cursor-not-allowed disabled:opacity-70"
+              type="text"
+              value={name}
+              placeholder="What's your project called?"
+              onChange={(e) => setName(e.target.value)}
+              disabled={disabledInputs}
+            />
+          </div>
+          <div className="w-full my-3">
+            <p className="font-semibold mb-1">Project URL</p>
+            <input
+              className="w-full rounded-full border border-white/10 py-3 pl-3 pr-5 bg-transparent outline-none focus:border-purple-500 transition-colors disabled:cursor-not-allowed disabled:opacity-70"
+              type="text"
+              placeholder="Example: api.logdrop.app or coolapp.io"
+              value={apiUrl}
+              onChange={(e) => setApiUrl(e.target.value.toLowerCase().trim())}
+              disabled={disabledInputs}
+            />
+          </div>
           <button
             className="font-semibold w-full rounded-full bg-gradient-to-l from-purple-800/90 to-purple-500 py-3 border-2 border-transparent hover:border-purple-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
             disabled={loading}
