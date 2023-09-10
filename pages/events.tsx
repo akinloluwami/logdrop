@@ -20,11 +20,11 @@ import { debounce } from "lodash";
 import { useProjectStore } from "@/stores/projectStore";
 import { axios } from "@/configs/axios";
 import toast from "react-hot-toast";
+import { HiOutlineMinusCircle } from "react-icons/hi2";
 
 const Events = () => {
   const [showModal, setShowModal] = useState(true);
   const [when, setWhen] = useState("");
-  const [is, setIs] = useState<any>();
   const [action, setAction] = useState<any>();
   const [addSecondCondition, setAddSecondCondition] = useState(false);
   const [conditions, setConditions] = useState<any[]>([]);
@@ -107,7 +107,7 @@ const Events = () => {
                 {when === "status-code" && (
                   <SearchSelect
                     placeholder="Select status code"
-                    onValueChange={(value) => setIs(value)}
+                    // onValueChange={(value) => setIs(value)}
                   >
                     {httpStatusCodes.map((status) => (
                       <SearchSelectItem
@@ -121,28 +121,36 @@ const Events = () => {
                 )}
               </div>
             )}
-            {/* <button
-              onClick={() => setAddSecondCondition(!addSecondCondition)}
-              className="flex items-center text-gray-400 gap-1"
-            >
-              <MdAddCircleOutline /> Add second condition
-            </button> */}
+
             {addSecondCondition && (
               <>
                 <div className="flex items-center gap-3 w-full">
                   <p className="bg-purple-700 rounded-md px-3 py-2">And</p>
-                  <Select
-                    className="w-[100px]"
-                    defaultValue="status-code"
-                    onValueChange={(value) => setWhen(value)}
-                  >
+                  <Select>
                     <SelectItem value="status-code">Status Code</SelectItem>
                     <SelectItem value="method">Method</SelectItem>
                   </Select>
                 </div>
                 <div className="flex items-center gap-3 w-full">
                   <p className="bg-purple-700 rounded-md px-3 py-2">Is</p>
-                  <SearchSelect placeholder="Select status code">
+                  <SearchSelect
+                    placeholder="Select status code"
+                    onChange={(e) => {
+                      const newStatusCode = Number(e);
+                      const existingStatusCodeIndex = conditions.findIndex(
+                        (condition) => condition.statusCode
+                      );
+                      const newCondition = { statusCode: newStatusCode };
+                      if (existingStatusCodeIndex !== -1) {
+                        const updatedConditions = [...conditions];
+                        updatedConditions[existingStatusCodeIndex] =
+                          newCondition;
+                        setConditions(updatedConditions);
+                      } else {
+                        setConditions([...conditions, newCondition]);
+                      }
+                    }}
+                  >
                     {httpStatusCodes.map((status) => (
                       <SearchSelectItem
                         value={status.code.toString()}
@@ -155,6 +163,17 @@ const Events = () => {
                 </div>
               </>
             )}
+            <button
+              onClick={() => setAddSecondCondition(!addSecondCondition)}
+              className="flex items-center text-gray-400 gap-1"
+            >
+              {addSecondCondition ? (
+                <HiOutlineMinusCircle />
+              ) : (
+                <MdAddCircleOutline />
+              )}{" "}
+              {addSecondCondition ? "Remove" : "Add"} condition
+            </button>
             <div className="flex items-center gap-3 w-full">
               <p className="bg-purple-700 rounded-md px-3 py-2">Then</p>
               <Select
@@ -165,6 +184,7 @@ const Events = () => {
                 <SelectItem value="email">Send email</SelectItem>
               </Select>
             </div>
+            <button onClick={() => console.log(conditions)}>Check event</button>
             <center className="w-full mt-5">
               <Button
                 icon={TbLayoutGridAdd}
