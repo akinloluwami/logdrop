@@ -118,24 +118,31 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           );
           return conditionStatusCode === statusCode;
         }
-        return true;
       });
     };
 
     for (const event of events) {
-      if (
-        event.action === "email" &&
-        conditionsMatch(event.conditions, log.endpoint, log.statusCode)
-      ) {
-        await resend.emails.send({
-          from: "LogDrop Event<event@logdrop.co>",
-          to: project?.user.email!,
-          subject: event.name,
-          text: `
-          Request body: ${log.requestBody}
-          Response body: ${log.responseBody}
-          `,
+      if (conditionsMatch(event.conditions, log.endpoint, log.statusCode)) {
+        await prisma.event.update({
+          where: { id: event.id },
+          data: {
+            timesTriggered: {
+              increment: 1,
+            },
+            lastTriggered: dayjs().toISOString(),
+          },
         });
+        if (event.action === "email") {
+          await resend.emails.send({
+            from: "LogDrop Event<event@logdrop.co>",
+            to: project?.user.email!,
+            subject: event.name,
+            text: `
+            Request body: ${log.requestBody}
+            Response body: ${log.responseBody}
+            `,
+          });
+        }
       }
     }
 
