@@ -162,15 +162,17 @@ const Events = () => {
   const [events, setEvents] = useState<[]>([]);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios(`/project/${project.id}/events`);
-        console.log(data);
-        setEvents(data);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
+    if (project.id) {
+      (async () => {
+        try {
+          const { data } = await axios(`/project/${project.id}/events`);
+          console.log(data);
+          setEvents(data);
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    }
   }, [project.id]);
 
   return (

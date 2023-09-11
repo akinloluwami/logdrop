@@ -71,22 +71,24 @@ const Requests = () => {
   useEffect(() => {
     // setSelectedDateRange((router?.query?.dateRange as string) || "all");
 
-    (async () => {
-      try {
-        const encodedURL = `project/${project?.id}/logs?status_codes=${encodeURIComponent(
-          statusCodes.join("_")
-        )}&methods=${encodeURIComponent(
-          methods.join("_")
-        )}&endpoint=${encodeURIComponent(
-          debouncedEndpoint
-        )}&dateRange=${encodeURIComponent(
-          selectedDateRange
-        )}&pageSize=${20}&page=${page}`;
-        const { data } = await axios(encodedURL);
-        setRequests(data);
-        setRequestsLength(data.length);
-      } catch (error) {}
-    })();
+    if (project.id) {
+      (async () => {
+        try {
+          const encodedURL = `project/${project?.id}/logs?status_codes=${encodeURIComponent(
+            statusCodes.join("_")
+          )}&methods=${encodeURIComponent(
+            methods.join("_")
+          )}&endpoint=${encodeURIComponent(
+            debouncedEndpoint
+          )}&dateRange=${encodeURIComponent(
+            selectedDateRange
+          )}&pageSize=${20}&page=${page}`;
+          const { data } = await axios(encodedURL);
+          setRequests(data);
+          setRequestsLength(data.length);
+        } catch (error) {}
+      })();
+    }
   }, [
     project.id,
     statusCodes,
