@@ -102,27 +102,40 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    const conditionsMatch = (conditions, endpoint, statusCode) => {
+    const conditionsMatch = (conditions, endpoint, statusCode, method) => {
       console.log(conditions);
       return conditions.every((condition) => {
         if (condition.endpoint !== undefined) {
           const conditionEndpoint = condition.endpoint;
-          console.log(
-            `Comparing endpoint: ${endpoint} (Expected: ${conditionEndpoint})`
-          );
+          // console.log(
+          //   `Comparing endpoint: ${endpoint} (Expected: ${conditionEndpoint})`
+          // );
           return conditionEndpoint === endpoint;
         } else if (condition.statusCode !== undefined) {
           const conditionStatusCode = condition.statusCode;
-          console.log(
-            `Comparing statusCode: ${statusCode} (Expected: ${conditionStatusCode})`
-          );
+          // console.log(
+          //   `Comparing statusCode: ${statusCode} (Expected: ${conditionStatusCode})`
+          // );
           return conditionStatusCode === statusCode;
+        } else if (condition.method !== undefined) {
+          const conditionMethod = condition.method;
+          // console.log(
+          //   `Comparing method: ${method} (Expected: ${conditionMethod})`
+          // );
+          return conditionMethod === method;
         }
       });
     };
 
     for (const event of events) {
-      if (conditionsMatch(event.conditions, log.endpoint, log.statusCode)) {
+      if (
+        conditionsMatch(
+          event.conditions,
+          log.endpoint,
+          log.statusCode,
+          log.method
+        )
+      ) {
         await prisma.event.update({
           where: { id: event.id },
           data: {
