@@ -90,15 +90,14 @@ model RefreshToken {
   createdAt  DateTime @default(now())
 }
 
-
 model Event {
-  id         Int      @id @default(autoincrement())
-  name       String
-  createdAt  DateTime @default(now())
-  projectId  Int
-  project         Project   @relation(fields: [projectId], references: [id])
-  action     String
-  conditions Json[]
-  lastTriggered DateTime?
-  timesTriggered Int? @default(0)
+  id             Int       @id @default(autoincrement())
+  name           String
+  createdAt      DateTime  @default(now())
+  projectId      Int
+  project        Project   @relation(fields: [projectId], references: [id])
+  action         String
+  conditions     Json[]
+  lastTriggered  DateTime?
+  timesTriggered Int?      @default(0)
 }
