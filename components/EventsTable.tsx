@@ -24,7 +24,7 @@ const head = [
   "Name",
   "Action",
   "Conditions",
-  "Created At",
+  "Created",
   "Times Triggered",
   "Last Triggered",
 ];
