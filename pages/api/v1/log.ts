@@ -95,6 +95,57 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         browser: parser.browser.name,
       },
     });
+
+    const events = await prisma.event.findMany({
+      where: {
+        projectId: key.projectId,
+      },
+    });
+
+    const conditionsMatch = (conditions, endpoint, statusCode) => {
+      console.log(conditions);
+      return conditions.every((condition) => {
+        if (condition.endpoint !== undefined) {
+          const conditionEndpoint = condition.endpoint;
+          console.log(
+            `Comparing endpoint: ${endpoint} (Expected: ${conditionEndpoint})`
+          );
+          return conditionEndpoint === endpoint;
+        } else if (condition.statusCode !== undefined) {
+          const conditionStatusCode = condition.statusCode;
+          console.log(
+            `Comparing statusCode: ${statusCode} (Expected: ${conditionStatusCode})`
+          );
+          return conditionStatusCode === statusCode;
+        }
+      });
+    };
+
+    for (const event of events) {
+      if (conditionsMatch(event.conditions, log.endpoint, log.statusCode)) {
+        await prisma.event.update({
+          where: { id: event.id },
+          data: {
+            timesTriggered: {
+              increment: 1,
+            },
+            lastTriggered: dayjs().toISOString(),
+          },
+        });
+        if (event.action === "email") {
+          await resend.emails.send({
+            from: "LogDrop Event<event@logdrop.co>",
+            to: project?.user.email!,
+            subject: event.name,
+            text: `
+            Request body: ${log.requestBody}
+            Response body: ${log.responseBody}
+            `,
+          });
+        }
+      }
+    }
+
     res.status(201).json({ message: "Logged" });
   } catch (error) {
     console.log(error);
