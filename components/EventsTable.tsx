@@ -14,17 +14,10 @@ import {
 import moment from "moment";
 import Link from "next/link";
 import { formatTimeTaken } from "@/utils/formatTimeTaken";
+import { EventProps } from "@/interfaces";
 
 interface Props {
-  events: {
-    id: number;
-    name: string;
-    action: string;
-    conditions: [];
-    createdAt: string;
-    timesTriggered: number;
-    lastTriggered: string;
-  }[];
+  events: EventProps[];
 }
 
 const head = [

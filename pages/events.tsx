@@ -18,6 +18,7 @@ import { HiOutlineMinusCircle } from "react-icons/hi2";
 import { httpMethods } from "@/lib/methods";
 import EventsTable from "@/components/EventsTable";
 import { IoClose } from "react-icons/io5";
+import { EventProps } from "@/interfaces";
 
 const Events = () => {
   const [showModal, setShowModal] = useState(false);
@@ -29,19 +30,24 @@ const Events = () => {
   const [and1, setAnd1] = useState("");
   const [and2, setAnd2] = useState("");
   const [name, setName] = useState("");
-
   const { project } = useProjectStore();
+  const [events, setEvents] = useState<EventProps[]>([]);
   const addNewEvent = async () => {
     try {
-      const { data } = await axios.post(`/project/${project.id}/events`, {
-        name,
-        conditions,
-        action,
-      });
-      console.log(data);
+      const { data }: { data: EventProps } = await axios.post(
+        `/project/${project.id}/events`,
+        {
+          name,
+          conditions,
+          action,
+        }
+      );
+      setEvents([...events, data]);
       toast.success("Event created");
       setShowModal(false);
       setConditions([]);
+      setName("");
+      setAction(null);
     } catch (error) {
       console.log(error);
     }
@@ -159,8 +165,6 @@ const Events = () => {
       </>
     );
   };
-
-  const [events, setEvents] = useState<[]>([]);
 
   useEffect(() => {
     if (project.id) {
