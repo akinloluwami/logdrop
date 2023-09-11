@@ -42,11 +42,13 @@ const Events = () => {
           action,
         }
       );
-      setEvents([...events, data]);
+      setEvents([data, ...events]);
       toast.success("Event created");
       setShowModal(false);
       setConditions([]);
       setName("");
+      setAddSecondCondition(false);
+      setAddThirdCondition(false);
       setAction(null);
     } catch (error) {
       console.log(error);
