@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import { HiOutlineMinusCircle } from "react-icons/hi2";
 import { httpMethods } from "@/lib/methods";
 import EventsTable from "@/components/EventsTable";
+import { IoClose } from "react-icons/io5";
 
 const Events = () => {
   const [showModal, setShowModal] = useState(false);
@@ -192,7 +193,10 @@ const Events = () => {
         )}
         {showModal && (
           <div className="mt-5">
-            <div className="text-sm border border-purple-500/40 bg-black px-5 py-7 rounded-md w-[500px] flex flex-col gap-5 items-start">
+            <div className="text-sm border border-purple-500/40 bg-black px-5 py-10 rounded-md w-[500px] flex flex-col gap-5 items-start relative">
+              <button onClick={() => setShowModal(false)}>
+                <IoClose className="text-2xl absolute top-2 left-2" />
+              </button>
               <TextInput
                 placeholder="Event name"
                 onChange={(e) => setName(e.target.value)}
