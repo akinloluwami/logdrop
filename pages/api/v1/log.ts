@@ -1,10 +1,14 @@
 import { resend } from "@/configs/resend";
 import FirstRequest from "@/emails/first-request";
+import { isProd } from "@/lib/isProd";
 import { requestMethod } from "@/middlewares/requestMethod";
 import { prisma } from "@/prisma";
 import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { UAParser } from "ua-parser-js";
+import { faker } from "@faker-js/faker";
+import axios from "axios";
+import { IpInfo } from "@/interfaces";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -41,6 +45,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       responseTime: string;
       elapsedDuration: number;
     };
+    log.ip = isProd ? log.ip : faker.internet.ipv4();
 
     const parser = new UAParser(log.userAgent).getResult();
 
@@ -72,6 +77,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       });
     }
 
+    const { data }: { data: IpInfo } = await axios(
+      `https://ipwho.is/${log?.ip}`
+    );
+
+    const ipInfo = data as IpInfo;
+
     await prisma.log.create({
       data: {
         date: dayjs().format("YYYY-MM-DD"),
@@ -93,6 +104,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         device: parser.device.model,
         deviceType: parser.device.type,
         browser: parser.browser.name,
+        city: ipInfo.city,
+        country: ipInfo.country,
+        country_code: ipInfo.country,
+        region: ipInfo.region,
+        region_code: ipInfo.region_code,
+        continent: ipInfo.continent,
+        continent_code: ipInfo.continent_code,
+        flag_emoji: ipInfo.flag.emoji,
+        flag_img: ipInfo.flag.img,
       },
     });
 
