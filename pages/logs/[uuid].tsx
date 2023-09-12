@@ -64,9 +64,9 @@ const Log = () => {
               ? "orange"
               : log.statusCode >= 300
               ? "yellow"
-              : log.statusCode >= 100
-              ? "blue"
-              : "green"
+              : log.statusCode >= 200
+              ? "green"
+              : "blue"
           }
         >
           {log?.statusCode}
