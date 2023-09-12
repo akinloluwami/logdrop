@@ -27,6 +27,7 @@ const head = [
   "Created",
   "Times Triggered",
   "Last Triggered",
+  "",
 ];
 
 const EventsTable: FC<Props> = ({ events }) => {
