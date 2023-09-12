@@ -14,6 +14,7 @@ import {
 import moment from "moment";
 import Link from "next/link";
 import { formatTimeTaken } from "@/utils/formatTimeTaken";
+import StatusBadge from "./StatusBadge";
 
 interface Props {
   data: {
@@ -56,7 +57,7 @@ const RequestsTable: FC<Props> = ({ data }) => {
                 <Text className="font-semibold">{item.method}</Text>
               </TableCell>
               <TableCell>
-                <Badge
+                <StatusBadge
                   color={
                     item.statusCode >= 500
                       ? "red"
@@ -64,13 +65,13 @@ const RequestsTable: FC<Props> = ({ data }) => {
                       ? "orange"
                       : item.statusCode >= 300
                       ? "yellow"
-                      : item.statusCode >= 100
-                      ? "blue"
-                      : "green"
+                      : item.statusCode >= 200
+                      ? "green"
+                      : "blue"
                   }
                 >
                   {item.statusCode}
-                </Badge>
+                </StatusBadge>
               </TableCell>
               <TableCell>
                 <Text>{formatTimeTaken(item.elapsedDuration)}</Text>
