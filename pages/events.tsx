@@ -183,7 +183,6 @@ const Events = () => {
       (async () => {
         try {
           const { data } = await axios(`/project/${project.id}/events`);
-          console.log(data);
           setEvents(data);
         } catch (error) {
           console.log(error);
