@@ -131,7 +131,7 @@ const Integrate = () => {
               </code>{" "}
               <br />
               <code>{`import express from "express"`}</code> <br />
-              <code>{`import { record } from "@logdrop/express"`}</code> <br />{" "}
+              <code>{`import { record } from "@logdrop/node"`}</code> <br />{" "}
               <br />
               <code>
                 <small className="text-gray-500">
