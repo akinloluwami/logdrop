@@ -55,11 +55,15 @@ const Log = () => {
         <Badge
           className="ml-5"
           color={
-            log.statusCode === 200 || log.statusCode === 201
-              ? "green"
-              : log.statusCode === 304
+            log.statusCode >= 500
+              ? "red"
+              : log.statusCode >= 400
+              ? "orange"
+              : log.statusCode >= 300
+              ? "yellow"
+              : log.statusCode >= 100
               ? "blue"
-              : "red"
+              : "green"
           }
         >
           {log?.statusCode}

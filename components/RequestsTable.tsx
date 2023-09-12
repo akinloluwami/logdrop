@@ -58,11 +58,15 @@ const RequestsTable: FC<Props> = ({ data }) => {
               <TableCell>
                 <Badge
                   color={
-                    item.statusCode === 200 || item.statusCode === 201
-                      ? "green"
-                      : item.statusCode === 304
+                    item.statusCode >= 500
+                      ? "red"
+                      : item.statusCode >= 400
+                      ? "orange"
+                      : item.statusCode >= 300
+                      ? "yellow"
+                      : item.statusCode >= 100
                       ? "blue"
-                      : "red"
+                      : "green"
                   }
                 >
                   {item.statusCode}
