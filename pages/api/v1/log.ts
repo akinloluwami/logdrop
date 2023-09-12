@@ -95,7 +95,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         requestHeaders: log.requestHeaders,
         responseHeaders: JSON.stringify(log.responseHeaders),
         responseBody: log.responseBody,
-        requestBody: log.requestBody,
+        requestBody: log.requestBody || "",
         projectId: key.projectId,
         requestTime: dayjs(log.requestTime).toISOString(),
         responseTime: dayjs(log.responseTime).toISOString(),
