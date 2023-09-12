@@ -99,7 +99,7 @@ const Requests = () => {
     // router.query,
   ]);
   return (
-    <DashboardLayout pageTitle="Requests">
+    <DashboardLayout pageTitle="Logs">
       <div className="flex items-center w-full mb-7 gap-4 flex-wrap lg:flex-nowrap">
         <TextInput
           placeholder="Search endpoint..."
