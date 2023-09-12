@@ -24,27 +24,33 @@ const Dashboard = () => {
   const [recentRequests, setRecentRequests] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios(`project/${project?.id}/logs?pageSize=10`);
-        setRecentRequests(data);
-      } catch (error) {}
-    })();
+    if (project.id) {
+      (async () => {
+        try {
+          const { data } = await axios(
+            `project/${project?.id}/logs?pageSize=10`
+          );
+          setRecentRequests(data);
+        } catch (error) {}
+      })();
+    }
   }, [project.id]);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios(
-          `/stats/chart?projectId=${project?.id}&startDate=${dayjs().subtract(
-            6,
-            "days"
-          )}&endDate=${dayjs()}`
-        );
-        setChartData(data);
-        console.log(data);
-      } catch (error) {}
-    })();
+    if (project.id) {
+      (async () => {
+        try {
+          const { data } = await axios(
+            `/stats/chart?projectId=${project?.id}&startDate=${dayjs().subtract(
+              6,
+              "days"
+            )}&endDate=${dayjs()}`
+          );
+          setChartData(data);
+          console.log(data);
+        } catch (error) {}
+      })();
+    }
   }, [project.id]);
 
   return (
