@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>LogDrop • Analytics, logging and alerts for Express APIs</title>
+        <title>LogDrop • API Analytics, monitoring, logging and alerts.</title>
       </Head>
       <>
         <Navbar />
