@@ -32,7 +32,17 @@ const Events = () => {
   const [name, setName] = useState("");
   const { project } = useProjectStore();
   const [events, setEvents] = useState<EventProps[]>([]);
+
+  const checkEndpoint = conditions.find((condition) =>
+    condition.hasOwnProperty("endpoint")
+  );
+
   const addNewEvent = async () => {
+    if (!checkEndpoint.endpoint.startsWith("/")) {
+      toast.error("Endpoint must start with /");
+      return;
+    }
+
     try {
       const { data }: { data: EventProps } = await axios.post(
         `/project/${project.id}/events`,
