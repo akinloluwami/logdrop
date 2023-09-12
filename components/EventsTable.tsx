@@ -8,12 +8,8 @@ import {
   TableBody,
   TableCell,
   Text,
-  Title,
-  Badge,
 } from "@tremor/react";
 import moment from "moment";
-import Link from "next/link";
-import { formatTimeTaken } from "@/utils/formatTimeTaken";
 import { EventProps } from "@/interfaces";
 
 interface Props {
