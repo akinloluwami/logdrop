@@ -16,7 +16,7 @@ interface Props {
 
 const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
   const { project, setProject } = useProjectStore();
-  const loading = project.id === null;
+  const loading = typeof project.id !== "number";
   const router = useRouter();
 
   useEffect(() => {
