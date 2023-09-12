@@ -20,6 +20,7 @@ import dayjs from "dayjs";
 import { formatTimeTaken } from "@/utils/formatTimeTaken";
 import JsonFormatter from "react-json-formatter";
 import { useProjectStore } from "@/stores/projectStore";
+import StatusBadge from "@/components/StatusBadge";
 
 const Log = () => {
   const router = useRouter();
@@ -50,9 +51,11 @@ const Log = () => {
 
   return (
     <DashboardLayout pageTitle="Log">
-      <h2 className="text-3xl font-semibold">
-        {log?.method} <span className="text-lg">{log?.endpoint}</span>
-        <Badge
+      <div className="flex items-center">
+        <h2 className="text-3xl font-semibold">
+          {log?.method} <span className="text-lg">{log?.endpoint}</span>
+        </h2>
+        <StatusBadge
           className="ml-5"
           color={
             log.statusCode >= 500
@@ -67,8 +70,8 @@ const Log = () => {
           }
         >
           {log?.statusCode}
-        </Badge>
-      </h2>
+        </StatusBadge>
+      </div>
       <TabGroup className="mt-5">
         <TabList className="!bg-transparent" variant="solid" color="purple">
           <Tab>Summary</Tab>
