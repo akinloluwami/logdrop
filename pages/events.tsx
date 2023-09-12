@@ -308,7 +308,12 @@ const Events = () => {
           </div>
         )}
         <div className="mt-5">
-          <EventsTable events={events} />
+          <EventsTable
+            events={events}
+            onDelete={(id) =>
+              setEvents(events.filter((event) => event.id !== id))
+            }
+          />
         </div>
       </DashboardLayout>
     </>
