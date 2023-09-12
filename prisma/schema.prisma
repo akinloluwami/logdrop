@@ -61,8 +61,14 @@ model Log {
   responseTime    DateTime?
   elapsedDuration Int?
   country         String    @default("Unknown")
+  country_code    String?
   city            String    @default("Unknown")
-  stateOrRegion   String    @default("Unknown")
+  region          String    @default("Unknown")
+  region_code     String?
+  continent       String    @default("Unknown")
+  continent_code  String?
+  flag_img        String?
+  flag_emoji      String?
   os              String    @default("Unknown")
   device          String    @default("Unknown")
   deviceType      String    @default("Unknown")
