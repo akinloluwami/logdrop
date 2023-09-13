@@ -16,7 +16,7 @@ const Hero = () => {
         </p>
         <ExpandingArrow className="-ml-1 h-3.5 w-3.5" />
       </Link>
-      <h1 className="mt-5 mx-6 lg:w-[60%] font-semibold text-4xl lg:text-7xl text-center mb-4 bg-clip-text text-transparent bg-gradient-to-b from-black/80 to-black dark:from-white dark:to-[#AAAAAA] h-fit">
+      <h1 className="mt-10 mx-6 lg:w-[60%] font-semibold text-4xl lg:text-7xl text-center mb-4 bg-clip-text text-transparent bg-gradient-to-b from-black/80 to-black dark:from-white dark:to-[#AAAAAA] h-fit">
         Powerful analytics for NodeJS APIs
       </h1>
       <p className="lg:text-xl text-lg lg:w-[50%] px-5 text-center text-gray-300">
