@@ -15,14 +15,14 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="flex justify-between lg:px-14 px-4 py-4 items-center sticky top-0 z-10 bg-black/30 backdrop-blur-md">
+    <div className="flex justify-between lg:px-14 px-4 items-center">
       <Logo />
       <div className="hidden lg:flex gap-12 items-center font-semibold">
         {links.map((link, i) => (
           <Link
             key={i}
             href={link.href}
-            className={`hover:text-purple-500 transition-colors ${
+            className={`hover:text-gray-300 transition-colors ${
               pathname === link.href && "text-purple-500"
             }`}
           >
