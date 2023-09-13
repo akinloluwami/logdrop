@@ -9,11 +9,9 @@ export default function Home() {
       <Head>
         <title>LogDrop • API Analytics, monitoring, logging and alerts.</title>
       </Head>
-      <>
-        <Navbar />
-        <Hero />
-        <BringYourFramework />
-      </>
+      <Navbar />
+      <Hero />
+      <BringYourFramework />
     </>
   );
 }
