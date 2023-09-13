@@ -37,7 +37,7 @@ const BringYourFramework = () => {
   ];
   const [selected, setSelected] = useState(frameworks[0]);
   return (
-    <div className="my-10">
+    <div className="my-20">
       <h1 className="text-center font-semibold text-6xl">
         Bring your{" "}
         <span className="bg-gradient-to-r from from-purple-300 to-purple-900 bg-clip-text text-transparent">
@@ -45,8 +45,8 @@ const BringYourFramework = () => {
         </span>{" "}
         framework{" "}
       </h1>
-      <div className="mt-10">
-        <div className="flex items-center gap-16 justify-center overflow-x-auto">
+      <div className="mt-10 flex items-center justify-center">
+        <div className="px-5 flex items-center lg:gap-16 gap-8 overflow-x-auto w-fit">
           {frameworks.map((framework, i) => (
             <div
               className="flex items-center flex-col"
