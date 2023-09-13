@@ -11,7 +11,7 @@ const GitHubButton = ({
   return (
     <button
       onClick={action}
-      className="flex items-center justify-center gap-3 bg-white/10 px-16 py-4 rounded-full font-semibold bg-gradient-to-r w-[350px] from-transparent to-purple-500/50  hover:to-purple-500 transition-all disabled:cursor-not-allowed disabled:opacity-60"
+      className="flex items-center justify-center gap-3 px-16 py-4 rounded-full font-semibold bg-gradient-to-r w-[350px] from-purple-400 to-purple-700 hover:to-purple-800 transition-all disabled:cursor-not-allowed disabled:opacity-60"
       disabled={loading}
     >
       <SiGithub />
