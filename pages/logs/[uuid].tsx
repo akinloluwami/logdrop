@@ -91,6 +91,12 @@ const Log = () => {
               </Col>
               <Card>
                 <p className="text-lg font-semibold text-gray-400">
+                  Response Code
+                </p>
+                <p className="">{log?.statusCode}</p>
+              </Card>
+              <Card>
+                <p className="text-lg font-semibold text-gray-400">
                   Request Time
                 </p>
                 <p className="">
@@ -109,15 +115,13 @@ const Log = () => {
               </Col>
               <Card>
                 <p className="text-lg font-semibold text-gray-400">
-                  Response Code
-                </p>
-                <p className="">{log?.statusCode}</p>
-              </Card>
-              <Card>
-                <p className="text-lg font-semibold text-gray-400">
                   Time Taken
                 </p>
                 <p className="">{formatTimeTaken(log?.elapsedDuration)}</p>
+              </Card>
+              <Card>
+                <p className="text-lg font-semibold text-gray-400">Client IP</p>
+                <p className="">{log?.ip}</p>
               </Card>
               <Col numColSpan={2}>
                 <Card>
@@ -127,10 +131,6 @@ const Log = () => {
                   <p className="">{log?.url}</p>
                 </Card>
               </Col>
-              <Card>
-                <p className="text-lg font-semibold text-gray-400">Client IP</p>
-                <p className="">{log?.ip}</p>
-              </Card>
               <Card>
                 <p className="text-lg font-semibold text-gray-400">
                   Operating System
@@ -146,6 +146,30 @@ const Log = () => {
                   Device Type
                 </p>
                 <p className="">{log?.deviceType}</p>
+              </Card>
+              <Card>
+                <p className="text-lg font-semibold text-gray-400">Country</p>
+                <p className="flex gap-1 items-center flex-wrap">
+                  {log.country && (
+                    <img
+                      src={log.flag_img}
+                      style={{
+                        width: "20px",
+                        height: "12.5px",
+                      }}
+                      alt={log.country}
+                    />
+                  )}
+                  {log?.country}
+                </p>
+              </Card>
+              <Card>
+                <p className="text-lg font-semibold text-gray-400">Region</p>
+                <p className="">{log?.region}</p>
+              </Card>
+              <Card>
+                <p className="text-lg font-semibold text-gray-400">City</p>
+                <p className="">{log?.city}</p>
               </Card>
             </Grid>
           </TabPanel>
