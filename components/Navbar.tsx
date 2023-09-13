@@ -15,7 +15,7 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="flex justify-between lg:px-14 px-4 py-4 items-center relative">
+    <div className="flex justify-between lg:px-14 px-4 py-4 items-center sticky top-0 z-10 bg-black/60 backdrop-blur-xl">
       <Logo />
       <div className="hidden lg:flex gap-12 items-center font-semibold">
         {links.map((link, i) => (
