@@ -7,32 +7,202 @@ import {
   SiKoa,
   SiMeteor,
 } from "react-icons/si";
+import SyntaxHighlighter from "react-syntax-highlighter";
+
+const code = {
+  "hljs-comment": {
+    color: "#7195a8",
+  },
+  "hljs-quote": {
+    color: "#c084fc",
+  },
+  "hljs-variable": {
+    color: "#ffffff",
+  },
+  "hljs-template-variable": {
+    color: "#ffffff",
+  },
+  "hljs-attribute": {
+    color: "#ffffff",
+  },
+  "hljs-tag": {
+    color: "#ffffff",
+  },
+  "hljs-name": {
+    color: "#ffffff",
+  },
+  "hljs-regexp": {
+    color: "#FFFFFF",
+  },
+  "hljs-link": {
+    color: "#ffffff",
+  },
+  "hljs-selector-id": {
+    color: "#ffffff",
+  },
+  "hljs-selector-class": {
+    color: "#ffffff",
+  },
+  "hljs-number": {
+    color: "#ffffff",
+  },
+  "hljs-meta": {
+    color: "#ffffff",
+  },
+  "hljs-built_in": {
+    color: "#ffffff",
+  },
+  "hljs-builtin-name": {
+    color: "#ffffff",
+  },
+  "hljs-literal": {
+    color: "#ffffff",
+  },
+  "hljs-type": {
+    color: "#ffffff",
+  },
+  "hljs-params": {
+    color: "#ffffff",
+  },
+  "hljs-string": {
+    color: "#c084fc",
+  },
+  "hljs-symbol": {
+    color: "#ffffff",
+  },
+  "hljs-bullet": {
+    color: "#ffffff",
+  },
+  "hljs-keyword": {
+    color: "#737A7F",
+  },
+  "hljs-selector-tag": {
+    color: "#ffffff",
+  },
+  hljs: {
+    display: "block",
+    overflowX: "auto",
+    background: "#161b1d",
+    color: "#ffffff",
+  },
+  "hljs-emphasis": {
+    fontStyle: "italic",
+  },
+};
 
 const BringYourFramework = () => {
   const frameworks = [
     {
       name: "Express",
       icon: <SiExpress />,
+      code: `import express from "express"
+import {record} from "@logdrop/node"
+
+const app = express()
+
+const logDrop = record("YOUR_API_KEY")
+
+app.use(logDrop())
+
+app.get("/ping", (req, res) => {
+ res.send("Pong!")
+})
+`,
     },
     {
       name: "Fastify",
       icon: <SiFastify />,
+      code: `import fastify from "fastify";
+import { record } from "@logdrop/node";
+
+const app = fastify();
+
+const logDrop = record("YOUR_API_KEY");
+
+app.register(logDrop);
+
+app.get("/ping", (req, reply) => {
+  reply.send("Pong!");
+});
+`,
     },
     {
       name: "Adonis",
       icon: <SiAdonisjs />,
+      code: `import { Ignitor } from '@adonisjs/ignitor';
+import { record } from '@logdrop/node';
+
+async function startApp() {
+  const { Server } = await new Ignitor(__dirname)
+    .fireHttpServer();
+
+  const logDrop = record('YOUR_API_KEY');
+
+  Server.middleware.register(logDrop);
+
+  Server.route('/ping', ({ response }) => {
+    response.send('Pong!');
+  });
+}
+`,
     },
     {
       name: "Meteor",
       icon: <SiMeteor />,
+      code: `import { Meteor } from 'meteor/meteor';
+import { WebApp } from 'meteor/webapp';
+import { record } from '@logdrop/node';
+
+Meteor.startup(() => {
+  const logDrop = record('YOUR_API_KEY');
+
+  WebApp.connectHandlers.use(logDrop());
+
+  WebApp.connectHandlers.use('/ping', (req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Pong!');
+  });
+});
+      `,
     },
     {
       name: "Hono",
       icon: <PiFireSimpleFill />,
+      code: `import { Hono } from 'hono'
+import { serve } from '@hono/node-server'
+import { record } from '@logdrop/node';
+
+const app = new Hono()
+
+app.get('/ping', (c) => c.text('Pong!'))
+
+const logDrop = record('YOUR_API_KEY')
+
+app.use('*', logDrop())
+serve(app)
+`,
     },
     {
       name: "Koa",
       icon: <SiKoa />,
+      code: `import Koa from 'koa';
+import { record } from '@logdrop/node';
+
+const app = new Koa();
+
+const logDrop = record('YOUR_API_KEY');
+
+app.use(logDrop);
+
+app.use(async (ctx) => {
+  if (ctx.path === '/ping') {
+    ctx.body = 'Pong!';
+  } else {
+    ctx.status = 404;
+    ctx.body = 'Not Found';
+  }
+});
+`,
     },
   ];
   const [selected, setSelected] = useState(frameworks[0]);
@@ -68,6 +238,21 @@ const BringYourFramework = () => {
             </div>
           ))}
         </div>
+      </div>
+      <div className="w-[95%] lg:w-[60%] mx-auto mt-10">
+        <SyntaxHighlighter
+          language="javascript"
+          style={code as any}
+          showLineNumbers
+          customStyle={{
+            background: "black",
+            borderRadius: "20px",
+            border: "1px solid rgb(216 180 254)",
+            padding: "15px",
+          }}
+        >
+          {selected.code as string}
+        </SyntaxHighlighter>
       </div>
     </div>
   );
