@@ -3,7 +3,7 @@ const LogEverything = () => {
   return (
     <div className="lg:px-10 px-5 my-10">
       <div className="">
-        <h1 className="lg:text-9xl text-5xl font-semibold text-center lg:my-10 my-5">
+        <h1 className="lg:text-7xl text-5xl font-semibold text-center lg:my-10 my-5">
           Log everything.
         </h1>
       </div>
