@@ -1,7 +1,7 @@
 import Tilt from "react-parallax-tilt";
 const LogEverything = () => {
   const features = [
-    { title: "Log everything", image: "/screenshot.png" },
+    { title: "Record all requests", image: "/screenshot.png" },
     {
       title: "Insights on each request",
       image: "/screenshot2.png",
