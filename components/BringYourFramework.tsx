@@ -46,7 +46,7 @@ const BringYourFramework = () => {
         framework{" "}
       </h1>
       <div className="mt-10">
-        <div className="flex items-center gap-16 justify-center">
+        <div className="flex items-center gap-16 justify-center overflow-x-auto">
           {frameworks.map((framework, i) => (
             <div
               className="flex items-center flex-col"
