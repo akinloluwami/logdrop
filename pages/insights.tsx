@@ -76,18 +76,6 @@ const Insights = () => {
     })();
   }, [project.id]);
 
-  const getColorBasedOnValue = (value) => {
-    // Define your own color mapping logic based on value
-    // For example, you can use a switch statement or if-else conditions
-    if (value >= 8) {
-      return "#FF5733"; // Red
-    } else if (value >= 3) {
-      return "#FFC300"; // Yellow
-    } else {
-      return "#58D68D"; // Green
-    }
-  };
-
   return (
     <DashboardLayout pageTitle="Insights">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
