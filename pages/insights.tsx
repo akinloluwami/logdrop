@@ -16,6 +16,12 @@ import {
   TabPanels,
   TabPanel,
 } from "@tremor/react";
+// import { ComposableMap, Geographies, Geography } from "react-simple-maps";
+// import { scaleLinear } from "d3-scale";
+// const colorScale = scaleLinear().domain([0, 100]).range(["#FFF", "#06F"]);
+
+// const geoUrl =
+//   "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json";
 
 const Insights = () => {
   const { project } = useProjectStore();
@@ -69,6 +75,19 @@ const Insights = () => {
       } catch (error) {}
     })();
   }, [project.id]);
+
+  const getColorBasedOnValue = (value) => {
+    // Define your own color mapping logic based on value
+    // For example, you can use a switch statement or if-else conditions
+    if (value >= 8) {
+      return "#FF5733"; // Red
+    } else if (value >= 3) {
+      return "#FFC300"; // Yellow
+    } else {
+      return "#58D68D"; // Green
+    }
+  };
+
   return (
     <DashboardLayout pageTitle="Insights">
       <div className="grid grid-cols-2 gap-5">
@@ -101,7 +120,7 @@ const Insights = () => {
                     <Bold>Requests</Bold>
                   </Text>
                 </Flex>
-                <BarList data={browsers} className="mt-2" />
+                <BarList data={browsers} className="mt-2 bg-purple" />
               </TabPanel>
               <TabPanel>
                 <Flex className="mt-4">
@@ -151,6 +170,7 @@ const Insights = () => {
           </TabGroup>
         </Card>
       </div>
+      <div></div>
     </DashboardLayout>
   );
 };
