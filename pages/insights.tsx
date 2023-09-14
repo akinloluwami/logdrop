@@ -90,7 +90,7 @@ const Insights = () => {
 
   return (
     <DashboardLayout pageTitle="Insights">
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <Card className="h-[400px]">
           <Title>Top Endpoints</Title>
           <Flex className="mt-4">
