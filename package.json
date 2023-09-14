@@ -49,6 +49,7 @@
     "react-icons": "^4.10.1",
     "react-json-formatter": "^0.4.0",
     "react-parallax-tilt": "^1.7.166",
+    "react-simple-maps": "^3.0.0",
     "react-syntax-highlighter": "^15.5.0",
     "react-tooltip": "^5.21.3",
     "resend": "^1.0.0",
