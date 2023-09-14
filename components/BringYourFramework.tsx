@@ -1,4 +1,7 @@
+import { copyToClipboard } from "@/utils/copyToClipboard";
 import { useState } from "react";
+import { BsCheck2 } from "react-icons/bs";
+import { FiCopy } from "react-icons/fi";
 import { PiFireSimpleFill } from "react-icons/pi";
 import {
   SiAdonisjs,
@@ -206,6 +209,7 @@ app.use(async (ctx) => {
     },
   ];
   const [selected, setSelected] = useState(frameworks[0]);
+  const [copied, setCopied] = useState(false);
   return (
     <div className="my-20">
       <h1 className="text-center font-semibold text-6xl">
@@ -253,6 +257,19 @@ app.use(async (ctx) => {
         >
           {selected.code as string}
         </SyntaxHighlighter>
+      </div>
+      <div className="flex items-center gap-3 justify-center mt-5 bg-purple-600 w-fit mx-auto px-4 py-3 rounded-full">
+        <code>npm install @logdrop/node</code>
+        <button
+          onClick={() => {
+            copyToClipboard("npm install @logdrop/node");
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1000);
+          }}
+          className="bg-white/80 hover:bg-white transition-colors rounded-full p-2 text-black"
+        >
+          {copied ? <BsCheck2 /> : <FiCopy />}
+        </button>
       </div>
     </div>
   );
