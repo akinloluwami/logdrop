@@ -7,24 +7,21 @@ import dayjs from "dayjs";
 
 const handler = async (req: CustomRequest, res: NextApiResponse) => {
   try {
-    const { startDate, endDate, projectId, take } = req.query;
+    const { startDate, endDate, take, group } = req.query;
 
     const start = dayjs(startDate as string);
     const end = dayjs(endDate as string);
 
-    if (projectId === "null") {
-      res.status(400).json({ message: "Project ID is required" });
-      return;
-    }
-
-    const endpoints = await prisma.log.groupBy({
-      by: ["endpoint"],
+    const data = await prisma.log.groupBy({
+      //@ts-ignore
+      by: [group],
       where: {
-        projectId: Number(projectId),
-        createdAt: {
-          gte: start.toISOString(),
-          lte: end.toISOString(),
-        },
+        projectId: Number(req.query.id),
+        createdAt: startDate &&
+          endDate && {
+            gte: start.toISOString(),
+            lte: end.toISOString(),
+          },
       },
       _count: true,
       orderBy: {
@@ -32,16 +29,15 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
           endpoint: "desc",
         },
       },
-      take: Number(take),
+      take: Number(take) || 10,
     });
 
-    const transformedEndpoints = endpoints.map(
-      ({ endpoint: name, _count: value }) => ({
-        name,
-        value,
-      })
-    );
-    res.status(200).json(transformedEndpoints);
+    const renamedData = data.map((item) => ({
+      count: item._count,
+      metric: item[group as string],
+    }));
+
+    res.status(200).json(renamedData);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Something went wrong" });
