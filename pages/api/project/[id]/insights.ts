@@ -33,8 +33,8 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
     });
 
     const renamedData = data.map((item) => ({
-      count: item._count,
-      metric: item[group as string],
+      value: item._count,
+      name: item[group as string],
     }));
 
     res.status(200).json(renamedData);
