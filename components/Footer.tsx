@@ -44,7 +44,7 @@ const Footer = () => {
     },
   ];
   return (
-    <div className="px-20 py-20 flex justify-between mt-10">
+    <div className="lg:px-20 px-5 py-20 flex justify-between mt-10 flex-wrap">
       <div className="flex flex-col items-start gap-5">
         <Logo />
         <small className="">Powerful analytics for NodeJS APIs</small>
@@ -60,7 +60,7 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      <div className="flex gap-24">
+      <div className="flex gap-24 flex-wrap mt-10 lg:mt-0">
         {footerLinks.map((link, i) => (
           <div key={i} className="flex flex-col gap-2">
             <h4 className="font-semibold">{link.title}</h4>
