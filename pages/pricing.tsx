@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
 import { ChangeEvent, useState } from "react";
@@ -59,9 +60,9 @@ const Pricing = () => {
   };
 
   return (
-    <div className="pb-10">
+    <div className="">
       <Head>
-        <title>Pricing • ReqLog</title>
+        <title>Pricing • LogDrop</title>
       </Head>
       <Navbar />
       <div className="mt-10">
@@ -200,6 +201,7 @@ const Pricing = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
