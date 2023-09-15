@@ -17,8 +17,10 @@ const OpenSource = () => {
   }, []);
 
   return (
-    <div className="bg-gradient-to-r mt-20 from-purple-400 to-purple-700 p-32 flex flex-col items-center gap-5">
-      <h1 className="text-7xl font-semibold">Proudly open-source</h1>
+    <div className="bg-gradient-to-r mt-20 from-purple-400 to-purple-700 py-32 flex flex-col items-center gap-5">
+      <h1 className="lg:text-7xl text-4xl font-semibold">
+        Proudly open-source
+      </h1>
       <p className="text-lg lg:w-[50%] text-center mx-auto">
         Our source code is accessible on GitHub, and you are read, review, or
         contribute to its development as you see fit!
