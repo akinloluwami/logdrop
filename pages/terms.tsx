@@ -4,7 +4,7 @@ import parse from "html-react-parser";
 import Footer from "@/components/Footer";
 import Head from "next/head";
 import { terms } from "@/content/terms";
-const Privacy = () => {
+const Terms = () => {
   return (
     <div>
       <Head>
@@ -20,4 +20,4 @@ const Privacy = () => {
   );
 };
 
-export default Privacy;
+export default Terms;
