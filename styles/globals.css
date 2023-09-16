@@ -21,3 +21,23 @@ body {
 .animate-knock {
   animation: knock 1s infinite;
 }
+
+.content h2 {
+  font-size: 2rem;
+}
+
+.content p {
+  font-size: 1.1rem;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.content a {
+  color: gainsboro;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.content a:hover {
+  color: #fff;
+}
