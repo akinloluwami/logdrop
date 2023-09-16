@@ -32,7 +32,7 @@ const Footer = () => {
           title: "Blog",
           url: "/blog",
         },
-        { title: "Contact", url: "/contact" },
+        { title: "Contact", url: "mailto:support@logdrop.co" },
       ],
     },
     {
