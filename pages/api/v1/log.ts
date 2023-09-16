@@ -9,6 +9,7 @@ import { UAParser } from "ua-parser-js";
 import { faker } from "@faker-js/faker";
 import axios from "axios";
 import { IpInfo } from "@/interfaces";
+import { sendEmail } from "@/utils/sendEmail";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -69,12 +70,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     if (logs === 0) {
-      await resend.emails.send({
-        from: "Akinkunmi at LogDrop<akin@logdrop.co>",
-        to: project?.user.email!,
-        subject: "LogDrop: Your First Request - You're Golden 🏆",
-        react: FirstRequest(),
-      });
+      sendEmail.firstLog(project?.user.email!);
     }
 
     const { data }: { data: IpInfo } = await axios(
