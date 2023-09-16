@@ -1,14 +1,17 @@
 import Tilt from "react-parallax-tilt";
 const LogEverything = () => {
   const features = [
-    { title: "Record all requests", image: "/screenshot.png" },
+    {
+      title: "Record all requests",
+      image: "https://cdn.uploadfly.cloud/IpTcpk/record.png",
+    },
     {
       title: "Insights on each request",
-      image: "/screenshot2.png",
+      image: "https://cdn.uploadfly.cloud/IpTcpk/each.png",
     },
     {
       title: "Get notified about events",
-      image: "/screenshot3.png",
+      image: "https://cdn.uploadfly.cloud/IpTcpk/events.png",
     },
   ];
 
