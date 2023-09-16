@@ -22,8 +22,8 @@ const OpenSource = () => {
         Proudly open-source
       </h1>
       <p className="text-lg lg:w-[50%] text-center mx-auto">
-        Our source code is accessible on GitHub, and you are read, review, or
-        contribute to its development as you see fit!
+        Our source code is available on GitHub, and you are welcome to read,
+        review, or contribute to its development as you see fit!
       </p>
       <Tilt>
         <Link
