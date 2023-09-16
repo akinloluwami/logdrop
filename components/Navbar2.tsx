@@ -31,10 +31,7 @@ const Navbar = () => {
         ))}
       </div>
       <div className="hidden lg:flex gap-12 items-center font-semibold">
-        <Link
-          href={"/login"}
-          className="hover:text-purple-500 transition-colors"
-        >
+        <Link href={"/login"} className="hover:text-gray-300 transition-colors">
           Login
         </Link>
 
