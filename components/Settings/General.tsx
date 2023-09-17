@@ -1,5 +1,6 @@
 import { axios } from "@/configs/axios";
 import { useProjectStore } from "@/stores/projectStore";
+import { useProjectsStore } from "@/stores/projectsStore";
 import { Button, Flex, TextInput } from "@tremor/react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -7,12 +8,12 @@ import { CgSpinner } from "react-icons/cg";
 
 const General = () => {
   const { project, setProject } = useProjectStore();
-
+  const { updateProject } = useProjectsStore();
   const [name, setName] = useState("");
   const [apiUrl, setApiUrl] = useState("");
   const [loading, setLoading] = useState("");
 
-  const updateProject = async (field: "name" | "apiUrl") => {
+  const handleUpdateProject = async (field: "name" | "apiUrl") => {
     setLoading(field);
     try {
       await axios.patch(`/project/${project.id}`, {
@@ -21,6 +22,13 @@ const General = () => {
 
       field === "name" && setProject(name, project.id!, project.apiUrl);
       field === "apiUrl" && setProject(project.name, project.id!, apiUrl);
+
+      updateProject({
+        id: project.id!,
+        name: name,
+        apiUrl: apiUrl,
+      });
+
       toast.success("Project updated");
     } catch (error: any) {
       toast.error(error.response.data.message || "Error updating project");
@@ -41,7 +49,7 @@ const General = () => {
           />
           <Button
             color="purple"
-            onClick={() => updateProject("name")}
+            onClick={() => handleUpdateProject("name")}
             disabled={loading === "name" || name === project.name || !name}
           >
             {loading === "name" ? (
@@ -62,7 +70,7 @@ const General = () => {
           />
           <Button
             color="purple"
-            onClick={() => updateProject("apiUrl")}
+            onClick={() => handleUpdateProject("apiUrl")}
             disabled={
               loading === "apiUrl" || apiUrl === project.apiUrl || !apiUrl
             }

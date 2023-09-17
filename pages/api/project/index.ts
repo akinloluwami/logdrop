@@ -29,6 +29,19 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
         },
       });
 
+      const user = await prisma.user.findUnique({
+        where: {
+          id: req.user?.id,
+        },
+      });
+
+      if (projects.length > 1 && user?.plan === "free") {
+        res.status(400).json({
+          message: "You can have a maximum of 2 projects. Upgrade to Pro",
+        });
+        return;
+      }
+
       if (projects.length !== 0 && from === "onboarding") {
         res.status(201).json({
           message: "Project already created",

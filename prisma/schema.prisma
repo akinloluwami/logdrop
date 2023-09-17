@@ -17,6 +17,7 @@ model User {
   projects               Project[]
   createdAt              DateTime  @default(now())
   hasCompletedOnboarding Boolean   @default(false)
+  plan                   String    @default("free")
 }
 
 model Google {
