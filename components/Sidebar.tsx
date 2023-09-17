@@ -13,6 +13,8 @@ import { axios } from "@/configs/axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { FiPlus } from "react-icons/fi";
+import AddNewProject from "./AddNewProject";
+import { useState } from "react";
 
 const Sidebar = () => {
   const links = [
@@ -63,15 +65,25 @@ const Sidebar = () => {
     }
   };
 
+  const [isNewProjectModalOpen, setIsNewProjectModalOpen] = useState(true);
+
+  const closeModal = () => {
+    setIsNewProjectModalOpen(false);
+  };
+
   return (
     <div className="w-full h-screen py-5 relative flex flex-col justify-between">
+      <AddNewProject isOpen={isNewProjectModalOpen} closeModal={closeModal} />
       <div>
         <div className="flex items-center gap-3 px-5">
           <Select value="awesome">
             <SelectItem value="awesome">Awesome</SelectItem>
             <SelectItem value="cool">Cool</SelectItem>
           </Select>
-          <button className="flex items-center gap-2 px-2 py-2 rounded-lg bg-purple-800/30 font-medium text-white transition-colors hover:bg-purple-800/40">
+          <button
+            className="flex items-center gap-2 px-2 py-2 rounded-lg bg-purple-800/30 font-medium text-white transition-colors hover:bg-purple-800/40"
+            onClick={() => setIsNewProjectModalOpen(!isNewProjectModalOpen)}
+          >
             <FiPlus />
           </button>
         </div>
