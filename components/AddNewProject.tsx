@@ -1,6 +1,10 @@
+import { axios } from "@/configs/axios";
+import { useProjectsStore } from "@/stores/projectsStore";
 import { Dialog, Transition } from "@headlessui/react";
 import { TextInput } from "@tremor/react";
 import { FC, Fragment, useState } from "react";
+import toast from "react-hot-toast";
+import { CgSpinner } from "react-icons/cg";
 import { HiOutlineLightningBolt } from "react-icons/hi";
 
 interface Props {
@@ -9,6 +13,29 @@ interface Props {
 }
 
 const AddNewProject: FC<Props> = ({ isOpen, closeModal }) => {
+  const { addNewProject } = useProjectsStore();
+
+  const [newProject, setNewProject] = useState({
+    apiUrl: "",
+    name: "",
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleAddProject = async () => {
+    setLoading(true);
+
+    try {
+      const { data } = await axios.post("/project", newProject);
+      addNewProject(data.project);
+      closeModal();
+      toast.success("Project created!");
+    } catch (error: any) {
+      toast.error(error.response.data.message || "Failed to create project");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -44,18 +71,40 @@ const AddNewProject: FC<Props> = ({ isOpen, closeModal }) => {
                     Create a new project
                   </Dialog.Title>
                   <div className="mt-2">
-                    <TextInput className="my-5" placeholder="Project name" />
-                    <TextInput className="my-5" placeholder="API URL" />
+                    <TextInput
+                      className="my-5"
+                      placeholder="Project name"
+                      value={newProject.name}
+                      onChange={(e) =>
+                        setNewProject({ ...newProject, name: e.target.value })
+                      }
+                    />
+                    <TextInput
+                      className="my-5"
+                      placeholder="API URL"
+                      value={newProject.apiUrl}
+                      onChange={(e) =>
+                        setNewProject({ ...newProject, apiUrl: e.target.value })
+                      }
+                    />
                   </div>
-
                   <div className="mt-4">
                     <button
                       type="button"
-                      className="flex justify-center rounded-md border border-transparent bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-900 focus-visible:ring-offset-2 items-center gap-2"
-                      onClick={closeModal}
+                      className="flex justify-center rounded-md border border-transparent bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-900 focus-visible:ring-offset-2 items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                      onClick={handleAddProject}
+                      disabled={
+                        !newProject.apiUrl || !newProject.name || loading
+                      }
                     >
-                      <HiOutlineLightningBolt size={20} />
-                      Launch!
+                      {loading ? (
+                        <CgSpinner size={20} className="animate-spin" />
+                      ) : (
+                        <>
+                          <HiOutlineLightningBolt size={20} />
+                          Launch!
+                        </>
+                      )}
                     </button>
                   </div>
                 </Dialog.Panel>

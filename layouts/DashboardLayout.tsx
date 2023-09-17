@@ -1,6 +1,7 @@
 import Sidebar from "@/components/Sidebar";
 import { axios } from "@/configs/axios";
 import { useProjectStore } from "@/stores/projectStore";
+import { useProjectsStore } from "@/stores/projectsStore";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -19,12 +20,15 @@ const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
   const loading = typeof project.id !== "number";
   const router = useRouter();
 
+  const { setProjects } = useProjectsStore();
+
   useEffect(() => {
     if (project.id !== null) return;
 
     (async () => {
       try {
         const { data } = await axios("/project");
+        setProjects(data);
         if (data[0]) {
           setProject(data[0].name, data[0].id, data[0].apiUrl);
         } else {

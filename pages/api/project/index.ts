@@ -53,6 +53,11 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
 
       res.status(201).json({
         message: "Project created successfully",
+        project: {
+          name: newProject.name,
+          apiUrl: newProject.apiUrl,
+          id: newProject.id,
+        },
       });
       return;
     }
