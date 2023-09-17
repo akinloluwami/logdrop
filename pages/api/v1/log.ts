@@ -81,7 +81,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await prisma.log.create({
       data: {
-        date: dayjs().format("YYYY-MM-DD"),
         endpoint: log.endpoint,
         url: log.url,
         ip: log.ip,
