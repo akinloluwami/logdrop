@@ -161,6 +161,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             lastTriggered: dayjs().toISOString(),
           },
         });
+        await prisma.eventTrigger.create({
+          data: {
+            eventId: event.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
         if (event.action === "email") {
           await resend.emails.send({
             from: "LogDrop Event<event@logdrop.co>",
