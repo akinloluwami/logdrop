@@ -197,11 +197,8 @@ const Events = () => {
         {!showModal && (
           <Button
             icon={TbLayoutGridAdd}
-            color="purple"
-            onClick={() => {
-              console.log("hey");
-              setShowModal(true);
-            }}
+            className="!bg-purple-700 border-none !text-white py-3"
+            onClick={() => setShowModal(true)}
           >
             Create New Event
           </Button>
