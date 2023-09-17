@@ -51,9 +51,9 @@ const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
               <Sidebar />
             </div>
             <div className="lg:w-[80%] lg:ml-[20%] w-full">
-              <div className="sticky top-0 z-40">
+              <div className="sticky top-0">
                 <div className="relative">
-                  <div className="flex justify-between border-b border-gray-800 lg:px-10 px-4 py-5 w-full sticky top-0 bg-black/20 backdrop-blur-md z-50">
+                  <div className="flex justify-between border-b border-gray-800 lg:px-10 px-4 py-5 w-full sticky top-0 bg-black/20 backdrop-blur-md">
                     <h2 className="text-2xl font-medium">{pageTitle}</h2>
 
                     <div className="flex items-center gap-3">
