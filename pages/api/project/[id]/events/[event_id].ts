@@ -11,6 +11,9 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
       await prisma.event.delete({
         where: { id: Number(eventId) },
       });
+      await prisma.eventTrigger.deleteMany({
+        where: { eventId: Number(eventId) },
+      });
       res.status(200).json({ message: "Event deleted" });
     }
   } catch (error) {
