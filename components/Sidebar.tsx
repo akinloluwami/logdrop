@@ -16,6 +16,7 @@ import { FiPlus } from "react-icons/fi";
 import AddNewProject from "./AddNewProject";
 import { useState } from "react";
 import { useProjectsStore } from "@/stores/projectsStore";
+import { set } from "lodash";
 
 const Sidebar = () => {
   const links = [
@@ -46,7 +47,7 @@ const Sidebar = () => {
 
   const pathname = usePathname();
 
-  const { project } = useProjectStore();
+  const { project, setProject } = useProjectStore();
   const router = useRouter();
 
   const logout = async () => {
@@ -79,9 +80,15 @@ const Sidebar = () => {
       <AddNewProject isOpen={isNewProjectModalOpen} closeModal={closeModal} />
       <div>
         <div className="flex items-center gap-3 px-5">
-          <Select value={project?.name}>
+          <Select
+            value={project?.id?.toString()}
+            onValueChange={(value) => {
+              const find = projects.find((p) => p.id.toString() === value);
+              setProject(find?.name!, find?.id!, find?.apiUrl!);
+            }}
+          >
             {projects.map((project, index) => (
-              <SelectItem key={index} value={project.name}>
+              <SelectItem key={index} value={project.id.toString()}>
                 {project.name}
               </SelectItem>
             ))}
