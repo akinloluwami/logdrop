@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
-    "@prisma/client": "^5.2.0",
+    "@prisma/client": "^5.3.1",
     "@react-email/button": "0.0.10",
     "@react-email/font": "0.0.3",
     "@react-email/head": "0.0.5",
