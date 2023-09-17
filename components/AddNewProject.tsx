@@ -1,4 +1,5 @@
 import { axios } from "@/configs/axios";
+import { useProjectStore } from "@/stores/projectStore";
 import { useProjectsStore } from "@/stores/projectsStore";
 import { Dialog, Transition } from "@headlessui/react";
 import { TextInput } from "@tremor/react";
@@ -14,6 +15,7 @@ interface Props {
 
 const AddNewProject: FC<Props> = ({ isOpen, closeModal }) => {
   const { addNewProject } = useProjectsStore();
+  const { setProject } = useProjectStore();
 
   const [newProject, setNewProject] = useState({
     apiUrl: "",
@@ -26,7 +28,9 @@ const AddNewProject: FC<Props> = ({ isOpen, closeModal }) => {
 
     try {
       const { data } = await axios.post("/project", newProject);
+      const { name, id, apiUrl } = data.project;
       addNewProject(data.project);
+      setProject(name, id, apiUrl);
       closeModal();
       toast.success("Project created!");
     } catch (error: any) {
