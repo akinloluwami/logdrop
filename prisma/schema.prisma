@@ -50,7 +50,6 @@ model Log {
   id              Int       @id @default(autoincrement())
   uuid            String    @unique @default(uuid())
   createdAt       DateTime  @default(now())
-  date            String
   endpoint        String
   url             String
   ip              String
@@ -106,4 +105,14 @@ model Event {
   conditions     Json[]
   lastTriggered  DateTime?
   timesTriggered Int?      @default(0)
+  triggers        EventTrigger[]
+}
+
+
+model EventTrigger {
+  id         Int      @id @default(autoincrement())
+  date       String
+  createdAt  DateTime @default(now())
+  eventId    Int 
+  event      Event    @relation(fields: [eventId], references: [id])
 }
