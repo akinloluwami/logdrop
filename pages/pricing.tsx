@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
+import Link from "next/link";
 import { ChangeEvent, useState } from "react";
 import { BsCheckAll } from "react-icons/bs";
 
@@ -93,6 +94,10 @@ const Pricing = () => {
           icon: <BsCheckAll className="text-xl text-green-500" />,
         },
       ],
+      cta: {
+        text: "Get Started",
+        link: "/signup",
+      },
     },
     {
       name: "Pro",
@@ -127,6 +132,10 @@ const Pricing = () => {
           icon: <BsCheckAll className="text-xl text-green-500" />,
         },
       ],
+      cta: {
+        text: "Get Started",
+        link: "/signup",
+      },
     },
     {
       name: "Enterprise",
@@ -157,6 +166,10 @@ const Pricing = () => {
           icon: <BsCheckAll className="text-xl text-green-500" />,
         },
       ],
+      cta: {
+        text: "Get In Touch",
+        link: "mailto:akin@logdrop.co",
+      },
     },
   ];
 
@@ -216,6 +229,12 @@ const Pricing = () => {
                   </div>
                 ))}
               </div>
+              <Link
+                href={tier.cta.link}
+                className="bg-gradient-to-r from-purple-500 to-purple-800 py-4 w-[95%] text-center rounded-full"
+              >
+                {tier.cta.text}
+              </Link>
             </div>
           ))}
         </div>
