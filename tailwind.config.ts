@@ -24,7 +24,7 @@ const config: Config = {
             inverted: "#ffffff",
           },
           background: {
-            muted: "#f9fafb",
+            muted: "#000",
             subtle: "#f3f4f6",
             DEFAULT: "#ffffff",
             emphasis: "#374151",
@@ -47,15 +47,15 @@ const config: Config = {
         "dark-tremor": {
           brand: {
             faint: "#0B1229",
-            muted: "#6b21a84d",
-            subtle: "#1e40af",
+            muted: "rgb(255 255 255 / 0.2)",
+            subtle: "#0B1229",
             DEFAULT: "#3b82f6",
             emphasis: "#60a5fa",
             inverted: "#030712",
           },
           background: {
-            muted: "#131A2B",
-            subtle: "#1f2937",
+            muted: "rgb(255 255 255 / 0.03)",
+            subtle: "#rgb(255 255 255 / 0.05)",
             DEFAULT: "#000",
             emphasis: "#d1d5db",
           },
