@@ -25,38 +25,28 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
       currentDate = currentDate.add(1, "day");
     }
 
-    const logs = await prisma.log.groupBy({
-      by: ["date"],
-      where: {
-        projectId: Number(projectId),
-        createdAt: {
-          gte: start.toISOString(),
-          lte: end.toISOString(),
-        },
-      },
-      _count: true,
+    const chartData: { day: Date; count: number }[] = await prisma.$queryRaw`
+      SELECT DATE_TRUNC('day', "createdAt"::timestamp) AS day, COUNT(*) AS count
+      FROM "Log"
+      WHERE "projectId" = ${Number(projectId)}
+        AND "createdAt"::date >= ${start.toDate()}
+        AND "createdAt"::date <= ${end.toDate()}
+      GROUP BY day
+    `;
+
+    const chartDataMap = new Map();
+    chartData.forEach((row) => {
+      chartDataMap.set(
+        row.day.toISOString().split("T")[0],
+        Number(row.count.toString())
+      );
     });
 
-    const countMap = new Map();
-    logs.forEach((log) => {
-      countMap.set(log.date, log._count);
-    });
+    const result = datesInRange.map((date) => ({
+      "API Requests": chartDataMap.get(date) || 0,
+      date,
+    }));
 
-    const result = datesInRange.map((date) => {
-      const logEntry = logs.find((log) => log.date === date);
-
-      if (logEntry) {
-        return {
-          "API Requests": logEntry._count,
-          date,
-        };
-      } else {
-        return {
-          "API Requests": 0,
-          date,
-        };
-      }
-    });
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
