@@ -59,6 +59,111 @@ const Pricing = () => {
     return 0;
   };
 
+  const tiers = [
+    {
+      name: "Basic",
+      price: "$0/mo",
+      features: [
+        {
+          text: "Up to 2,000 requests per month",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        {
+          text: "2 APIs",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        {
+          text: "30-day data retention",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        {
+          text: "Email/X support",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        // {
+        //   text: "100 event triggers/month",
+        //   icon: <BsCheckAll className="text-xl text-green-500" />,
+        // },
+        {
+          text: "2 team members (soon)",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        {
+          text: "Email/Slack alerts (soon)",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+      ],
+    },
+    {
+      name: "Pro",
+      price: `$${calculatePrice()}/mo`,
+      features: [
+        {
+          text: "50 APIs",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        {
+          text: "Unlimited data retention",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        {
+          text: "Email, Slack & X support",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        // {
+        //   text: "",
+        //   icon: <BsCheckAll className="text-xl text-green-500" />,
+        // },
+        {
+          text: "Unlimited team members (soon)",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        {
+          text: "Weekly/Monthly (soon)",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        {
+          text: "Email/Slack alerts (soon)",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+      ],
+    },
+    {
+      name: "Enterprise",
+      price: "Custom",
+      features: [
+        {
+          text: "Everything in Pro and more",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        {
+          text: "Unlimited APIs",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        {
+          text: "Unlimited data retention",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        {
+          text: "24/7/365 Priority support",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        {
+          text: "Dedicated success engineer",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        {
+          text: "Priority Feature Requests",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+        {
+          text: "Unlimited team members (soon)",
+          icon: <BsCheckAll className="text-xl text-green-500" />,
+        },
+      ],
+    },
+  ];
+
   return (
     <div className="">
       <Head>
@@ -71,134 +176,52 @@ const Pricing = () => {
         </h1>
 
         <div className="flex items-center justify-center mt-16 lg:px-14 px-4 lg:gap-10 gap-14 flex-wrap">
-          <div className="py-4 lg:w-[350px] w-full border border-white/10 rounded-xl flex flex-col items-center">
-            <p className="text-lg font-semibold">Basic</p>
-            <h3 className="my-5 text-4xl">$0/mo</h3>
-            <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
-            <div className="h-3 mt-5 w-full"></div>
-            <p className="my-3 text-gray-400 font-semibold">
-              Up to 2,000 requests per month
-            </p>
-            <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
-            <div className="my-10 flex flex-col gap-5 items-start w-[80%]">
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>2 APIs</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>30-day data retention</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>Email/X support</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>2 team members (soon)</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>Email/Slack alerts (soon)</p>
-              </div>
-            </div>
-            <button className="font-semibold w-[90%] mx-auto bg-gradient-to-r from-purple-500/20 to-purple-600 py-3 rounded-full">
-              Get started
-            </button>
-          </div>
-
-          <div className="py-4 lg:w-[350px] w-full border border-white/50 rounded-xl flex flex-col items-center shadow-md shadow-purple-500/40 hover:shadow-lg hover:shadow-purple-500/70 transition-all">
-            <p className="text-lg font-semibold">Pro</p>
-
-            <h3 className="my-5 text-4xl">${calculatePrice()}/mo</h3>
-            <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
-            <input
-              type="range"
-              min={Math.log10(requestTiers[0]) * 1000}
-              max={Math.log10(requestTiers[requestTiers.length - 1]) * 1000}
-              className="w-[85%] mt-5"
-              onChange={handleSliderChange}
-              value={Math.log10(requests) * 1000}
-            />
-            <p className="mt-3 text-gray-400 font-semibold">
-              {formatWithComma(requests)} requests per month
-            </p>
-            <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
-            <div className="my-10 flex flex-col gap-5 items-start w-[80%]">
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>50 APIs</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>Unlimited data retention</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>Email, Slack & X support</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>Unlimited team members (soon)</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>Weekly/Monthly (soon)</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>Email/Slack alerts (soon)</p>
+          {tiers.map((tier, index) => (
+            <div
+              key={index}
+              className={`py-4 lg:w-[350px] w-full border border-white/10 rounded-xl flex flex-col items-center ${
+                tier.name === "Pro" &&
+                "shadow-md shadow-purple-500/40 hover:shadow-lg hover:shadow-purple-500/70 transition-all"
+              }`}
+            >
+              <p className="text-lg font-semibold">{tier.name}</p>
+              <h3 className="my-5 text-4xl">{tier.price}</h3>
+              <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
+              {tier.name !== "Pro" && <div className="h-3 mt-5 w-full"></div>}
+              {tier.name === "Pro" && (
+                <>
+                  <input
+                    type="range"
+                    min={Math.log10(requestTiers[0]) * 1000}
+                    max={
+                      Math.log10(requestTiers[requestTiers.length - 1]) * 1000
+                    }
+                    className="w-[85%] mt-5"
+                    onChange={handleSliderChange}
+                    value={Math.log10(requests) * 1000}
+                  />
+                  <p className="mt-3 text-gray-400 font-semibold">
+                    {formatWithComma(requests)} requests per month
+                  </p>
+                </>
+              )}
+              {(tier.name === "Basic" || tier.name === "Enterprise") && (
+                <p className="my-3 text-gray-400 font-semibold">
+                  {tier.name === "Basic"
+                    ? "Up to 2,000 requests per month"
+                    : "Tailored to your specific needs"}
+                </p>
+              )}
+              <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
+              <div className="my-10 flex flex-col gap-5 items-start w-[80%]">
+                {tier.features.map((feature, index) => (
+                  <div className="flex items-center gap-1" key={index}>
+                    {feature.icon} {feature.text}
+                  </div>
+                ))}
               </div>
             </div>
-            <button className="font-semibold w-[90%] mx-auto bg-gradient-to-r from-purple-500/20 to-purple-600 py-3 rounded-full">
-              Get started
-            </button>
-          </div>
-
-          <div className="py-4 lg:w-[350px] w-full border border-white/10 rounded-xl flex flex-col items-center">
-            <p className="text-lg font-semibold">Enterprise</p>
-            <h3 className="my-5 text-4xl">Custom</h3>
-            <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
-
-            <div className="h-3 mt-5 w-full"></div>
-            <p className="mt-3 text-gray-400 font-semibold">
-              Tailored to your specific needs
-            </p>
-            <div className="w-full mt-5 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"></div>
-            <div className="my-10 flex flex-col gap-5 items-start w-[80%]">
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>Everything in Pro and more</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>Unlimited APIs</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>Unlimited data retention</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>24/7/365 Priority support</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>Dedicated success engineer</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>Priority Feature Requests</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <BsCheckAll className="text-xl text-green-500" />
-                <p>Unlimited team members (soon)</p>
-              </div>
-            </div>
-            <button className="font-semibold w-[90%] mx-auto bg-gradient-to-r from-purple-500/20 to-purple-600 py-3 rounded-full">
-              Contact us
-            </button>
-          </div>
+          ))}
         </div>
       </div>
       <Footer />
