@@ -119,7 +119,7 @@ const Pricing = () => {
           icon: <BsCheckAll className="text-xl text-green-500" />,
         },
         {
-          text: "Weekly/Monthly (soon)",
+          text: "Weekly/Monthly usage report (soon)",
           icon: <BsCheckAll className="text-xl text-green-500" />,
         },
         {
@@ -133,15 +133,11 @@ const Pricing = () => {
       price: "Custom",
       features: [
         {
-          text: "Everything in Pro and more",
+          text: "Everything in Pro",
           icon: <BsCheckAll className="text-xl text-green-500" />,
         },
         {
           text: "Unlimited APIs",
-          icon: <BsCheckAll className="text-xl text-green-500" />,
-        },
-        {
-          text: "Unlimited data retention",
           icon: <BsCheckAll className="text-xl text-green-500" />,
         },
         {
