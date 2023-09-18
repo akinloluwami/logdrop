@@ -52,7 +52,11 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
           return;
         }
 
-        if (await prisma.project.count({ where: { slug } })) {
+        if (
+          await prisma.project.count({
+            where: { slug: slug, userId: req.user?.id },
+          })
+        ) {
           res.status(400).json({
             message: "Slug is already taken, try another one",
           });
