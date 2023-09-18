@@ -60,7 +60,7 @@ const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
   return (
     <div className="flex">
       <Head>
-        <title>{`${pageTitle} • LogDrop`}</title>
+        <title>{`${pageTitle} • ${project?.name} • LogDrop`}</title>
       </Head>
       <>
         {loading ? (
