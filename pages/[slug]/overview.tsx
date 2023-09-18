@@ -48,7 +48,6 @@ const Dashboard = () => {
             )}&endDate=${dayjs()}`
           );
           setChartData(data);
-          console.log(data);
         } catch (error) {}
       })();
     }
