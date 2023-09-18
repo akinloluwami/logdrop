@@ -85,6 +85,7 @@ const Sidebar = () => {
             onValueChange={(value) => {
               const find = projects.find((p) => p.id.toString() === value);
               setProject(find?.name!, find?.id!, find?.apiUrl!, find?.slug!);
+              router.push(`/${find?.slug}/overview`);
             }}
           >
             {projects.map((project, index) => (
@@ -103,7 +104,7 @@ const Sidebar = () => {
         <div className="mt-10 px-5">
           {links.map((link, index) => (
             <Link
-              href={`/${project.slug}/${link.href}`}
+              href={`/${project.slug}${link.href}`}
               key={index}
               className={`${
                 pathname?.includes(link.href) && "bg-purple-800/30 font-medium"
