@@ -7,7 +7,7 @@ import { prisma } from "@/prisma";
 const handler = async (req: CustomRequest, res: NextApiResponse) => {
   try {
     const { slug } = req.query;
-    const project = await prisma.project.findUnique({
+    const project = await prisma.project.findFirst({
       where: {
         slug: slug as string,
         userId: req?.user?.id,
