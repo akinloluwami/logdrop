@@ -24,19 +24,37 @@ const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
 
   useEffect(() => {
     if (project.id !== null) return;
-
     (async () => {
       try {
         const { data } = await axios("/project");
+        data.length === 0 && router.push("/onboarding");
         setProjects(data);
-        if (data[0]) {
-          setProject(data[0].name, data[0].id, data[0].apiUrl, data[0].slug);
-        } else {
-          router.push("/onboarding");
-        }
       } catch (error) {}
     })();
   }, []);
+
+  useEffect(() => {
+    if (router.query.slug) {
+      (async () => {
+        try {
+          const {
+            data,
+          }: {
+            data: {
+              id: number;
+              slug: string;
+              name: string;
+              apiUrl: string;
+            };
+          } = await axios(`/project/slug?slug=${router.query.slug}`);
+          setProject(data.name!, data.id, data.slug, data.apiUrl);
+        } catch (error: any) {
+          error.response.status === 404 && router.push("/404");
+          error.response.status === 500 && router.push("/500");
+        }
+      })();
+    }
+  }, [router.query.slug]);
 
   const [showSidebar, setShowSidebar] = useState(false);
   return (
