@@ -46,6 +46,7 @@ const AddNewProject: FC<Props> = ({ isOpen, closeModal }) => {
       router.push(`/${slug}/overview`);
       closeModal();
       toast.success("Project created!");
+      setNewProject({ apiUrl: "", name: "" });
     } catch (error: any) {
       toast.error(error.response.data.message || "Failed to create project");
     } finally {
