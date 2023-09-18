@@ -25,10 +25,10 @@ const AddNewProject: FC<Props> = ({ isOpen, closeModal }) => {
 
   const handleAddProject = async () => {
     if (
-      newProject.apiUrl.includes("http://") ||
+      newProject.apiUrl.includes("http") ||
       newProject.apiUrl.includes("www.")
     ) {
-      toast.error("API URL should not contain http:// or www.");
+      toast.error("API URL should not contain http://, https:// or www.");
       return;
     }
 
