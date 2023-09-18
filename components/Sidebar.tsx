@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { FiPlus } from "react-icons/fi";
 import AddNewProject from "./AddNewProject";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useProjectsStore } from "@/stores/projectsStore";
 import { set } from "lodash";
 
@@ -75,6 +75,8 @@ const Sidebar = () => {
 
   const { projects } = useProjectsStore();
 
+  const currentPage = router.asPath.split("/")[2];
+
   return (
     <div className="w-full h-screen py-5 relative flex flex-col justify-between">
       <AddNewProject isOpen={isNewProjectModalOpen} closeModal={closeModal} />
@@ -85,7 +87,7 @@ const Sidebar = () => {
             onValueChange={(value) => {
               const find = projects.find((p) => p.id.toString() === value);
               setProject(find?.name!, find?.id!, find?.apiUrl!, find?.slug!);
-              router.push(`/${find?.slug}/overview`);
+              router.push(`/${find?.slug}/${currentPage}`);
             }}
           >
             {projects.map((project, index) => (
