@@ -24,13 +24,21 @@ const AddNewProject: FC<Props> = ({ isOpen, closeModal }) => {
   const [loading, setLoading] = useState(false);
 
   const handleAddProject = async () => {
+    if (
+      newProject.apiUrl.includes("http://") ||
+      newProject.apiUrl.includes("www.")
+    ) {
+      toast.error("API URL should not contain http:// or www.");
+      return;
+    }
+
     setLoading(true);
 
     try {
       const { data } = await axios.post("/project", newProject);
-      const { name, id, apiUrl } = data.project;
+      const { name, id, apiUrl, slug } = data.project;
       addNewProject(data.project);
-      setProject(name, id, apiUrl);
+      setProject(name, id, apiUrl, slug);
       closeModal();
       toast.success("Project created!");
     } catch (error: any) {
