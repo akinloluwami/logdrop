@@ -5,8 +5,9 @@ interface ProjectStore {
     name: string;
     apiUrl: string;
     id: number | null;
+    slug: string;
   };
-  setProject: (name: string, id: number, apiUrl: string) => void;
+  setProject: (name: string, id: number, apiUrl: string, slug: string) => void;
 }
 
 export const useProjectStore = create<ProjectStore>((set) => ({
@@ -14,8 +15,9 @@ export const useProjectStore = create<ProjectStore>((set) => ({
     id: null,
     name: "",
     apiUrl: "",
+    slug: "",
   },
-  setProject: (name, id, apiUrl) => {
-    set({ project: { name, id, apiUrl } });
+  setProject: (name, id, apiUrl, slug) => {
+    set({ project: { name, id, apiUrl, slug } });
   },
 }));

@@ -45,6 +45,7 @@ model Project {
   logs      Log[]
   events    Event[]
   createdAt DateTime @default(now())
+  slug      String?
 }
 
 model Log {

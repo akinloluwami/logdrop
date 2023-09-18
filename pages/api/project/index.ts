@@ -64,12 +64,19 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
         },
       });
 
+      let slug = name.toLowerCase().replace(/[^a-zA-Z0-9]/g, "-");
+
+      if ((await prisma.project.count({ where: { slug: slug } })) > 0) {
+        slug = slug + "-" + Math.floor(Math.random() * 100000);
+      }
+
       res.status(201).json({
         message: "Project created successfully",
         project: {
           name: newProject.name,
           apiUrl: newProject.apiUrl,
           id: newProject.id,
+          slug,
         },
       });
       return;

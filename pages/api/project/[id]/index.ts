@@ -17,7 +17,7 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
         return;
       }
 
-      const { name, apiUrl } = req.body;
+      const { name, apiUrl, slug } = req.body;
 
       if (name) {
         await prisma.project.update({
@@ -44,6 +44,31 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
           },
         });
       }
+      if (slug) {
+        if (!validator.isAlphanumeric(slug)) {
+          res.status(400).json({
+            message: "Slug must be alphanumeric",
+          });
+          return;
+        }
+
+        if (await prisma.project.count({ where: { slug } })) {
+          res.status(400).json({
+            message: "Slug is already taken, try another one",
+          });
+          return;
+        }
+
+        await prisma.project.update({
+          where: {
+            id: projectId,
+          },
+          data: {
+            slug,
+          },
+        });
+      }
+
       res.status(200).json({
         message: "Project updated successfully",
       });

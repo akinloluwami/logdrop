@@ -1,3 +1,4 @@
+import Onboarding from "@/components/Onboarding";
 import RequestsTable from "@/components/RequestsTable";
 import { axios } from "@/configs/axios";
 import { resend } from "@/configs/resend";
@@ -55,20 +56,30 @@ const Dashboard = () => {
 
   return (
     <DashboardLayout pageTitle="Overview">
-      <h2 className="mb-5 font-semibold text-lg">Last 7 days API Requests</h2>
-      <Card className="!bg-transparent">
-        <LineChart
-          className="mt-6 h-72"
-          data={formattedChartData}
-          index="formattedDate"
-          categories={["API Requests"]}
-          colors={["purple"]}
-          yAxisWidth={40}
-          curveType="linear"
-        />
-      </Card>
-      <h2 className="mb-5 font-semibold text-lg my-5">Recent API Requests</h2>
-      <RequestsTable data={recentRequests} />
+      {recentRequests.length > 0 ? (
+        <>
+          <h2 className="mb-5 font-semibold text-lg">
+            Last 7 days API Requests
+          </h2>
+          <Card className="!bg-transparent">
+            <LineChart
+              className="mt-6 h-72"
+              data={formattedChartData}
+              index="formattedDate"
+              categories={["API Requests"]}
+              colors={["purple"]}
+              yAxisWidth={40}
+              curveType="linear"
+            />
+          </Card>
+          <h2 className="mb-5 font-semibold text-lg my-5">
+            Recent API Requests
+          </h2>
+          <RequestsTable data={recentRequests} />
+        </>
+      ) : (
+        <Onboarding />
+      )}
     </DashboardLayout>
   );
 };

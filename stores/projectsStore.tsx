@@ -5,15 +5,22 @@ interface Props {
     name: string;
     apiUrl: string;
     id: number;
+    slug: string;
   }[];
-  addNewProject: (project: { name: string; apiUrl: string; id }) => void;
+  addNewProject: (project: {
+    name: string;
+    apiUrl: string;
+    id: number;
+    slug: string;
+  }) => void;
   setProjects: (
-    projects: { name: string; apiUrl: string; id: number }[]
+    projects: { name: string; apiUrl: string; id: number; slug: string }[]
   ) => void;
   updateProject: (project: {
     name: string;
     apiUrl: string;
     id: number;
+    slug: string;
   }) => void;
 }
 

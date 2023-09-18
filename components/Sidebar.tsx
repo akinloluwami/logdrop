@@ -84,7 +84,7 @@ const Sidebar = () => {
             value={project?.id?.toString()}
             onValueChange={(value) => {
               const find = projects.find((p) => p.id.toString() === value);
-              setProject(find?.name!, find?.id!, find?.apiUrl!);
+              setProject(find?.name!, find?.id!, find?.apiUrl!, find?.slug!);
             }}
           >
             {projects.map((project, index) => (
