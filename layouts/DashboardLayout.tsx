@@ -47,7 +47,7 @@ const DashboardLayout: FC<Props> = ({ children, pageTitle }) => {
               apiUrl: string;
             };
           } = await axios(`/project/slug?slug=${router.query.slug}`);
-          setProject(data.name!, data.id, data.slug, data.apiUrl);
+          setProject(data.name!, data.id, data.apiUrl, data.slug!);
         } catch (error: any) {
           error.response.status === 404 && router.push("/404");
           error.response.status === 500 && router.push("/500");

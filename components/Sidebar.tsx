@@ -103,7 +103,7 @@ const Sidebar = () => {
         <div className="mt-10 px-5">
           {links.map((link, index) => (
             <Link
-              href={link.href}
+              href={`/${project.slug}/${link.href}`}
               key={index}
               className={`${
                 pathname?.includes(link.href) && "bg-purple-800/30 font-medium"

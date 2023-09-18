@@ -3,6 +3,7 @@ import { useProjectStore } from "@/stores/projectStore";
 import { useProjectsStore } from "@/stores/projectsStore";
 import { Button, Flex, TextInput } from "@tremor/react";
 import { set } from "lodash";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
@@ -12,6 +13,8 @@ const General = () => {
   const [apiUrl, setApiUrl] = useState("");
   const [loading, setLoading] = useState("");
   const [slug, setSlug] = useState("");
+
+  const router = useRouter();
 
   const { project, setProject } = useProjectStore();
   const { updateProject } = useProjectsStore();
@@ -25,8 +28,10 @@ const General = () => {
 
       field === "name" &&
         setProject(name, project.id!, project.apiUrl, project.slug);
+
       field === "apiUrl" &&
         setProject(project.name, project.id!, apiUrl, project.slug);
+
       field === "slug" &&
         setProject(project.name, project.id!, project.apiUrl, slug);
 
@@ -57,6 +62,8 @@ const General = () => {
           slug: slug,
           id: project.id!,
         });
+
+      field === "slug" && router.push(`/${slug}/settings`);
 
       setLoading("");
       setName("");
