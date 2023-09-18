@@ -1,4 +1,5 @@
 import { axios } from "@/configs/axios";
+import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -16,6 +17,9 @@ const Overview = () => {
 
   return (
     <div className="flex items-center  justify-center flex-col py-10">
+      <Head>
+        <title>Overview • LogDrop</title>
+      </Head>
       <h1>Welcome back</h1>
       <div className="mt-20">
         <h2 className="text-3xl font-semibold text-center">
