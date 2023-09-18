@@ -49,11 +49,23 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
         return;
       }
 
+      let slug = name.toLowerCase().replace(/[^a-zA-Z0-9]/g, "-");
+      console.log(slug);
+
+      if (
+        (await prisma.project.count({
+          where: { slug: slug, userId: req.user?.id },
+        })) > 0
+      ) {
+        slug = slug + "-" + Math.floor(Math.random() * 100000);
+      }
+
       const newProject = await prisma.project.create({
         data: {
           name,
           apiUrl,
           userId: req?.user?.id!,
+          slug,
         },
       });
 
@@ -63,13 +75,6 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
           projectId: newProject.id,
         },
       });
-
-      let slug = name.toLowerCase().replace(/[^a-zA-Z0-9]/g, "-");
-
-      if ((await prisma.project.count({ where: { slug: slug } })) > 0) {
-        slug = slug + "-" + Math.floor(Math.random() * 100000);
-      }
-
       res.status(201).json({
         message: "Project created successfully",
         project: {
