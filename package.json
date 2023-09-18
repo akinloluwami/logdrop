@@ -37,6 +37,7 @@
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "marked": "^9.0.1",
+    "millify": "^6.1.0",
     "moment": "^2.29.4",
     "next": "13.4.19",
     "next-method-guard": "^1.0.1",
@@ -51,6 +52,7 @@
     "react-icons": "^4.10.1",
     "react-json-formatter": "^0.4.0",
     "react-parallax-tilt": "^1.7.166",
+    "react-sparklines": "^1.7.0",
     "react-syntax-highlighter": "^15.5.0",
     "react-tooltip": "^5.21.3",
     "resend": "^1.0.0",
@@ -62,6 +64,7 @@
     "zustand": "^4.4.1"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.0.2"
+    "@faker-js/faker": "^8.0.2",
+    "@types/react-sparklines": "^1.7.2"
   }
 }

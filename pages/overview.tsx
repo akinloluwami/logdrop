@@ -1,12 +1,13 @@
+import ProjectCard from "@/components/ProjectCard";
 import { axios } from "@/configs/axios";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Overview = () => {
-  const [projects, setProjects] = useState<{ slug: string; name: string }[]>(
-    []
-  );
+  const [projects, setProjects] = useState<
+    { slug: string; name: string; apiUrl: string }[]
+  >([]);
 
   useEffect(() => {
     (async () => {
@@ -27,13 +28,7 @@ const Overview = () => {
         </h2>
         <div className="flex items-center justify-center mt-10 gap-5 flex-wrap">
           {projects.map((project) => (
-            <Link
-              key={project.slug}
-              href={`/${project.slug}/overview`}
-              className="text-white hover:text-gray-900 font-bold border border-purple-800/30 shadow-purple-500 w-[250px] h-[250px] rounded-md flex items-center justify-center"
-            >
-              {project.name}
-            </Link>
+            <ProjectCard project={project} />
           ))}
         </div>
       </div>
