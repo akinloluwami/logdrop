@@ -55,11 +55,11 @@ const Overview = () => {
           Log out
         </Button>
       </div>
-      <div className="mt-20">
+      <div className="mt-20 w-full">
         <h2 className="text-3xl font-semibold text-center">
           Choose your fighter
         </h2>
-        <div className="flex items-center justify-center mt-10 gap-5 flex-wrap">
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 mt-10 gap-5 lg:w-[90%] mx-auto px-5">
           {projects.map((project) => (
             <ProjectCard project={project} key={project.id} />
           ))}

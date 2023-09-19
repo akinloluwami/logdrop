@@ -1,5 +1,4 @@
-import { faker } from "@faker-js/faker";
-import { Card, Text, Title } from "@tremor/react";
+import { Text, Title } from "@tremor/react";
 import Link from "next/link";
 import { FC } from "react";
 import { TbLayoutList } from "react-icons/tb";
@@ -23,7 +22,7 @@ const ProjectCard: FC<Props> = ({ project }) => {
   return (
     <Link
       href={`${slug}/overview`}
-      className="w-full max-w-[400px] h-[230px] border border-gray-600/70 rounded-md hover:border-purple-600 transition-colors duration-300 ease-in-out"
+      className="w-full md:max-w-[400px] pb-5 border border-gray-600/70 rounded-md hover:border-purple-600 transition-colors duration-300 ease-in-out"
     >
       <div className="mb-4 w-full h-2 bg-transparent"></div>
       <Sparklines data={sparkline} width={400} height={50} margin={5}>
