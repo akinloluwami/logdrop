@@ -108,39 +108,47 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
       });
 
       const selectedDate = dayjs();
-      const logCounts: number[] = [];
 
       const startTime = selectedDate.startOf("day");
 
       const intervalDuration = 30;
+      const result = projects.map(async (project) => {
+        const logCounts: number[] = [];
+        let totalRequests = 0;
 
-      for (let i = 0; i < 48; i++) {
-        const intervalStart = startTime.add(intervalDuration * i, "minutes");
-        const intervalEnd = intervalStart.add(intervalDuration, "minutes");
+        for (let i = 0; i < 48; i++) {
+          const intervalStart = startTime.add(intervalDuration * i, "minutes");
+          const intervalEnd = intervalStart.add(intervalDuration, "minutes");
 
-        const logCount = await prisma.log.count({
-          where: {
-            projectId: { in: projects.map((project) => project.id) },
-            createdAt: {
-              gte: intervalStart.toDate(),
-              lt: intervalEnd.toDate(),
+          const logCount = await prisma.log.count({
+            where: {
+              projectId: project.id,
+              createdAt: {
+                gte: intervalStart.toDate(),
+                lt: intervalEnd.toDate(),
+              },
             },
-          },
-        });
-        logCounts.push(logCount);
-      }
+          });
+          logCounts.push(logCount);
+          totalRequests += logCount;
+        }
 
-      const result = projects.map((project) => ({
-        name: project.name,
-        apiUrl: project.apiUrl,
-        id: project.id,
-        slug: project.slug,
-        createdAt: project.createdAt,
-        logs: project._count.logs,
-        sparkline: logCounts,
-      }));
+        const averageRequestsPerHour = totalRequests / 24;
+        return {
+          name: project.name,
+          apiUrl: project.apiUrl,
+          id: project.id,
+          slug: project.slug,
+          createdAt: project.createdAt,
+          logs: project._count.logs,
+          sparkline: logCounts,
+          averageRequestsPerHour,
+        };
+      });
 
-      res.json(result);
+      const finalResult = await Promise.all(result);
+      res.json(finalResult);
+
       return;
     }
   } catch (error) {
