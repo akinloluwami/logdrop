@@ -5,6 +5,7 @@ import authenticateToken from "@/middlewares/auth";
 import { prisma } from "@/prisma";
 import validator from "validator";
 import { generateApiKey } from "@/utils/generateApiKey";
+import dayjs from "dayjs";
 
 const handler = async (req: CustomRequest, res: NextApiResponse) => {
   try {
@@ -92,9 +93,49 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
         where: {
           userId: req.user?.id,
         },
+        select: {
+          name: true,
+          apiUrl: true,
+          slug: true,
+          id: true,
+          createdAt: true,
+          _count: {
+            select: {
+              logs: true,
+            },
+          },
+        },
       });
 
-      res.json(projects);
+      const selectedDate = dayjs();
+      const logCounts: number[] = [];
+
+      const startTime = selectedDate.startOf("day");
+
+      const intervalDuration = 30;
+
+      for (let i = 0; i < 48; i++) {
+        const intervalStart = startTime.add(intervalDuration * i, "minutes");
+        const intervalEnd = intervalStart.add(intervalDuration, "minutes");
+
+        const logCount = await prisma.log.count({
+          where: {
+            projectId: { in: projects.map((project) => project.id) },
+            createdAt: {
+              gte: intervalStart.toDate(),
+              lt: intervalEnd.toDate(),
+            },
+          },
+        });
+        logCounts.push(logCount);
+      }
+
+      const result = projects.map((project) => ({
+        ...project,
+        sparkline: logCounts,
+      }));
+
+      res.json(result);
       return;
     }
   } catch (error) {
