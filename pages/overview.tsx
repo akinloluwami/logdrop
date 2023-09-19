@@ -1,12 +1,20 @@
 import ProjectCard from "@/components/ProjectCard";
 import { axios } from "@/configs/axios";
+import { Button, Title } from "@tremor/react";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Overview = () => {
   const [projects, setProjects] = useState<
-    { slug: string; name: string; apiUrl: string }[]
+    {
+      slug: string;
+      name: string;
+      apiUrl: string;
+      sparkline: number[];
+      logs: number;
+      averageRequestsPerHour: number;
+    }[]
   >([]);
 
   useEffect(() => {
@@ -21,7 +29,12 @@ const Overview = () => {
       <Head>
         <title>Overview • LogDrop</title>
       </Head>
-      <h1>Welcome back</h1>
+      <div className="flex items-center justify-between w-full px-14">
+        <Title>Welcome back</Title>
+        <Button color="red" variant="light">
+          Log out
+        </Button>
+      </div>
       <div className="mt-20">
         <h2 className="text-3xl font-semibold text-center">
           Choose your fighter
@@ -32,9 +45,9 @@ const Overview = () => {
           ))}
         </div>
       </div>
-      <small className="mt-10 text-center text-gray-600">
+      {/* <small className="mt-10 text-center text-gray-600">
         This is a temporary page. I'm currently working on something!
-      </small>
+      </small> */}
     </div>
   );
 };
