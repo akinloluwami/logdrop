@@ -43,7 +43,7 @@ const AddNewProject: FC<Props> = ({ isOpen, closeModal }) => {
       const { name, id, apiUrl, slug } = data.project;
       addNewProject(data.project);
       setProject(name, id, apiUrl, slug);
-      router.push(`/${slug}/overview`);
+      router.push(`/${slug}/onboarding`);
       closeModal();
       toast.success("Project created!");
       setNewProject({ apiUrl: "", name: "" });
