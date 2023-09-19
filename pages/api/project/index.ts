@@ -131,7 +131,12 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
       }
 
       const result = projects.map((project) => ({
-        ...project,
+        name: project.name,
+        apiUrl: project.apiUrl,
+        id: project.id,
+        slug: project.slug,
+        createdAt: project.createdAt,
+        logs: project._count.logs,
         sparkline: logCounts,
       }));
 
