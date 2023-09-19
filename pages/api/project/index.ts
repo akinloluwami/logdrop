@@ -72,7 +72,7 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
 
       await prisma.aPiKey.create({
         data: {
-          key: generateApiKey(),
+          key: `ld_${generateApiKey()}`,
           projectId: newProject.id,
         },
       });
