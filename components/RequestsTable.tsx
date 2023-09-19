@@ -15,6 +15,7 @@ import moment from "moment";
 import Link from "next/link";
 import { formatTimeTaken } from "@/utils/formatTimeTaken";
 import StatusBadge from "./StatusBadge";
+import { useProjectStore } from "@/stores/projectStore";
 
 interface Props {
   data: {
@@ -30,6 +31,8 @@ interface Props {
 const head = ["Endpoint", "Method", "Status", "Time Taken", "Created"];
 
 const RequestsTable: FC<Props> = ({ data }) => {
+  const { project } = useProjectStore();
+
   return (
     <Card className="!bg-transparent">
       <Table className="">
@@ -47,7 +50,7 @@ const RequestsTable: FC<Props> = ({ data }) => {
             <TableRow key={i}>
               <TableCell>
                 <Link
-                  href={`/logs/${item.uuid}`}
+                  href={`/${project.slug}/logs/${item.uuid}`}
                   className="border-b border-dashed border-gray-600 hover:border-gray-400 transition-colors hover:text-gray-400"
                 >
                   {item.endpoint}
