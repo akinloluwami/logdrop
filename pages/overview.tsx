@@ -2,7 +2,6 @@ import ProjectCard from "@/components/ProjectCard";
 import { axios } from "@/configs/axios";
 import { Button, Title } from "@tremor/react";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -10,6 +9,7 @@ import toast from "react-hot-toast";
 const Overview = () => {
   const [projects, setProjects] = useState<
     {
+      id: number;
       slug: string;
       name: string;
       apiUrl: string;
@@ -61,7 +61,7 @@ const Overview = () => {
         </h2>
         <div className="flex items-center justify-center mt-10 gap-5 flex-wrap">
           {projects.map((project) => (
-            <ProjectCard project={project} />
+            <ProjectCard project={project} key={project.id} />
           ))}
         </div>
       </div>
