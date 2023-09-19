@@ -3,7 +3,9 @@ import { axios } from "@/configs/axios";
 import { Button, Title } from "@tremor/react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const Overview = () => {
   const [projects, setProjects] = useState<
@@ -24,14 +26,32 @@ const Overview = () => {
     })();
   }, []);
 
+  const router = useRouter();
+
+  const logout = async () => {
+    toast.loading("Logging out", {
+      id: "logout",
+    });
+    try {
+      toast.dismiss("logout");
+      await axios("/auth/logout");
+      toast("Logged out successfully", {
+        duration: 800,
+      });
+      router.push("/login");
+    } catch (error) {
+      toast.error("Something went wrong");
+      console.log(error);
+    }
+  };
   return (
     <div className="flex items-center  justify-center flex-col py-10">
       <Head>
         <title>Overview • LogDrop</title>
       </Head>
-      <div className="flex items-center justify-between w-full px-14">
+      <div className="flex items-center justify-between w-full lg:px-14 px-5">
         <Title>Welcome back</Title>
-        <Button color="red" variant="light">
+        <Button color="red" variant="light" onClick={logout}>
           Log out
         </Button>
       </div>
