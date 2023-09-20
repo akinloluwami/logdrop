@@ -38,9 +38,11 @@ const Events = () => {
   );
 
   const addNewEvent = async () => {
-    if (!checkEndpoint.endpoint.startsWith("/")) {
-      toast.error("Endpoint must start with /");
-      return;
+    if (conditions.find((condition) => condition.hasOwnProperty("endpoint"))) {
+      if (!checkEndpoint?.endpoint.startsWith("/")) {
+        toast.error("Endpoint must start with /");
+        return;
+      }
     }
 
     try {
