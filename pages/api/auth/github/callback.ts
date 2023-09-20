@@ -47,16 +47,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         },
       });
 
-      const hasCompletedOnboarding = userAccount?.hasCompletedOnboarding;
-
-      if (userAccount && hasCompletedOnboarding) {
+      if (userAccount) {
         await generateTokens(req, res, userAccount.id);
         return res.redirect("/overview");
-      }
-
-      if (userAccount && !hasCompletedOnboarding) {
-        await generateTokens(req, res, userAccount.id);
-        return res.redirect("/onboarding");
       }
 
       const newUser = await prisma.user.create({
@@ -75,7 +68,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       await generateTokens(req, res, newUser.id);
       sendEmail.welcome(newUser.email, newUser.name.split(" ")[0]);
-      res.redirect("/onboarding");
+      res.redirect("/overview");
     } else {
       res.status(401).json({ message: "Unauthorized" });
     }
