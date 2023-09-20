@@ -5,7 +5,7 @@ import { frameworks } from "@/lib/snippets";
 import { useProjectStore } from "@/stores/projectStore";
 import { copyToClipboard } from "@/utils/copyToClipboard";
 import { Button, Text, Title } from "@tremor/react";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { AiOutlineApi } from "react-icons/ai";
 import { BsCheck2 } from "react-icons/bs";
 import { CgSpinner } from "react-icons/cg";
@@ -13,6 +13,10 @@ import { FiCopy } from "react-icons/fi";
 import { IconType } from "react-icons/lib";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { useWindowSize } from "usehooks-ts";
+import Confetti from "react-confetti";
+import { Dialog, Transition } from "@headlessui/react";
+import { PiConfettiDuotone } from "react-icons/pi";
+import Link from "next/link";
 
 const code = {
   "hljs-comment": {
@@ -102,6 +106,7 @@ const Onboarding = () => {
     icon: IconType;
     code: string;
   }>(frameworks[0]);
+  const { width, height } = useWindowSize();
 
   const { project } = useProjectStore();
   useEffect(() => {
@@ -114,6 +119,7 @@ const Onboarding = () => {
   }, [project.id]);
 
   const [verifying, setVerifying] = useState<boolean>(false);
+  const [isIntegrated, setIntegrated] = useState<boolean>(false);
 
   const checkIntegration = async () => {
     try {
@@ -131,7 +137,7 @@ const Onboarding = () => {
           if (response.data === 0) {
             setTimeout(makeAPICall, 5000);
           } else {
-            // handleNext();
+            setIntegrated(true);
             setVerifying(false);
           }
         })
@@ -145,6 +151,60 @@ const Onboarding = () => {
 
   return (
     <DashboardLayout pageTitle="Onboarding">
+      {isIntegrated && <Confetti width={width} height={height} />}
+      <Transition appear show={isIntegrated} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => setIntegrated(false)}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/15 backdrop-blur-sm" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-black p-6 text-left align-middle shadow-sm shadow-purple-500/20 transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6"
+                  >
+                    Your API is integrated!
+                  </Dialog.Title>
+                  <center className="my-10">
+                    <PiConfettiDuotone size={100} className="text-purple-700" />
+                  </center>
+                  <center>
+                    <Link
+                      href={`/${project.slug}/overview`}
+                      className="text-purple-700 hover:text-purple-900 bg-white px-5 font-semibold text-xs py-3 rounded-md"
+                    >
+                      Continue to the overview
+                    </Link>
+                  </center>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
       <Title className="!text-3xl">Record your first request</Title>
       <Text>Follow the steps to integrate LogDrop into your API.</Text>
 
