@@ -12,6 +12,7 @@ import { CgSpinner } from "react-icons/cg";
 import { FiCopy } from "react-icons/fi";
 import { IconType } from "react-icons/lib";
 import SyntaxHighlighter from "react-syntax-highlighter";
+import { useWindowSize } from "usehooks-ts";
 
 const code = {
   "hljs-comment": {
