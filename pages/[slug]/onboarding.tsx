@@ -128,6 +128,13 @@ const Onboarding = () => {
     } catch (error) {}
   };
 
+  useEffect(() => {
+    project.id &&
+      checkIntegration().then((response) =>
+        setIntegrated(response?.data === 0 ? false : true)
+      );
+  }, [project?.id]);
+
   const handleVerifyIntegration = () => {
     setVerifying(true);
 

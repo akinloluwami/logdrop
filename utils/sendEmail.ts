@@ -13,12 +13,18 @@ const sendEmail = {
       react: Welcome({ name }),
     });
   },
-  firstLog: async (email: string) => {
+  firstLog: async (
+    email: string,
+    project: {
+      name: string;
+      slug: string;
+    }
+  ) => {
     await resend.emails.send({
       from,
       to: email,
-      subject: "LogDrop: Your First Request - You're Golden 🏆",
-      react: FirstRequest(),
+      subject: `LogDrop: ${project.name} First Request - You're Golden 🏆`,
+      react: FirstRequest(project),
     });
   },
 };

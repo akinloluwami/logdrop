@@ -5,7 +5,13 @@ import { Text } from "@react-email/text";
 import { Head } from "@react-email/head";
 import { Font } from "@react-email/font";
 
-export default function FirstRequest() {
+export default function FirstRequest({
+  name,
+  slug,
+}: {
+  name: string;
+  slug: string;
+}) {
   return (
     <Html>
       <Text
@@ -14,11 +20,18 @@ export default function FirstRequest() {
           fontWeight: "bold",
         }}
       >
-        You logged your first request!🎉
+        {name} first request!🎉
       </Text>
 
-      <Text>Congrats on logging your first request to LogDrop!</Text>
-      <Text>You can now explore the dashboard and visualize your data.</Text>
+      <Text>
+        Congrats on logging your first request for your project <b>{name}</b> to
+        LogDrop!
+      </Text>
+      <Text>
+        You can now explore the{" "}
+        <a href={`https://logdrop.co/${slug}/overview`}>dashboard</a> and
+        visualize your data.
+      </Text>
       <br />
 
       <Text>

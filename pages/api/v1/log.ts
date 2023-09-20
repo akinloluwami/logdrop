@@ -61,6 +61,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         id: key.projectId,
       },
       select: {
+        name: true,
+        slug: true,
         user: {
           select: {
             email: true,
@@ -70,7 +72,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     if (logs === 0) {
-      sendEmail.firstLog(project?.user.email!);
+      sendEmail.firstLog(project?.user.email!, {
+        name: project?.name!,
+        slug: project?.slug!,
+      });
     }
 
     const { data }: { data: IpInfo } = await axios(
