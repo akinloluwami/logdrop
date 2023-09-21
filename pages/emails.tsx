@@ -18,7 +18,7 @@ const Emails = () => {
         Send test email
       </button>
 
-      <FirstRequest />
+      {/* <FirstRequest /> */}
     </div>
   );
 };
