@@ -1,5 +1,4 @@
 import { resend } from "@/configs/resend";
-import FirstRequest from "@/emails/first-request";
 import { isProd } from "@/lib/isProd";
 import { requestMethod } from "@/middlewares/requestMethod";
 import { prisma } from "@/prisma";
