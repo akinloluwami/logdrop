@@ -94,7 +94,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         requestHeaders: log.requestHeaders,
         responseHeaders: JSON.stringify(log.responseHeaders),
         responseBody: log.responseBody,
-        requestBody: log.requestBody || "",
+        requestBody: log.requestBody || "{}",
         projectId: key.projectId,
         requestTime: dayjs(log.requestTime).toISOString(),
         responseTime: dayjs(log.responseTime).toISOString(),
@@ -121,29 +121,40 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    const conditionsMatch = (conditions, endpoint, statusCode, method) => {
+    const conditionsMatch = (
+      conditions: any[],
+      endpoint: string,
+      statusCode: number,
+      method: string
+    ) => {
       console.log(conditions);
-      return conditions.every((condition) => {
-        if (condition.endpoint !== undefined) {
-          const conditionEndpoint = condition.endpoint;
-          // console.log(
-          //   `Comparing endpoint: ${endpoint} (Expected: ${conditionEndpoint})`
-          // );
-          return conditionEndpoint === endpoint;
-        } else if (condition.statusCode !== undefined) {
-          const conditionStatusCode = condition.statusCode;
-          // console.log(
-          //   `Comparing statusCode: ${statusCode} (Expected: ${conditionStatusCode})`
-          // );
-          return conditionStatusCode === statusCode;
-        } else if (condition.method !== undefined) {
-          const conditionMethod = condition.method;
-          // console.log(
-          //   `Comparing method: ${method} (Expected: ${conditionMethod})`
-          // );
-          return conditionMethod === method;
+      return conditions.every(
+        (condition: {
+          endpoint: undefined;
+          statusCode: undefined;
+          method: undefined;
+        }) => {
+          if (condition.endpoint !== undefined) {
+            const conditionEndpoint = condition.endpoint;
+            // console.log(
+            //   `Comparing endpoint: ${endpoint} (Expected: ${conditionEndpoint})`
+            // );
+            return conditionEndpoint === endpoint;
+          } else if (condition.statusCode !== undefined) {
+            const conditionStatusCode = condition.statusCode;
+            // console.log(
+            //   `Comparing statusCode: ${statusCode} (Expected: ${conditionStatusCode})`
+            // );
+            return conditionStatusCode === statusCode;
+          } else if (condition.method !== undefined) {
+            const conditionMethod = condition.method;
+            // console.log(
+            //   `Comparing method: ${method} (Expected: ${conditionMethod})`
+            // );
+            return conditionMethod === method;
+          }
         }
-      });
+      );
     };
 
     for (const event of events) {
