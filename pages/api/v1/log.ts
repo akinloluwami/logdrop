@@ -64,7 +64,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         slug: true,
         user: {
           select: {
+            id: true,
             email: true,
+            plan: true,
+            logsQuota: true,
+            lastSentEightyPercentOfQuotaUsedEmail: true,
+            lastSentQuotaExceededEmail: true,
           },
         },
       },
@@ -75,6 +80,64 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         name: project?.name!,
         slug: project?.slug!,
       });
+    }
+    const currentMonth = new Date().getMonth();
+
+    const currentMonthLogs = await prisma.log.count({
+      where: {
+        project: {
+          userId: project?.user.id!,
+        },
+        createdAt: {
+          gte: dayjs().month(currentMonth).startOf("month").toISOString(),
+          lte: dayjs().month(currentMonth).endOf("month").toISOString(),
+        },
+      },
+    });
+
+    const quota = project?.user.logsQuota;
+
+    const isEightyPercentOfQuotaUsed = currentMonthLogs >= quota! * 0.8;
+
+    const lastSentEightyPercentOfQuotaUsedEmail =
+      project?.user.lastSentEightyPercentOfQuotaUsedEmail?.getMonth();
+
+    const hasEmailEightyPercentEmailBeenSentThisMonth =
+      lastSentEightyPercentOfQuotaUsedEmail === currentMonth;
+
+    if (
+      isEightyPercentOfQuotaUsed &&
+      !hasEmailEightyPercentEmailBeenSentThisMonth
+    ) {
+      sendEmail.eightyPercentUsed(project?.user.email!);
+      await prisma.user.update({
+        where: { id: project?.user.id! },
+        data: {
+          lastSentEightyPercentOfQuotaUsedEmail: dayjs().toISOString(),
+        },
+      });
+    }
+
+    const isQuotaExceeded = currentMonthLogs >= quota!;
+
+    const hasEmailQuotaExceededEmailBeenSentThisMonth =
+      project?.user.lastSentQuotaExceededEmail?.getMonth() === currentMonth;
+
+    if (isQuotaExceeded && !hasEmailQuotaExceededEmailBeenSentThisMonth) {
+      sendEmail.quotaExceeded(project?.user.email!);
+      await prisma.user.update({
+        where: { id: project?.user.id! },
+        data: {
+          lastSentQuotaExceededEmail: dayjs().toISOString(),
+        },
+      });
+    }
+
+    if (isQuotaExceeded) {
+      res.status(403).json({
+        message: `You have reached the limit of ${quota} logs on your plan. Please upgrade to a bigger plan.`,
+      });
+      return;
     }
 
     const { data }: { data: IpInfo } = await axios(
