@@ -1,7 +1,6 @@
 import { axios } from "@/configs/axios";
 import { useProjectStore } from "@/stores/projectStore";
 import { useProjectsStore } from "@/stores/projectsStore";
-import { ro } from "@faker-js/faker";
 import { Dialog, Transition } from "@headlessui/react";
 import { TextInput } from "@tremor/react";
 import { useRouter } from "next/router";
