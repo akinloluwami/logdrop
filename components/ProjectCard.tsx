@@ -48,7 +48,7 @@ const ProjectCard: FC<Props> = ({ project }) => {
           <Text className="text-sm text-gray-500">{apiUrl}</Text>
           <div className="flex items-center mt-7">
             <TbLayoutList className="mr-1" /> {millify(logs)} request
-            {logs > 1 ? "s" : ""}
+            {logs > 1 || logs === 0 ? "s" : ""}
           </div>
         </div>
       </div>
