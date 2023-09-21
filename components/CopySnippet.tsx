@@ -11,7 +11,7 @@ const CopySnippet: FC<Props> = ({ text }) => {
   const [copied, setCopied] = useState(false);
 
   return (
-    <div className="mt-5 bg-white/5 w-fit px-2 py-3 rounded-md flex items-center gap-20">
+    <div className="mt-5 bg-white/5 w-full max-w-[400px] text-sm justify-between px-2 py-3 rounded-md flex items-center">
       <code>{text}</code>
       <button
         onClick={() => {
