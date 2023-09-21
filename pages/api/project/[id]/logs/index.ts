@@ -51,7 +51,7 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
         case "15m":
           fromDate = currentDate.subtract(15, "minutes");
           break;
-        case "20m":
+        case "30m":
           fromDate = currentDate.subtract(30, "minutes");
           break;
         case "1h":
