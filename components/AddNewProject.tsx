@@ -35,6 +35,11 @@ const AddNewProject: FC<Props> = ({ isOpen, closeModal }) => {
       return;
     }
 
+    if (newProject.apiUrl.includes("/")) {
+      toast.error("API URL should not contain /");
+      return;
+    }
+
     setLoading(true);
 
     try {
