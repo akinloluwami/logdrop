@@ -231,7 +231,7 @@ const Onboarding = () => {
           <Text>Check out the example snippets below.</Text>
           <div className="mt-3 border border-gray-200/25 rounded-xl">
             <div className="flex items-center justify-between p-3 border-b border-white/5">
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-2 items-center overflow-x-auto">
                 {frameworks.map((framework, i) => (
                   <button
                     key={i}
