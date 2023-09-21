@@ -27,6 +27,30 @@ const sendEmail = {
       react: FirstRequest(project),
     });
   },
+  eightyPercentUsed: async (email: string) => {
+    await resend.emails.send({
+      from,
+      to: email,
+      subject: "You have reached 80% of your monthly quota.",
+      html: ` 
+     <p>
+      You have reached 80% of your monthly quota. Upgrade your plan to increase your limit.</p>
+      <a href="#">Upgrade Now</a>
+      `,
+    });
+  },
+  quotaExceeded: async (email: string) => {
+    await resend.emails.send({
+      from,
+      to: email,
+      subject: "You have reached your monthly quota.",
+      html: ` 
+     <p>
+      You have reached your monthly quota. Upgrade your plan to increase your limit.</p>
+      <a href="#">Upgrade Now</a>
+      `,
+    });
+  },
 };
 
 export { sendEmail };
