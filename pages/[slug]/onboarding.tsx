@@ -4,10 +4,9 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import { frameworks } from "@/lib/snippets";
 import { useProjectStore } from "@/stores/projectStore";
 import { copyToClipboard } from "@/utils/copyToClipboard";
-import { Button, Text, Title } from "@tremor/react";
+import { Text, Title } from "@tremor/react";
 import { Fragment, useEffect, useState } from "react";
 import { AiOutlineApi } from "react-icons/ai";
-import { BsCheck2 } from "react-icons/bs";
 import { CgSpinner } from "react-icons/cg";
 import { FiCopy } from "react-icons/fi";
 import { IconType } from "react-icons/lib";
@@ -17,6 +16,7 @@ import Confetti from "react-confetti";
 import { Dialog, Transition } from "@headlessui/react";
 import { PiConfettiDuotone } from "react-icons/pi";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 const code = {
   "hljs-comment": {
@@ -247,7 +247,12 @@ const Onboarding = () => {
                   </button>
                 ))}
               </div>
-              <button>
+              <button
+                onClick={() => {
+                  copyToClipboard(selectedFramework.code);
+                  toast.success(`${selectedFramework.name} snippet copied`);
+                }}
+              >
                 <FiCopy />
               </button>
             </div>
