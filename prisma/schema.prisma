@@ -8,16 +8,19 @@ datasource db {
 }
 
 model User {
-  id                     Int       @id @default(autoincrement())
-  email                  String    @unique
-  name                   String
-  password               String?
-  google                 Google?
-  github                 GitHub?
-  projects               Project[]
-  createdAt              DateTime  @default(now())
-  hasCompletedOnboarding Boolean   @default(false)
-  plan                   String    @default("free")
+  id                                    Int       @id @default(autoincrement())
+  email                                 String    @unique
+  name                                  String
+  password                              String?
+  google                                Google?
+  github                                GitHub?
+  projects                              Project[]
+  createdAt                             DateTime  @default(now())
+  hasCompletedOnboarding                Boolean   @default(false)
+  plan                                  String    @default("free")
+  logsQuota                             Int       @default(2000) 
+  lastSentQuotaExceededEmail            DateTime?
+  lastSentEightyPercentOfQuotaUsedEmail DateTime?
 }
 
 model Google {
@@ -98,23 +101,22 @@ model RefreshToken {
 }
 
 model Event {
-  id             Int       @id @default(autoincrement())
+  id             Int            @id @default(autoincrement())
   name           String
-  createdAt      DateTime  @default(now())
+  createdAt      DateTime       @default(now())
   projectId      Int
-  project        Project   @relation(fields: [projectId], references: [id])
+  project        Project        @relation(fields: [projectId], references: [id])
   action         String
   conditions     Json[]
   lastTriggered  DateTime?
-  timesTriggered Int?      @default(0)
-  triggers        EventTrigger[]
+  timesTriggered Int?           @default(0)
+  triggers       EventTrigger[]
 }
 
-
 model EventTrigger {
-  id         Int      @id @default(autoincrement())
-  date       String
-  createdAt  DateTime @default(now())
-  eventId    Int 
-  event      Event    @relation(fields: [eventId], references: [id])
+  id        Int      @id @default(autoincrement())
+  date      String
+  createdAt DateTime @default(now())
+  eventId   Int
+  event     Event    @relation(fields: [eventId], references: [id])
 }
