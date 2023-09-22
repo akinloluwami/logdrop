@@ -1,9 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { requestMethod } from "@/middlewares/requestMethod";
+import { prisma } from "@/prisma";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log("Paddle");
-  res.status(200).json({ message: "Hello World!" });
-};
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {};
 
 export default requestMethod(["GET"])(handler);
