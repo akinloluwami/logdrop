@@ -18,9 +18,11 @@ model User {
   createdAt                             DateTime  @default(now())
   hasCompletedOnboarding                Boolean   @default(false)
   plan                                  String    @default("free")
-  logsQuota                             Int       @default(2000) 
+  logsQuota                             Int       @default(2000)
   lastSentQuotaExceededEmail            DateTime?
   lastSentEightyPercentOfQuotaUsedEmail DateTime?
+  paddleCustomerId                      String?   @unique
+  billingCycleStart                     Int?
 }
 
 model Google {
