@@ -29,8 +29,8 @@ docker compose up -d
 details on creation:
 
 ```
-Homepage URL: http://localhost:3000
-Authorization callback URL: http://localhost:3000/api/auth/callback/github
+Homepage URL: http://localhost:1600
+Authorization callback URL: http://localhost:1600/api/auth/github/callback
 ```
 
 Once completed, you will be redirected to the application page settings, from
@@ -53,7 +53,13 @@ Use `npm` to install dependencies.
 npm install
 ```
 
-### 5. Running the dev server
+### 5. Push Database Schema
+
+```
+npx prisma db push
+```
+
+### 6. Running the dev server
 
 Finally, you can run the dev server:
 
