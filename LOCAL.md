@@ -25,7 +25,7 @@ docker compose up -d
 
 ### 3. Create a new GitHub OAuth Application
 
-[Follow this link][new-oauth] to create a new app filling the following required
+[Follow this link][https://github.com/settings/applications/new] to create a new app filling the following required
 details on creation:
 
 ```
