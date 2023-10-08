@@ -45,7 +45,6 @@ const Settings = () => {
                   items: [
                     {
                       priceId: "pri_01hawzr8pc4fh41fwz7ep1enfc",
-                      quantity: 1,
                     },
                   ],
                 });
