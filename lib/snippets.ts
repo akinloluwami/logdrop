@@ -18,7 +18,7 @@ const app = express()
 
 const logDrop = record("YOUR_API_KEY")
 
-app.use(logDrop())
+app.use(logDrop)
 
 app.get("/ping", (req, res) => {
  res.send("Pong!")
@@ -72,7 +72,7 @@ import { record } from '@logdrop/node';
 Meteor.startup(() => {
   const logDrop = record('YOUR_API_KEY');
 
-  WebApp.connectHandlers.use(logDrop());
+  WebApp.connectHandlers.use(logDrop);
 
   WebApp.connectHandlers.use('/ping', (req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -94,7 +94,7 @@ app.get('/ping', (c) => c.text('Pong!'))
 
 const logDrop = record('YOUR_API_KEY')
 
-app.use('*', logDrop())
+app.use('*', logDrop)
 serve(app)
 `,
   },
