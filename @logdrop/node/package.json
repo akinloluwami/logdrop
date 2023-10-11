@@ -1,0 +1,21 @@
+{
+  "name": "@logdrop/node",
+  "version": "0.0.5",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "update": "npm version patch && npm run build && npm publish"
+  },
+  "author": "Akinkunmi",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.0",
+    "body-parser": "^1.20.2",
+    "request-ip": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/request-ip": "^0.0.38"
+  }
+}

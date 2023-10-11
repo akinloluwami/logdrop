@@ -36,6 +36,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-@logdrop
+@logdrop/express
+@logdrop/node/node_modules
 test_projects
 .react-email
