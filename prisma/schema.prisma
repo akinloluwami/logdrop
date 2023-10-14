@@ -49,6 +49,7 @@ model Project {
   events    Event[]
   createdAt DateTime @default(now())
   slug      String
+  sendWeeklyReports Boolean @default(false)
 }
 
 model Log {
