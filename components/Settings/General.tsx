@@ -81,8 +81,10 @@ const General = () => {
     setIsWeeklyReportsOn(!isWeeklyReportsOn);
     try {
       await axios.put("/reports?interval=weekly");
-    } catch (error) {
-      toast.error();
+    } catch (error: any) {
+      toast.error(
+        error.response.data.message || "Error updating weekly reports"
+      );
     }
   };
 
