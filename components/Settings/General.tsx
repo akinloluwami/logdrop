@@ -13,7 +13,6 @@ const General = () => {
   const [apiUrl, setApiUrl] = useState("");
   const [loading, setLoading] = useState("");
   const [slug, setSlug] = useState("");
-  const [isWeeklyReportsOn, setIsWeeklyReportsOn] = useState(false);
 
   const router = useRouter();
 
@@ -74,17 +73,6 @@ const General = () => {
       toast.error(error.response.data.message || "Error updating project");
     } finally {
       setLoading("");
-    }
-  };
-
-  const updateWeeklyReportsState = async () => {
-    setIsWeeklyReportsOn(!isWeeklyReportsOn);
-    try {
-      await axios.put("/reports?interval=weekly");
-    } catch (error: any) {
-      toast.error(
-        error.response.data.message || "Error updating weekly reports"
-      );
     }
   };
 
@@ -156,21 +144,6 @@ const General = () => {
               "Update"
             )}
           </Button>
-        </Flex>
-      </div>
-      <div className="">
-        <p className="text-gray-300">Usage reports</p>
-        <Flex>
-          <div className="">
-            <p>Weekly usage reports</p>
-            <p className="text-xs">
-              Get an email at the beginning of every week about the previous
-              week's usage report.
-            </p>
-          </div>
-          <button onClick={updateWeeklyReportsState}>
-            {isWeeklyReportsOn ? "Off" : "On"}
-          </button>
         </Flex>
       </div>
     </div>
