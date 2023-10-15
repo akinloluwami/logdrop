@@ -1,15 +1,17 @@
 import { axios } from "@/configs/axios";
+import { useProjectStore } from "@/stores/projectStore";
 import { Button, Flex } from "@tremor/react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 const Reports = () => {
   const [isWeeklyReportsOn, setIsWeeklyReportsOn] = useState(false);
+  const { project } = useProjectStore();
 
   const updateWeeklyReportsState = async () => {
     setIsWeeklyReportsOn(!isWeeklyReportsOn);
     try {
-      await axios.put("/reports?interval=weekly");
+      await axios.patch(`/project/${project.id}/reports?interval=weekly`);
     } catch (error: any) {
       toast.error(
         error.response.data.message || "Error updating weekly reports"

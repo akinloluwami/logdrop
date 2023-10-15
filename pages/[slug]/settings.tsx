@@ -1,7 +1,9 @@
 import Cooking from "@/components/Cooking";
 import General from "@/components/Settings/General";
 import Reports from "@/components/Settings/Reports";
+import { axios } from "@/configs/axios";
 import DashboardLayout from "@/layouts/DashboardLayout";
+import { useProjectStore } from "@/stores/projectStore";
 import {
   ProgressBar,
   Card,
@@ -14,8 +16,18 @@ import {
   TabPanels,
   TabPanel,
 } from "@tremor/react";
+import { useEffect, useState } from "react";
 
 const Settings = () => {
+  const { project } = useProjectStore();
+  const [projectData, setProjectData] = useState();
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios(`/project/${project.id}/settings`);
+      setProjectData(data);
+    })();
+  });
+
   return (
     <DashboardLayout pageTitle="Settings">
       <TabGroup>
