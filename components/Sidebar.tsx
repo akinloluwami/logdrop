@@ -63,7 +63,6 @@ const Sidebar = () => {
       router.push("/login");
     } catch (error) {
       toast.error("Something went wrong");
-      console.log(error);
     }
   };
 
