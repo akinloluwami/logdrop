@@ -20,13 +20,18 @@ import { useEffect, useState } from "react";
 
 const Settings = () => {
   const { project } = useProjectStore();
-  const [projectData, setProjectData] = useState();
+  const [projectData, setProjectData] = useState<{
+    sendWeeklyReports: boolean;
+  }>({ sendWeeklyReports: false });
+
   useEffect(() => {
-    (async () => {
-      const { data } = await axios(`/project/${project.id}/settings`);
-      setProjectData(data);
-    })();
-  });
+    if (project.id) {
+      (async () => {
+        const { data } = await axios(`/project/${project.id}/settings`);
+        setProjectData(data);
+      })();
+    }
+  }, [project.id]);
 
   return (
     <DashboardLayout pageTitle="Settings">
@@ -43,7 +48,7 @@ const Settings = () => {
             </div>
           </TabPanel>
           <TabPanel>
-            <Reports />
+            <Reports sendWeeklyReports={projectData.sendWeeklyReports} />
           </TabPanel>
           <TabPanel>
             <Cooking />

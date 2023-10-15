@@ -1,12 +1,20 @@
 import { axios } from "@/configs/axios";
 import { useProjectStore } from "@/stores/projectStore";
 import { Button, Flex } from "@tremor/react";
-import React, { useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-const Reports = () => {
-  const [isWeeklyReportsOn, setIsWeeklyReportsOn] = useState(false);
+interface Props {
+  sendWeeklyReports: boolean;
+}
+
+const Reports: FC<Props> = ({ sendWeeklyReports }) => {
+  const [isWeeklyReportsOn, setIsWeeklyReportsOn] = useState(sendWeeklyReports);
   const { project } = useProjectStore();
+
+  useEffect(() => {
+    setIsWeeklyReportsOn(sendWeeklyReports);
+  }, [sendWeeklyReports]);
 
   const updateWeeklyReportsState = async () => {
     setIsWeeklyReportsOn(!isWeeklyReportsOn);
