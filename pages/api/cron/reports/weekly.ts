@@ -41,6 +41,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const data = { totalLogs, topEndpointLogs };
     //send email to project owner
+    console.log(data);
   }
   res.status(200).json(projects);
 };
