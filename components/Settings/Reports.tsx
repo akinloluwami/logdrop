@@ -1,6 +1,6 @@
 import { axios } from "@/configs/axios";
 import { useProjectStore } from "@/stores/projectStore";
-import { Button, Flex } from "@tremor/react";
+import { Button, Flex, Switch } from "@tremor/react";
 import React, { FC, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -37,9 +37,10 @@ const Reports: FC<Props> = ({ sendWeeklyReports }) => {
             week's usage report.
           </p>
         </div>
-        <Button color="purple" onClick={updateWeeklyReportsState}>
-          {isWeeklyReportsOn ? "Off" : "On"}
-        </Button>
+        <Switch
+          checked={isWeeklyReportsOn}
+          onChange={updateWeeklyReportsState}
+        />
       </Flex>
     </div>
   );
