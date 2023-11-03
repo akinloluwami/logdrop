@@ -47,6 +47,7 @@ model Project {
   userId    Int
   logs      Log[]
   events    Event[]
+  dataSources DataSource[]
   createdAt DateTime @default(now())
   slug      String
   sendWeeklyReports Boolean @default(false)
@@ -120,4 +121,14 @@ model EventTrigger {
   createdAt DateTime @default(now())
   eventId   Int
   event     Event    @relation(fields: [eventId], references: [id])
+}
+
+
+model DataSource{
+  id Int @id @default(autoincrement())
+  name String
+  data Json
+  createdAt DateTime @default(now())
+ projectId Int
+ project Project @relation(fields: [projectId], references: [id])
 }
