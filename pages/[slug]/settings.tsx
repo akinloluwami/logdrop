@@ -1,5 +1,6 @@
 import Cooking from "@/components/Cooking";
 import General from "@/components/Settings/General";
+import PlanAndUsage from "@/components/Settings/PlanAndUsage";
 import PaddleLoader from "@/components/paddleLoader";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import {
@@ -31,27 +32,7 @@ const Settings = () => {
             </div>
           </TabPanel>
           <TabPanel>
-            <button
-              className="mt-10 bg-white shadow-md rounded-md border border-gray-800 py-2 px-4 text-sm font-medium text-gray-700 hover:bg-
-              gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              onClick={() => {
-                //@ts-ignore
-                Paddle.Checkout.open({
-                  settings: {
-                    displayMode: "overlay",
-                    theme: "dark",
-                    locale: "en",
-                  },
-                  items: [
-                    {
-                      priceId: "pri_01hawzr8pc4fh41fwz7ep1enfc",
-                    },
-                  ],
-                });
-              }}
-            >
-              Upgrade to Pro.
-            </button>
+            <PlanAndUsage />
           </TabPanel>
         </TabPanels>
       </TabGroup>
