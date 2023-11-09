@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { requestMethod } from "@/middlewares/requestMethod";
 import { prisma } from "@/prisma";
+import { Stripe } from "stripe";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
@@ -22,6 +23,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     },
   ];
   console.log(event_type);
+
+  const stripe = new Stripe(process.env.STRIPE_API_KEY!);
 };
 
 export default requestMethod(["POST"])(handler);
