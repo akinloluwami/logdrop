@@ -22,29 +22,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     },
   ];
   console.log(event_type);
-
-  if (event_type === "subscription.created") {
-    const user = await prisma.user.findUnique({
-      where: {
-        paddleCustomerId: data.customer_id,
-      },
-    });
-    if (user) {
-      await prisma.user.update({
-        where: {
-          id: user.id,
-        },
-        data: {
-          billingCycleStart: new Date().getDate(),
-          logsQuota: tiers.find(
-            (tier) => tier.id === data.items[0].price.product_id
-          )?.quota,
-          plan: "pro",
-        },
-      });
-    }
-  }
-  res.status(200).json({ success: true });
 };
 
 export default requestMethod(["POST"])(handler);
