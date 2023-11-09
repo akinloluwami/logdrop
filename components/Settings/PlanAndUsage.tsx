@@ -24,7 +24,7 @@ const PlanAndUsage = () => {
     text: "Pay with Flutterwave!",
     callback: (response) => {
       console.log(response);
-      closePaymentModal(); // this will close the modal programmatically
+      closePaymentModal();
     },
     onClose: () => {},
   };
