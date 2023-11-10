@@ -21,7 +21,7 @@ model User {
   logsQuota                             Int       @default(2000)
   lastSentQuotaExceededEmail            DateTime?
   lastSentEightyPercentOfQuotaUsedEmail DateTime?
-  paddleCustomerId                      String?   @unique
+  stripeCustomerId                      String?   @unique
   billingCycleStart                     Int?
 }
 
