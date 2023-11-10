@@ -12,19 +12,20 @@ const Pricing = () => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  const requestTiers = [
-    50_000, 60_000, 70_000, 80_000, 90_000, 100_000, 150_000, 200_000, 250_000,
-    700_000, 800_000, 900_000, 1_000_000, 1_100_000, 1_200_000, 1_300_000,
-    1_400_000, 1_500_000, 1_600_000, 1_700_000, 1_800_000, 1_900_000, 2_000_000,
-    2_100_000, 2_200_000, 2_300_000, 2_400_000, 2_500_000, 3_000_000, 3_500_000,
-    4_000_000, 5_000_000, 8_500_000, 9_000_000, 10_000_000,
+  const steps = [
+    15_000, 20_000, 25_000, 30_000, 35_000, 40_000, 50_000, 60_000, 70_000,
+    80_000, 90_000, 100_000, 150_000, 200_000, 250_000, 700_000, 800_000,
+    900_000, 1_000_000, 1_100_000, 1_200_000, 1_300_000, 1_400_000, 1_500_000,
+    1_600_000, 1_700_000, 1_800_000, 1_900_000, 2_000_000, 2_100_000, 2_200_000,
+    2_300_000, 2_400_000, 2_500_000, 3_000_000, 3_500_000, 4_000_000, 5_000_000,
+    8_500_000, 9_000_000, 10_000_000,
   ];
 
   const handleSliderChange = (e: ChangeEvent<HTMLInputElement>) => {
     const sliderValue = Number(e.target.value);
     const exponent = sliderValue / 1000;
     const newValue = Math.pow(10, exponent);
-    const closestTier = requestTiers.reduce((prev, curr) => {
+    const closestTier = steps.reduce((prev, curr) => {
       return Math.abs(curr - newValue) < Math.abs(prev - newValue)
         ? curr
         : prev;
@@ -33,13 +34,14 @@ const Pricing = () => {
   };
 
   const pricingRanges = [
-    { min: 50000, max: 100000, price: 20 },
-    { min: 150000, max: 250000, price: 50 },
-    { min: 700000, max: 1300000, price: 80 },
-    { min: 1400000, max: 2300000, price: 150 },
-    { min: 2400000, max: 3500000, price: 200 },
-    { min: 4000000, max: 5000000, price: 350 },
-    { min: 8500000, max: 10000000, price: 500 },
+    { min: 15_000, max: 40_000, price: 10 },
+    { min: 50_000, max: 100_000, price: 20 },
+    { min: 150_000, max: 250_000, price: 50 },
+    { min: 700_000, max: 1_300_000, price: 80 },
+    { min: 1_400_000, max: 2_300_000, price: 150 },
+    { min: 2_400_000, max: 3_500_000, price: 200 },
+    { min: 4_000_000, max: 5_000_000, price: 350 },
+    { min: 8_500_000, max: 10_000_000, price: 500 },
   ];
 
   const calculatePrice = () => {
@@ -57,7 +59,7 @@ const Pricing = () => {
       price: "$0/mo",
       features: [
         {
-          text: "Up to 2,000 requests per month",
+          text: "Up to 10,000 requests per month",
           icon: <BsCheckAll className="text-xl text-green-500" />,
         },
         {
@@ -192,10 +194,8 @@ const Pricing = () => {
                 <>
                   <input
                     type="range"
-                    min={Math.log10(requestTiers[0]) * 1000}
-                    max={
-                      Math.log10(requestTiers[requestTiers.length - 1]) * 1000
-                    }
+                    min={Math.log10(steps[0]) * 1000}
+                    max={Math.log10(steps[steps.length - 1]) * 1000}
                     className="w-[85%] mt-5"
                     onChange={handleSliderChange}
                     value={Math.log10(requests) * 1000}
