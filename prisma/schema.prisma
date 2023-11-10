@@ -18,7 +18,7 @@ model User {
   createdAt                             DateTime  @default(now())
   hasCompletedOnboarding                Boolean   @default(false)
   plan                                  String    @default("free")
-  logsQuota                             Int       @default(2000)
+  logsQuota                             Int       @default(10000)
   lastSentQuotaExceededEmail            DateTime?
   lastSentEightyPercentOfQuotaUsedEmail DateTime?
   stripeCustomerId                      String?   @unique
