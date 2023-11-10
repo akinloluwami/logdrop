@@ -208,7 +208,7 @@ const Pricing = () => {
               {(tier.name === "Basic" || tier.name === "Enterprise") && (
                 <p className="my-3 text-gray-400 font-semibold">
                   {tier.name === "Basic"
-                    ? "Up to 2,000 requests per month"
+                    ? "Up to 10,000 requests per month"
                     : "Tailored to your specific needs"}
                 </p>
               )}
