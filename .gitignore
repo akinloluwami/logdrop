@@ -41,3 +41,4 @@ next-env.d.ts
 test_projects
 .react-email
 /pages/api/test-log.ts
+/utils/generateRandomLog.ts
