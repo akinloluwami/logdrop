@@ -3,12 +3,9 @@ import AddNewProject from "@/components/AddNewProject";
 import Logo from "@/components/Logo";
 import ProjectCard from "@/components/ProjectCard";
 import { axios } from "@/configs/axios";
-import { Button, Title, Text } from "@tremor/react";
+import { Title, Text } from "@tremor/react";
 import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
 import { MdOutlineRocketLaunch } from "react-icons/md";
 
