@@ -1,3 +1,4 @@
+import Account from "@/components/Account";
 import AddNewProject from "@/components/AddNewProject";
 import Logo from "@/components/Logo";
 import ProjectCard from "@/components/ProjectCard";
@@ -34,25 +35,6 @@ const Overview = () => {
     })();
   }, []);
 
-  const router = useRouter();
-
-  const logout = async () => {
-    toast.loading("Logging out", {
-      id: "logout",
-    });
-    try {
-      toast.dismiss("logout");
-      await axios("/auth/logout");
-      toast("Logged out successfully", {
-        duration: 800,
-      });
-      router.push("/login");
-    } catch (error) {
-      toast.error("Something went wrong");
-      console.log(error);
-    }
-  };
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -66,9 +48,7 @@ const Overview = () => {
       </Head>
       <div className="flex items-center justify-between w-full lg:px-14 px-5">
         <Logo />
-        <Button color="red" variant="light" onClick={logout}>
-          Log out
-        </Button>
+        <Account />
       </div>
       {loading ? (
         <div className="flex items-center justify-center">
