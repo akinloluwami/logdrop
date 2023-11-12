@@ -40,3 +40,5 @@ next-env.d.ts
 @logdrop/node/node_modules
 test_projects
 .react-email
+/pages/api/test-log.ts
+/utils/generateRandomLog.ts

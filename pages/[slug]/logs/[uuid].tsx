@@ -13,8 +13,6 @@ import {
   Col,
   Card,
   Text,
-  Metric,
-  Badge,
 } from "@tremor/react";
 import dayjs from "dayjs";
 import { formatTimeTaken } from "@/utils/formatTimeTaken";
@@ -39,7 +37,7 @@ const Log = () => {
         setLog(data);
 
         setBodyType(
-          JSON?.parse(data?.responseHeaders)["Content-Type"].includes(
+          JSON?.parse(data?.responseHeaders)["Content-Type"]?.includes(
             "application/json"
           )
             ? "JSON"
