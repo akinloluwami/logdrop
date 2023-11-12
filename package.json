@@ -18,6 +18,7 @@
     "@react-email/html": "0.0.4",
     "@react-email/img": "0.0.5",
     "@react-email/text": "0.0.5",
+    "@tippyjs/react": "^4.2.6",
     "@tremor/react": "^3.6.6",
     "@types/lodash": "^4.14.197",
     "@types/node": "20.5.7",
