@@ -105,12 +105,14 @@ const Sidebar = () => {
               </SelectItem>
             ))}
           </Select>
-          <button
-            className="flex items-center gap-2 px-2 py-2 rounded-lg bg-purple-800/30 font-medium text-white transition-colors hover:bg-purple-800/40"
-            onClick={() => setIsNewProjectModalOpen(!isNewProjectModalOpen)}
-          >
-            <FiPlus />
-          </button>
+          <Tippy content="Add new project">
+            <button
+              className="flex items-center gap-2 px-2 py-2 rounded-lg bg-purple-800/30 font-medium text-white transition-colors hover:bg-purple-800/40"
+              onClick={() => setIsNewProjectModalOpen(!isNewProjectModalOpen)}
+            >
+              <FiPlus />
+            </button>
+          </Tippy>
         </div>
         <div className="mt-10 px-5">
           {links.map((link, index) => (
