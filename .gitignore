@@ -36,8 +36,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-@logdrop/express
-@logdrop/node/node_modules
+@logdrop
 .react-email
 pages/api/test-log.ts
 utils/generateRandomLog.ts
