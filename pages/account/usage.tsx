@@ -20,11 +20,13 @@ const Usage = () => {
     }[];
   } | null>(null);
 
+  const fecthUsage = async () => {
+    const { data } = await axios.get(`/me/usage?from=${start}&to=${end}`);
+    setUsage(data);
+  };
+
   useEffect(() => {
-    (async () => {
-      const { data } = await axios.get(`/me/usage?from=${start}&to=${end}`);
-      setUsage(data);
-    })();
+    fecthUsage();
   }, []);
 
   return (
