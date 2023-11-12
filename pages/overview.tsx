@@ -1,6 +1,5 @@
-import Account from "@/components/Account";
 import AddNewProject from "@/components/AddNewProject";
-import Logo from "@/components/Logo";
+import OverviewNavbar from "@/components/OverviewNavbar";
 import ProjectCard from "@/components/ProjectCard";
 import { axios } from "@/configs/axios";
 import { Title, Text } from "@tremor/react";
@@ -43,10 +42,7 @@ const Overview = () => {
       <Head>
         <title>Overview • LogDrop</title>
       </Head>
-      <div className="flex items-center justify-between w-full lg:px-14 px-5">
-        <Logo />
-        <Account />
-      </div>
+      <OverviewNavbar />
       {loading ? (
         <div className="flex items-center justify-center">
           <CgSpinner size={30} className="animate-spin mt-40" />
