@@ -1,8 +1,6 @@
 import OnboardingLayout from "@/layouts/Onboarding";
 import useOnboardingStore from "@/stores/onboardingStore";
 import { useRouter } from "next/router";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { HiOutlineCheckCircle } from "react-icons/hi2";
@@ -39,8 +37,6 @@ const Integrate = () => {
     updateSteps(updatedSteps);
     router.push(steps[currentStepIndex + 1].route);
   };
-
-  let emptyResponseCounter = 0;
 
   const checkIntegration = async () => {
     try {

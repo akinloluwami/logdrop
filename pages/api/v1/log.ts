@@ -144,7 +144,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       `https://ipwho.is/${log?.ip}`
     );
 
-    const ipInfo = data as IpInfo;
+    const ipInfo: IpInfo = data;
 
     await prisma.log.create({
       data: {

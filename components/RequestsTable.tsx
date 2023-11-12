@@ -8,8 +8,6 @@ import {
   TableBody,
   TableCell,
   Text,
-  Title,
-  Badge,
 } from "@tremor/react";
 import moment from "moment";
 import Link from "next/link";

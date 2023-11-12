@@ -7,7 +7,8 @@
     "email": "email dev -p 1601",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit --skipLibCheck --pretty --skipDefaultLibCheck"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
@@ -18,6 +19,7 @@
     "@react-email/html": "0.0.4",
     "@react-email/img": "0.0.5",
     "@react-email/text": "0.0.5",
+    "@tippyjs/react": "^4.2.6",
     "@tremor/react": "^3.6.6",
     "@types/lodash": "^4.14.197",
     "@types/node": "20.5.7",
@@ -45,6 +47,7 @@
     "next-plausible": "^3.11.1",
     "octokit": "^3.1.0",
     "postcss": "8.4.28",
+    "prisma": "^5.3.1",
     "query-string": "^8.1.0",
     "react": "18.2.0",
     "react-confetti": "^6.1.0",
@@ -64,6 +67,7 @@
     "ua-parser-js": "^1.0.35",
     "use-href": "^1.0.3",
     "usehooks-ts": "^2.9.1",
+    "user-agents": "^1.1.20",
     "validator": "^13.11.0",
     "zustand": "^4.4.1"
   },

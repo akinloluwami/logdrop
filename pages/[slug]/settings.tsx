@@ -2,8 +2,6 @@ import General from "@/components/Settings/General";
 import PlanAndUsage from "@/components/Settings/PlanAndUsage";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { TabList, Tab, TabGroup, TabPanels, TabPanel } from "@tremor/react";
-import { useRouter } from "next/router";
-import useHref from "use-href";
 
 const Settings = () => {
   const tabs = [{ index: 1, title: "plan-and-usage" }];

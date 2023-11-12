@@ -19,7 +19,7 @@
 .DS_Store
 *.pem
 
-/test_projects
+/test_projects\
 # debug
 npm-debug.log*
 yarn-debug.log*
@@ -36,6 +36,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-@logdrop
-test_projects
+@logdrop/express
+@logdrop/node/node_modules
 .react-email
+pages/api/test-log.ts
+utils/generateRandomLog.ts
