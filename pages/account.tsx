@@ -1,4 +1,6 @@
+import OverviewNavbar from "@/components/OverviewNavbar";
 import { axios } from "@/configs/axios";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 
 const Account = () => {
@@ -11,7 +13,15 @@ const Account = () => {
     })();
   }, []);
 
-  return <div>Account</div>;
+  return (
+    <div className="p-5">
+      <Head>
+        <title>Account • LogDrop</title>
+      </Head>
+      <OverviewNavbar />
+      <div className="flex"></div>
+    </div>
+  );
 };
 
 export default Account;
