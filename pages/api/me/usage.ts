@@ -46,9 +46,25 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
         },
       });
 
+      const user = await prisma.user.findUnique({
+        where: {
+          id: req.user?.id,
+        },
+      });
+
+      if (!user) {
+        return;
+      }
+
+      const usageInPercent = (usage / user.logsQuota) * 100;
       res.status(200).json({
         usage,
-        usageByProject,
+        percentage: Number(usageInPercent).toFixed(0),
+        quota: user?.logsQuota,
+        usageByProject: usageByProject?.map((project) => ({
+          name: project.name,
+          logs: project._count.logs,
+        })),
         dates: {
           from: start.format("YYYY-MM-DD"),
           to: end.format("YYYY-MM-DD"),
