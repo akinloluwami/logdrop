@@ -46,7 +46,14 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
         },
       });
 
-      res.status(200).json({ usage, usageByProject });
+      res.status(200).json({
+        usage,
+        usageByProject,
+        dates: {
+          from: start.format("YYYY-MM-DD"),
+          to: end.format("YYYY-MM-DD"),
+        },
+      });
     }
   } catch (error) {
     console.error(error);
