@@ -7,7 +7,8 @@
     "email": "email dev -p 1601",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit --skipLibCheck --pretty --skipDefaultLibCheck"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
