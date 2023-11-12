@@ -26,8 +26,10 @@ const AccountLayout = ({ children }: { children: ReactNode }) => {
           {links.map((link) => (
             <Link
               href={link.href}
-              className={`rounded-md p-2 font-semibold ${
-                router.asPath === link.href ? "bg-purple-600" : ""
+              className={`rounded-md p-2 font-semibold transition-colors ${
+                router.asPath === link.href
+                  ? "bg-purple-600"
+                  : "hover:bg-purple-600/40"
               }`}
             >
               {link.name}
