@@ -8,8 +8,10 @@ import { NextApiResponse } from "next";
 const handler = async (req: CustomRequest, res: NextApiResponse) => {
   try {
     if (req.method === "GET") {
-      const start = dayjs().startOf("month");
-      const end = dayjs();
+      const { from, to } = req.query as { from: string; to: string };
+
+      const start = (from && dayjs(from)) || dayjs().startOf("month");
+      const end = (to && dayjs(to)) || dayjs();
 
       const usage = await prisma.log.count({
         where: {
