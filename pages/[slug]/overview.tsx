@@ -1,8 +1,5 @@
-import Onboarding from "@/components/Onboarding";
 import RequestsTable from "@/components/RequestsTable";
 import { axios } from "@/configs/axios";
-import { resend } from "@/configs/resend";
-import Email from "@/emails";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useProjectStore } from "@/stores/projectStore";
 import { Card, LineChart } from "@tremor/react";

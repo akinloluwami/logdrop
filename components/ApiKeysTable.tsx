@@ -8,8 +8,6 @@ import {
   TableBody,
   TableCell,
   Text,
-  Title,
-  Badge,
   Button,
 } from "@tremor/react";
 import { HiMiniEllipsisVertical } from "react-icons/hi2";

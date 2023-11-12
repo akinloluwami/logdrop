@@ -1,18 +1,7 @@
 import Cooking from "@/components/Cooking";
 import General from "@/components/Settings/General";
 import DashboardLayout from "@/layouts/DashboardLayout";
-import {
-  ProgressBar,
-  Card,
-  Flex,
-  Text,
-  Metric,
-  TabList,
-  Tab,
-  TabGroup,
-  TabPanels,
-  TabPanel,
-} from "@tremor/react";
+import { TabList, Tab, TabGroup, TabPanels, TabPanel } from "@tremor/react";
 
 const Settings = () => {
   return (

@@ -1,9 +1,5 @@
-import { Button } from "@react-email/button";
 import { Html } from "@react-email/html";
-import { Img } from "@react-email/img";
 import { Text } from "@react-email/text";
-import { Head } from "@react-email/head";
-import { Font } from "@react-email/font";
 
 export default function FirstRequest({
   name,

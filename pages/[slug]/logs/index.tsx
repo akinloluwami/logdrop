@@ -3,7 +3,6 @@ import RequestsTable from "@/components/RequestsTable";
 import { useEffect, useState } from "react";
 import { useProjectStore } from "@/stores/projectStore";
 import { axios } from "@/configs/axios";
-import useHref from "use-href";
 import { debounce } from "lodash";
 
 import {
@@ -14,7 +13,6 @@ import {
   SelectItem,
   TextInput,
 } from "@tremor/react";
-import { useRouter } from "next/router";
 import { httpStatusCodes } from "@/lib/statusCodes";
 import { httpMethods } from "@/lib/methods";
 
@@ -30,8 +28,6 @@ const Requests = () => {
   const debouncedSearch = debounce((value) => {
     setDebouncedEndpoint(value);
   }, 500);
-
-  const { addQueryParam, deleteQueryParam } = useHref();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value.toLowerCase();
@@ -61,8 +57,6 @@ const Requests = () => {
       // deleteQueryParam("methods");
     }
   };
-
-  const router = useRouter();
 
   const [page, setPage] = useState(0);
 

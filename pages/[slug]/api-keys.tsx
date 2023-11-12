@@ -1,13 +1,9 @@
-import ApiKeysTable from "@/components/ApiKeysTable";
 import { axios } from "@/configs/axios";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useProjectStore } from "@/stores/projectStore";
-import { Button, Flex, Text } from "@tremor/react";
+import { Button, Text } from "@tremor/react";
 import { useEffect, useState } from "react";
-import { AiOutlineQuestion, AiOutlineQuestionCircle } from "react-icons/ai";
 import { BiCopy } from "react-icons/bi";
-import { TbRefresh } from "react-icons/tb";
-import { TfiReload } from "react-icons/tfi";
 import { Tooltip } from "react-tooltip";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 import { copyToClipboard } from "@/utils/copyToClipboard";
