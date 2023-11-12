@@ -14,9 +14,11 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { FiPlus } from "react-icons/fi";
 import AddNewProject from "./AddNewProject";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useProjectsStore } from "@/stores/projectsStore";
-import { set } from "lodash";
+import Logo from "./Logo";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 
 const Sidebar = () => {
   const links = [
@@ -81,6 +83,13 @@ const Sidebar = () => {
     <div className="w-full h-screen py-5 relative flex flex-col justify-between">
       <AddNewProject isOpen={isNewProjectModalOpen} closeModal={closeModal} />
       <div>
+        <div className="w-full mb-5 flex items-center justify-center">
+          <Tippy content="Back to overview">
+            <div>
+              <Logo toOverview width={100} />
+            </div>
+          </Tippy>
+        </div>
         <div className="flex items-center gap-3 px-5">
           <Select
             value={project?.id?.toString()}
