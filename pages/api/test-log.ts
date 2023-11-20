@@ -20,7 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(401).json({ error: "Invalid API Key" });
     }
 
-    const startDate = dayjs().startOf("month");
+    const startDate = dayjs().startOf("week").subtract(1, "week");
     const endDate = dayjs();
 
     for (
