@@ -3,20 +3,7 @@ import General from "@/components/Settings/General";
 import Reports from "@/components/Settings/Reports";
 import { axios } from "@/configs/axios";
 import DashboardLayout from "@/layouts/DashboardLayout";
-import { useProjectStore } from "@/stores/projectStore";
-import {
-  ProgressBar,
-  Card,
-  Flex,
-  Text,
-  Metric,
-  TabList,
-  Tab,
-  TabGroup,
-  TabPanels,
-  TabPanel,
-} from "@tremor/react";
-import { useEffect, useState } from "react";
+import { TabList, Tab, TabGroup, TabPanels, TabPanel } from "@tremor/react";
 
 const Settings = () => {
   const { project } = useProjectStore();

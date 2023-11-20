@@ -5,8 +5,6 @@ import axios from "axios";
 import { Octokit } from "octokit";
 import { prisma } from "@/prisma";
 import { generateTokens } from "@/utils/generateTokens";
-import { resend } from "@/configs/resend";
-import Welcome from "@/emails/welcome";
 import { sendEmail } from "@/utils/sendEmail";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

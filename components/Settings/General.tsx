@@ -2,7 +2,6 @@ import { axios } from "@/configs/axios";
 import { useProjectStore } from "@/stores/projectStore";
 import { useProjectsStore } from "@/stores/projectsStore";
 import { Button, Flex, TextInput } from "@tremor/react";
-import { set } from "lodash";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-hot-toast";

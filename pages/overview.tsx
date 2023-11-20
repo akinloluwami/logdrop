@@ -1,13 +1,10 @@
 import AddNewProject from "@/components/AddNewProject";
-import Logo from "@/components/Logo";
+import OverviewNavbar from "@/components/OverviewNavbar";
 import ProjectCard from "@/components/ProjectCard";
 import { axios } from "@/configs/axios";
-import { Button, Title, Text } from "@tremor/react";
+import { Title, Text } from "@tremor/react";
 import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
 import { MdOutlineRocketLaunch } from "react-icons/md";
 
@@ -34,25 +31,6 @@ const Overview = () => {
     })();
   }, []);
 
-  const router = useRouter();
-
-  const logout = async () => {
-    toast.loading("Logging out", {
-      id: "logout",
-    });
-    try {
-      toast.dismiss("logout");
-      await axios("/auth/logout");
-      toast("Logged out successfully", {
-        duration: 800,
-      });
-      router.push("/login");
-    } catch (error) {
-      toast.error("Something went wrong");
-      console.log(error);
-    }
-  };
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -64,12 +42,7 @@ const Overview = () => {
       <Head>
         <title>Overview • LogDrop</title>
       </Head>
-      <div className="flex items-center justify-between w-full lg:px-14 px-5">
-        <Logo />
-        <Button color="red" variant="light" onClick={logout}>
-          Log out
-        </Button>
-      </div>
+      <OverviewNavbar />
       {loading ? (
         <div className="flex items-center justify-center">
           <CgSpinner size={30} className="animate-spin mt-40" />

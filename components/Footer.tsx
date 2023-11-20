@@ -5,7 +5,7 @@ import Link from "next/link";
 const Footer = () => {
   const socialLinks = [
     { icon: <SiTwitter />, url: "https://twitter.com/logdropapi" },
-    { icon: <SiGithub />, url: "https://github.com/akinloluwami/logdropapi" },
+    { icon: <SiGithub />, url: "https://github.com/akinloluwami/logdrop" },
   ];
   const footerLinks = [
     {
