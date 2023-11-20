@@ -1,10 +1,17 @@
 import { prisma } from "@/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 import dayjs from "dayjs";
+import { resend } from "@/configs/resend";
+import UsageReport from "@/emails/usage-report";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const projects = await prisma.project.findMany({
     where: { sendWeeklyReports: true },
+    include: {
+      user: {
+        select: { name: true, email: true },
+      },
+    },
   });
 
   if (!projects) return res.status(404).json({ message: "No projects found" });
@@ -72,10 +79,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         count: method._count.method,
       })),
     };
-    //send email to project owner
-    console.log(data);
+
+    await resend.sendEmail({
+      from: "LogDrop <hello@logdrop.co>",
+      to: project.user.email,
+      subject: `Weekly Report for - ${project.name}`,
+      react: UsageReport(),
+    });
   }
-  res.status(200).json(projects);
+  res.status(200).send(`
+  Email sent to ${projects.map((project) => project.user.email).join(", ")}
+  `);
 };
 
 export default handler;
