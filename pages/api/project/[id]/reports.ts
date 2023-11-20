@@ -58,8 +58,9 @@ const handler = async (req: CustomRequest, res: NextApiResponse) => {
   }
 };
 
-export default requestMethod(["PATCH"])(
-  (req: CustomRequest, res: NextApiResponse) => {
-    authenticateToken(req, res, () => handler(req, res));
-  }
-);
+export default requestMethod(["PATCH"])((
+  req: CustomRequest,
+  res: NextApiResponse
+) => {
+  authenticateToken(req, res, () => handler(req, res));
+});
