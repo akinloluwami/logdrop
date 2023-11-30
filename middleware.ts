@@ -21,13 +21,14 @@ const middleware = async (req: NextRequest) => {
   }
 
   if (verifiedToken) {
-    if (req.url.includes("/login")) {
+    if (req.url.includes("/login"))
       return NextResponse.redirect(new URL("/overview", req.url));
-    }
 
-    if (req.url.includes("/signup")) {
+    if (req.url.includes("/signup"))
       return NextResponse.redirect(new URL("/overview", req.url));
-    }
+
+    if (req.nextUrl.pathname === "/")
+      return NextResponse.redirect(new URL("/overview", req.url));
   }
 };
 
