@@ -3,15 +3,15 @@ const LogEverything = () => {
   const features = [
     {
       title: "Record all requests",
-      image: "https://cdn.uploadfly.cloud/IpTcpk/record.png",
+      image: "/screenshot.png",
     },
     {
       title: "Insights on each request",
-      image: "https://cdn.uploadfly.cloud/IpTcpk/each.png",
+      image: "/screenshot2.png",
     },
     {
       title: "Get notified about events",
-      image: "https://cdn.uploadfly.cloud/IpTcpk/events.png",
+      image: "/screenshot3.png",
     },
   ];
 
