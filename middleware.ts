@@ -35,7 +35,7 @@ const middleware = async (req: NextRequest) => {
 
 export const config = {
   matcher: [
-    "/((?!api/|_next/|_proxy/|_static|_vercel|favicon.ico|screenshot.png|screenshot2.png|screenshot3.png|sitemap.xml|robots.txt|logo.svg|grid-bg.png|.*\\.(png|jpg|jpeg|gif|webp|svg|ico)).*)",
+    "/((?!api/|_next/|_proxy/|_static|_vercel|screenshot.png|screenshot2.png|screenshot3.png|favicon.ico|sitemap.xml|robots.txt|logo.svg|grid-bg.png).*)",
   ],
 };
 
